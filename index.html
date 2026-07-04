@@ -94,7 +94,7 @@ hr{border:none;border-top:1px solid #2c4060;margin:14px 0;}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.5 — 4 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.6 — 4 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -678,6 +678,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
       <button class="btn btn-red btn-sm" onclick="clearHistory()">🗑️ Clear All</button>
     </div>
     <div class="tiny" id="historyCount" style="margin-top:8px;"></div>
+    <div id="memberChips" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;"></div>
     <div id="historyList" style="margin-top:12px;"></div>
   </div>
 
@@ -3157,7 +3158,8 @@ const HISTORY_LIMIT=1000; // IndexedDB (disk-backed) — localStorage jaisa ~5MB
 function saveToHistory(title, html, theme, desc, durationMs){
   const arr=getHistory();
   const now=Date.now();
-  arr.unshift({id:'h'+now.toString(36)+Math.random().toString(36).slice(2,7), title:title||'(no title)', html:html, desc:desc||'', theme:theme||'', date:new Date().toLocaleString('en-GB'), ts:now, durationMs:durationMs||0});
+  var _me='';try{_me=localStorage.getItem('m98m_member_name_v1')||'';}catch(e){}
+  arr.unshift({id:'h'+now.toString(36)+Math.random().toString(36).slice(2,7), title:title||'(no title)', html:html, desc:desc||'', theme:theme||'', date:new Date().toLocaleString('en-GB'), ts:now, durationMs:durationMs||0, member:_me});
   if(arr.length>HISTORY_LIMIT)arr.length=HISTORY_LIMIT;
   setHistory(arr);
   try{if(typeof cloudPushLog==='function')cloudPushLog(arr[0]);}catch(e){}
@@ -3319,6 +3321,21 @@ function applyFindReplace(){
   flash('findReplaceMsg','ok','✅ '+totalMatches+' jagah badal diya ('+listingsAffected+' listings mein)!');
 }
 
+var histMemberFilter='';
+function memberOf(h){var me='';try{me=localStorage.getItem('m98m_member_name_v1')||'';}catch(e){}return (h&&h.member)||me||'Main';}
+function setMemberFilter(n){histMemberFilter=n||'';renderHistory();}
+function renderMemberChips(arr){
+  var box=document.getElementById('memberChips'); if(!box)return;
+  var counts={}; arr.forEach(function(h){var m=memberOf(h);counts[m]=(counts[m]||0)+1;});
+  var names=Object.keys(counts).sort();
+  if(names.length<1){box.innerHTML='';return;}
+  function chip(label,val,count,active){
+    return '<button type="button" onclick="setMemberFilter(\''+escAttr(val)+'\')" style="border:1px solid '+(active?'#00a896':'#2c4060')+';background:'+(active?'#0f2a26':'#0d1620')+';color:'+(active?'#4dd0b8':'#cfe0f0')+';padding:6px 14px;border-radius:999px;font-size:12.5px;cursor:pointer;font-weight:'+(active?'700':'400')+';">'+esc(label)+(count!==null?(' <span style="opacity:.7;">('+count+')</span>'):'')+'</button>';
+  }
+  var h=chip('👥 Sab','',arr.length,histMemberFilter==='');
+  names.forEach(function(n){h+=chip('👤 '+n,n,counts[n],histMemberFilter===n);});
+  box.innerHTML=h;
+}
 function renderHistory(){
   const arr=getHistory();
   const sb=document.getElementById('historySearch');
@@ -3326,9 +3343,11 @@ function renderHistory(){
   const list=document.getElementById('historyList');
   const cnt=document.getElementById('historyCount');
   var dateFilter=(document.getElementById('historyDateFilter')||{}).value||'';
+  renderMemberChips(arr);
   const filtered=arr.map((h,i)=>({h,i})).filter(function(o){
     if(q && (o.h.title||'').toLowerCase().indexOf(q)<0) return false;
     if(dateFilter){ var ts=o.h.ts||parseGBDate(o.h.date); if(ymd(ts)!==dateFilter) return false; }
+    if(histMemberFilter && memberOf(o.h)!==histMemberFilter) return false;
     return true;
   });
   if(cnt){
@@ -3339,7 +3358,7 @@ function renderHistory(){
   }
   if(!list)return;
   if(arr.length===0){list.innerHTML='<div class="hint">Abhi koi listing generate nahi hui. Generate tab pe listing banayein — yahan automatically save hogi.</div>';return;}
-  if(filtered.length===0){var _fm=dateFilter?('📅 '+dateFilter.split('-').reverse().join('/')+' ko koi listing nahi mili (us din koi listing nahi bani).'):('"'+escAttr(q)+'" se koi listing match nahi hui.');list.innerHTML='<div class="hint">'+_fm+'</div>';return;}
+  if(filtered.length===0){var _fm=histMemberFilter?('👤 '+escAttr(histMemberFilter)+' ki koi listing is filter mein nahi mili.'):dateFilter?('📅 '+dateFilter.split('-').reverse().join('/')+' ko koi listing nahi mili (us din koi listing nahi bani).'):('"'+escAttr(q)+'" se koi listing match nahi hui.');list.innerHTML='<div class="hint">'+_fm+'</div>';return;}
   var todayKey=new Date().toLocaleDateString('en-GB');
   var yKey=new Date(Date.now()-86400000).toLocaleDateString('en-GB');
   var groups={}, order=[];
