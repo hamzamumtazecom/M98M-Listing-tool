@@ -94,7 +94,7 @@ hr{border:none;border-top:1px solid #2c4060;margin:14px 0;}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.1 — 4 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.3 — 4 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -605,6 +605,20 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
   <!-- ============ HISTORY TAB ============ -->
   <div class="panel" id="panel5">
     <div class="tiny">🕘 Yahan aap ki generate ki hui pichli listings save hoti hain. <b>📥 Load description</b> = us product ki description wapas Step 1 mein aa jati hai — phir dusra account preset chun kar dobara GENERATE karein (same product, alag account ke liye — bohat fast!). <b>📋 Copy HTML</b> = seedha HTML. (Sirf is browser mein save hoti hain.)</div>
+
+    <div style="margin-top:12px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
+      <div style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">👥 TEAM WORK <span class="sublbl">— team ka kaam boss tak pahunchane ka system</span></div>
+      <div class="hint" style="margin-top:8px;line-height:1.8;">
+        <b>Team member:</b> "Apna kaam export karo" dabao → jo file download ho, boss ko WhatsApp/email kar do (pehli baar naam poocha jayega — wahi file pe tag hoga).<br>
+        <b>Boss/Admin:</b> "Team ka kaam import karo" se woh file kholo → sab listings aapki History mein <b>[member ke naam]</b> ke tag ke saath add ho jayengi (duplicate khud skip).
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <button class="btn btn-sm" type="button" onclick="workExport()">📤 Apna kaam export karo</button>
+        <button class="btn btn2 btn-sm" type="button" onclick="document.getElementById('workImportFile').click()">📥 Team ka kaam import karo</button>
+        <input type="file" id="workImportFile" accept=".json,application/json" style="display:none;" onchange="workImportFile(this)">
+      </div>
+      <div class="msg" id="workMsg"></div>
+    </div>
 
     <!-- ===== QUICK STATS DASHBOARD ===== -->
     <div id="statsDashboard" style="margin-top:16px;padding:16px;background:linear-gradient(135deg,#0f2a26,#0d1f2c);border:1px solid #1f5a4f;border-radius:12px;">
@@ -3453,6 +3467,66 @@ function preview(){
 }
 
 /* ================= SHARE DATA (Export/Import) ================= */
+/* ===== TEAM WORK EXPORT/IMPORT (team ka kaam boss tak) ===== */
+var MEMBER_KEY='m98m_member_name_v1';
+function workMemberName(){
+  var n='';try{n=localStorage.getItem(MEMBER_KEY)||'';}catch(e){}
+  if(!n){n=(window.prompt('Apna naam likhein (work file pe tag hoga):','')||'').trim();
+    if(n){try{localStorage.setItem(MEMBER_KEY,n);}catch(e){}}}
+  return n||'Member';
+}
+function workExportData(){
+  var name=workMemberName();
+  return {type:'m98m_work_v1', member:name, exportedAt:new Date().toISOString(), items:getHistory()};
+}
+function workExport(){
+  var msg=document.getElementById('workMsg');
+  var arr=getHistory();
+  if(!arr.length){msg.className='msg err';msg.textContent='\u274C Abhi History khaali hai \u2014 pehle kuch listings generate karo.';return;}
+  var data=workExportData();
+  var blob=new Blob([JSON.stringify(data)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download='m98m-work-'+data.member.replace(/[^\w-]+/g,'_')+'-'+new Date().toISOString().substring(0,10)+'.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  msg.className='msg ok';
+  msg.textContent='\u2705 '+arr.length+' listings ki work file download ho gayi ('+data.member+'). Ye file boss ko WhatsApp/email kar do.';
+}
+function workImportData(data){
+  if(!data||data.type!=='m98m_work_v1'||!Array.isArray(data.items))return {err:'file format ghalat (m98m work file nahi hai)'};
+  var member=data.member||'Member';
+  var arr=getHistory();
+  var ids={};arr.forEach(function(h){ids[h.id]=1;});
+  var added=0,skipped=0;
+  data.items.forEach(function(h){
+    if(!h||!h.id||ids[h.id]){skipped++;return;}
+    var tag='['+member+'] ';
+    var t=(h.title||'(no title)');
+    if(t.indexOf(tag)!==0)t=tag+t;
+    arr.push({id:h.id,title:t,html:h.html||'',desc:h.desc||'',theme:h.theme||'',date:h.date||'',ts:h.ts||Date.now(),durationMs:0,member:member});
+    ids[h.id]=1;added++;
+  });
+  arr.sort(function(a,b){return (b.ts||0)-(a.ts||0);});
+  if(arr.length>HISTORY_LIMIT)arr.length=HISTORY_LIMIT;
+  setHistory(arr);
+  if(typeof renderHistory==='function')renderHistory();
+  if(typeof renderStats==='function')renderStats();
+  return {added:added,skipped:skipped,member:member};
+}
+function workImportFile(inp){
+  var msg=document.getElementById('workMsg');
+  var f=inp.files&&inp.files[0]; if(!f)return;
+  var rd=new FileReader();
+  rd.onload=function(e){
+    var data=null;try{data=JSON.parse(e.target.result);}catch(err){msg.className='msg err';msg.textContent='\u274C File parhne mein masla (valid JSON nahi).';inp.value='';return;}
+    var r=workImportData(data);
+    if(r.err){msg.className='msg err';msg.textContent='\u274C '+r.err;}
+    else{msg.className='msg ok';msg.textContent='\u2705 '+r.member+' ka kaam import: '+r.added+' nayi listings add'+(r.skipped?(' ('+r.skipped+' pehle se thin)'):'')+'. Neeche list mein ['+r.member+'] tag ke saath dikhengi.';}
+    inp.value='';
+  };
+  rd.readAsText(f);
+}
+
 /* ===== TEAM SYNC (hosted site se master data) ===== */
 var TEAM_FILE='m98m-team-data.json';
 var TEAM_STAMP_KEY='m98m_team_stamp_v1';
