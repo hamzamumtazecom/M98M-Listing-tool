@@ -94,10 +94,11 @@ hr{border:none;border-top:1px solid #2c4060;margin:14px 0;}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.1 — 4 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
-  <div class="tabs">
+  <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
+<div class="tabs">
     <div class="tab active" onclick="showTab(0)">⚡ Generate Listing</div>
     <div class="tab" onclick="showTab(1)">🖼️ Gallery Library</div>
     <div class="tab" onclick="showTab(2)">🛍️ Product Cards Library</div>
@@ -555,6 +556,18 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
     <label>📥 IMPORT (kisi ne bheji hui file load karein)</label>
     <div class="card">
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <div style="margin-bottom:16px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
+        <div style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">👥 TEAM SYNC <span class="sublbl">— hosted site se master data ek click mein</span></div>
+        <div class="hint" style="margin-top:8px;line-height:1.8;">
+          <b>Boss/Admin (data bhejne wala):</b> Export button se file download karo → uska naam badal ke <b style="color:#cfe0f0;">m98m-team-data.json</b> karo → Netlify pe <b>index.html ke saath</b> upload/deploy karo.<br>
+          <b>Team (data lene wale):</b> bas neeche wala button dabao — site se master data aa jayega. Naya data aane pe upar khud green banner bhi dikhega.
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <button class="btn btn-sm" type="button" onclick="teamSyncLoad('merge')">🔄 Team data load karo (MERGE)</button>
+          <button class="btn btn2 btn-sm" type="button" onclick="teamSyncLoad('replace')">♻️ Team data se REPLACE</button>
+        </div>
+        <div class="msg" id="teamSyncMsg"></div>
+      </div>
         <input type="file" id="importFile" accept=".json,application/json" style="flex:1;min-width:200px;color:#cfe0f0;">
         <button class="btn btn2" onclick="previewImport()">👁️ Preview File</button>
       </div>
@@ -1063,7 +1076,7 @@ function loadGalleryAccountEditor(){
 function saveGallery(){
   if(!currentGalAccount){flash('galMsg','err','❌ Pehle account chunein');return;}
   const t=document.getElementById('newGalTitle').value.trim();
-  const imgs=document.getElementById('newGalImages').value.split('\n').map(s=>s.trim()).filter(s=>s).slice(0,20);
+  const imgs=document.getElementById('newGalImages').value.split('\n').map(s=>s.trim()).map(normImgUrl).filter(s=>s).slice(0,20);
   if(!t){flash('galMsg','err','❌ Title to dein');return;}
   if(imgs.length===0){flash('galMsg','err','❌ Kam se kam 1 image URL dein');return;}
   const byAcc=getGalsByAccount();
@@ -1184,7 +1197,7 @@ function onGalleryChange(){
   const byAcc=getGalsByAccount();
   const g=(byAcc[parts[0]]||[])[parseInt(parts[1],10)];
   if(!g)return;
-  document.getElementById('galleryInput').value=(g.images||[]).join('\n');
+  document.getElementById('galleryInput').value=(g.images||[]).map(normImgUrl).join('\n');
   saveDraft();
 }
 
@@ -1205,6 +1218,20 @@ function fixDriveLinksInGallery(){
   var nv=out.join('\n');
   if(nv!==g.value){g.value=nv;return true;}
   return false;
+}
+function migrateDriveLinksInLibrary(){
+  try{
+    var byAcc=getGalsByAccount(); var changed=false;
+    Object.keys(byAcc).forEach(function(acc){
+      (byAcc[acc]||[]).forEach(function(g){
+        if(g&&g.images){
+          var ni=g.images.map(function(u){return normImgUrl(u);});
+          if(JSON.stringify(ni)!==JSON.stringify(g.images)){g.images=ni;changed=true;}
+        }
+      });
+    });
+    if(changed)setGalsByAccount(byAcc);
+  }catch(e){}
 }
 function onGalleryManualEdit(){
   // If user types manually, clear the dropdown selection (no longer matches a saved set)
@@ -3426,6 +3453,45 @@ function preview(){
 }
 
 /* ================= SHARE DATA (Export/Import) ================= */
+/* ===== TEAM SYNC (hosted site se master data) ===== */
+var TEAM_FILE='m98m-team-data.json';
+var TEAM_STAMP_KEY='m98m_team_stamp_v1';
+function teamSyncHosted(){return location.protocol==='http:'||location.protocol==='https:';}
+function teamSyncLoad(mode){
+  var msg=document.getElementById('teamSyncMsg');
+  if(!teamSyncHosted()){msg.className='msg err';msg.textContent='\u26A0\uFE0F Ye feature hosted link (Netlify waali site) pe chalta hai \u2014 file:// pe nahi.';return;}
+  msg.className='msg';msg.textContent='\u23F3 Site se team data la rahe hain...';
+  fetch(TEAM_FILE+'?t='+Date.now(),{cache:'no-store'}).then(function(r){
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return r.json();
+  }).then(function(data){
+    if(!data||(!data.galleries&&!data.cards&&!data.stores))throw new Error('file format ghalat');
+    pendingImport=data;
+    doImport(mode||'merge');
+    try{localStorage.setItem(TEAM_STAMP_KEY,data.exportedAt||'');}catch(e){}
+    var b=document.getElementById('teamSyncBanner'); if(b)b.style.display='none';
+    msg.className='msg ok';
+    msg.textContent='\u2705 Team data load ho gaya ('+(mode==='replace'?'REPLACE':'MERGE')+'). Neeche import result dekho.';
+  }).catch(function(e){
+    msg.className='msg err';
+    msg.textContent='\u274C Team data nahi mila: '+e.message+'\n\u2192 Check: site pe "'+TEAM_FILE+'" naam ki file index.html ke SAATH upload hai?';
+    msg.style.whiteSpace='pre-line';
+  });
+}
+function teamSyncCheck(){
+  if(!teamSyncHosted())return;
+  fetch(TEAM_FILE+'?t='+Date.now(),{cache:'no-store'}).then(function(r){
+    if(!r.ok)return null; return r.json();
+  }).then(function(data){
+    if(!data)return;
+    var last='';try{last=localStorage.getItem(TEAM_STAMP_KEY)||'';}catch(e){}
+    if((data.exportedAt||'')!==last){
+      var b=document.getElementById('teamSyncBanner');
+      if(b){b.style.display='block';}
+    }
+  }).catch(function(){});
+}
+
 let pendingImport=null;
 
 function updateExportStats(){
@@ -3672,6 +3738,8 @@ function m98LiveReGen(){
   if(e) e.addEventListener('change', m98LiveReGen);
 });
 
+migrateDriveLinksInLibrary();
+teamSyncCheck();
 refreshAllSelects();
 refreshTemplateSelect();
 populateFontSelect();
