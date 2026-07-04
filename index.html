@@ -94,7 +94,7 @@ hr{border:none;border-top:1px solid #2c4060;margin:14px 0;}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.6 — 4 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.7 — 4 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -3399,8 +3399,12 @@ function renderHistory(){
 }
 function deleteHistoryDay(dk){
   uiConfirm(dk+' — is din ki SAARI listings delete kar dein? Sirf isi din ki jayengi (baqi din safe rahenge).',function(){
-    var arr=getHistory().filter(function(h){var ts=h.ts||parseGBDate(h.date);return new Date(ts).toLocaleDateString('en-GB')!==dk;});
-    setHistory(arr);renderHistory();
+    var all=getHistory();
+    var gone=all.filter(function(h){var ts=h.ts||parseGBDate(h.date);return new Date(ts).toLocaleDateString('en-GB')===dk;}).map(function(h){return h.id;});
+    var arr=all.filter(function(h){var ts=h.ts||parseGBDate(h.date);return new Date(ts).toLocaleDateString('en-GB')!==dk;});
+    setHistory(arr);
+    if(gone.length){addDelIds(gone);cloudPushDel(gone);}
+    renderHistory();
   });
 }
 function previewHistory(i){
@@ -3465,11 +3469,18 @@ function fallbackCopy(text){
   }catch(e){return false;}
 }
 function deleteFromHistory(i){
-  const arr=getHistory();arr.splice(i,1);setHistory(arr);renderHistory();
+  const arr=getHistory();
+  var _id=arr[i]&&arr[i].id;
+  arr.splice(i,1);setHistory(arr);
+  if(_id){addDelIds([_id]);cloudPushDel([_id]);}
+  renderHistory();
 }
 function clearHistory(){
   uiConfirm('Saari history delete kar dein? Ye wapas nahi aayegi.',function(){
-    setHistory([]);renderHistory();
+    var gone=getHistory().map(function(h){return h.id;});
+    setHistory([]);
+    if(gone.length){addDelIds(gone);cloudPushDel(gone);}
+    renderHistory();
   });
 }
 
@@ -3518,6 +3529,22 @@ function cloudStatusRefresh(){
   if(cloudUrl()){st.textContent='ON \u2014 team live sharing \u2705';st.style.background='#123a2c';st.style.color='#4dd0b8';}
   else{st.textContent='OFF \u2014 cloud link set nahi hai';st.style.background='#3a2c14';st.style.color='#f0b429';}
 }
+var DEL_IDS_KEY='m98m_del_ids_v1';
+function getDelIds(){try{return JSON.parse(localStorage.getItem(DEL_IDS_KEY))||{};}catch(e){return {};}}
+function addDelIds(ids){
+  if(!ids||!ids.length)return;
+  var t=getDelIds(); ids.forEach(function(id){if(id)t[id]=1;});
+  var keys=Object.keys(t);
+  if(keys.length>3000){keys.slice(0,keys.length-3000).forEach(function(k){delete t[k];});}
+  try{localStorage.setItem(DEL_IDS_KEY,JSON.stringify(t));}catch(e){}
+}
+function cloudPushDel(ids){
+  var u=cloudUrl(); if(!u||!ids||!ids.length)return;
+  try{
+    var item={id:'del_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), del:ids, member:(function(){try{return localStorage.getItem(MEMBER_KEY)||'';}catch(e){return '';}})(), ts:Date.now()};
+    fetch(u,{method:'POST',body:JSON.stringify({op:'log',item:item})}).catch(function(){});
+  }catch(e){}
+}
 function cloudPushLog(entry){
   var u=cloudUrl(); if(!u)return;
   try{
@@ -3549,11 +3576,24 @@ function cloudMergeLib(lib){
   return stats;
 }
 function cloudMergeLog(items){
-  var arr=getHistory(); var ids={}; arr.forEach(function(h){ids[h.id]=1;});
+  // pehle: cloud ke del-markers jama karo
+  var newDels=[];
+  (items||[]).forEach(function(h){
+    if(h&&h.del){var d=Array.isArray(h.del)?h.del:[h.del];newDels=newDels.concat(d);}
+  });
+  if(newDels.length)addDelIds(newDels);
+  var tomb=getDelIds();
+  var arr=getHistory();
+  // propagate: doosron ke deletes yahan bhi lagao
+  var before=arr.length;
+  arr=arr.filter(function(h){return !tomb[h.id];});
+  var ids={}; arr.forEach(function(h){ids[h.id]=1;});
   var me=''; try{me=localStorage.getItem(MEMBER_KEY)||'';}catch(e){}
   var added=0;
   (items||[]).forEach(function(h){
     if(!h||!h.id||ids[h.id])return;
+    if(h.del)return; // del-marker koi listing nahi
+    if(tomb[h.id])return; // delete ho chuki - wapas nahi
     var t=h.title||'(no title)';
     if(h.member&&h.member!==me){var tag='['+h.member+'] '; if(t.indexOf(tag)!==0)t=tag+t;}
     arr.push({id:h.id,title:t,html:h.html||'',desc:h.desc||'',theme:h.theme||'',date:h.date||'',ts:h.ts||0,durationMs:0,member:h.member||''});
@@ -3620,8 +3660,9 @@ function workImportData(data){
   var arr=getHistory();
   var ids={};arr.forEach(function(h){ids[h.id]=1;});
   var added=0,skipped=0;
+  var tomb=getDelIds();
   data.items.forEach(function(h){
-    if(!h||!h.id||ids[h.id]){skipped++;return;}
+    if(!h||!h.id||ids[h.id]||tomb[h.id]){skipped++;return;}
     var tag='['+member+'] ';
     var t=(h.title||'(no title)');
     if(t.indexOf(tag)!==0)t=tag+t;
