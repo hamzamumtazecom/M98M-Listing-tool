@@ -78,6 +78,8 @@ hr{border:none;border-top:1px solid #2c4060;margin:14px 0;}
 .seo-row:last-child{border-bottom:none;}
 .seo-tag{display:inline-block;background:#1a3a32;color:#5dcaa5;border:1px solid #2a6e5c;border-radius:12px;padding:2px 10px;font-size:11px;margin:3px 3px 0 0;}
 .seo-tag.miss{background:#3a2f1a;color:#e0b85d;border-color:#6e5c2a;}
+
+body.role-member .adminOnly{display:none !important}
 </style>
 </head>
 <body>
@@ -87,14 +89,17 @@ hr{border:none;border-top:1px solid #2c4060;margin:14px 0;}
   <div style="background:#16202c;border:1px solid #2c4060;border-radius:14px;padding:32px 34px;max-width:360px;width:90%;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.6);">
     <div style="font-size:40px;margin-bottom:10px;">🔒</div>
     <div style="color:#e6edf3;font-size:18px;font-weight:bold;margin-bottom:6px;">M98M Listing Generator</div>
-    <div style="color:#8fa3b8;font-size:13px;margin-bottom:18px;">Password daal kar tool kholein</div>
+    <div id="pwSub" style="color:#8fa3b8;font-size:13px;margin-bottom:18px;">Password daal kar tool kholein</div>
+    <div id="gsiBtn" style="display:flex;justify-content:center;margin-bottom:12px;"></div>
+    <div id="authMsg" style="display:none;font-size:13px;line-height:1.6;margin-bottom:12px;"></div>
     <input type="password" id="pwInput" placeholder="Password" autofocus onkeydown="if(event.key==='Enter')checkPw()" style="width:100%;box-sizing:border-box;padding:11px 14px;font-size:15px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#e6edf3;margin-bottom:12px;outline:none;">
-    <button onclick="checkPw()" style="width:100%;padding:11px;font-size:15px;font-weight:bold;background:#00a896;color:#fff;border:none;border-radius:8px;cursor:pointer;">🔓 Open Tool</button>
+    <button id="pwBtn" onclick="checkPw()" style="width:100%;padding:11px;font-size:15px;font-weight:bold;background:#00a896;color:#fff;border:none;border-radius:8px;cursor:pointer;">🔓 Open Tool</button>
+    <a href="#" id="pwFallbackLink" onclick="pwFallbackShow();return false;" style="display:none;color:#5b7590;font-size:11.5px;margin-top:10px;">Masla ho? Password se kholein</a>
     <div id="pwErr" style="color:#ff8f8f;font-size:13px;margin-top:10px;display:none;">❌ Galat password — dobara koshish karein</div>
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.7 — 4 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.8 — 4 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -408,7 +413,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
 
       <hr>
 
-      <button class="btn btn-red btn-sm" onclick="deleteGalleryAccount()">🗑️ Delete Entire Account</button>
+      <button class="btn btn-red btn-sm adminOnly" onclick="deleteGalleryAccount()">🗑️ Delete Entire Account</button>
       <div class="msg" id="galMsg"></div>
     </div>
   </div>
@@ -500,7 +505,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
 
       <hr>
 
-      <button class="btn btn-red btn-sm" onclick="deleteAccount()">🗑️ Delete Entire Set</button>
+      <button class="btn btn-red btn-sm adminOnly" onclick="deleteAccount()">🗑️ Delete Entire Set</button>
       <div class="msg" id="accMsg"></div>
     </div>
   </div>
@@ -569,6 +574,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
           <button class="btn btn-sm" type="button" onclick="cloudSync(false)">🔄 Sync now</button>
         </div>
         <div class="msg" id="cloudMsg"></div>
+        <div id="pendingBox" style="display:none;margin-top:10px;"></div>
       </div>
 
       <div style="margin-bottom:16px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
@@ -579,7 +585,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
         </div>
         <div class="row" style="margin-top:10px;">
           <button class="btn btn-sm" type="button" onclick="teamSyncLoad('merge')">🔄 Team data load karo (MERGE)</button>
-          <button class="btn btn2 btn-sm" type="button" onclick="teamSyncLoad('replace')">♻️ Team data se REPLACE</button>
+          <button class="btn btn2 btn-sm adminOnly" type="button" onclick="teamSyncLoad('replace')">♻️ Team data se REPLACE</button>
         </div>
         <div class="msg" id="teamSyncMsg"></div>
       </div>
@@ -590,7 +596,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
       <div id="importActions" style="display:none;margin-top:14px;">
         <div class="row">
           <button class="btn" onclick="doImport('merge')">🔀 MERGE (add to existing)</button>
-          <button class="btn btn-red" onclick="doImport('replace')">🔁 REPLACE (warning: existing data delete hoga)</button>
+          <button class="btn btn-red adminOnly" onclick="doImport('replace')">🔁 REPLACE (warning: existing data delete hoga)</button>
         </div>
         <div class="hint" style="margin-top:8px;">
           <b>MERGE:</b> Aap ki existing libraries ke saath naya data add ho jayega (duplicates skip).<br>
@@ -675,7 +681,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
       <input type="text" id="historySearch" placeholder="🔍 Title se search karein..." oninput="renderHistory()" style="flex:1;min-width:170px;">
       <input type="date" id="historyDateFilter" onchange="renderHistory()" title="Calendar se koi bhi date chunein — us din ki history dikhegi" style="min-width:150px;padding:8px 10px;border:1px solid #2c4060;border-radius:8px;background:#0d1620;color:#cfe;font-size:13px;">
       <button class="btn btn2 btn-sm" onclick="clearHistoryDate()" title="Saari dates dikhao">📅 Saari dates</button>
-      <button class="btn btn-red btn-sm" onclick="clearHistory()">🗑️ Clear All</button>
+      <button class="adminOnly btn btn-red btn-sm" onclick="clearHistory()">🗑️ Clear All</button>
     </div>
     <div class="tiny" id="historyCount" style="margin-top:8px;"></div>
     <div id="memberChips" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;"></div>
@@ -728,6 +734,7 @@ function checkPw(){
   if(v===TOOL_PASSWORD){
     document.getElementById('pwGate').style.display='none';
     try{sessionStorage.setItem('m98m_unlocked','1');}catch(e){}
+    try{if(typeof authGrant==='function'&&GOOGLE_CLIENT_ID){authGrant('admin','(password)', myName()||'Admin');}}catch(e){}
   }else{
     document.getElementById('pwErr').style.display='block';
     document.getElementById('pwInput').value='';
@@ -3391,7 +3398,7 @@ function renderHistory(){
     html+='<div style="margin-top:14px;margin-bottom:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 12px;background:#0a1119;border:1px solid #24344a;border-radius:8px;">'+
       '<span style="font-weight:700;color:#e6edf3;font-size:14px;">'+label+'</span>'+
       '<span style="color:#7f93a8;font-size:12px;">'+items.length+' listing'+(items.length>1?'s':'')+'</span>'+
-      '<button class="btn btn-red btn-sm" onclick="deleteHistoryDay(\''+dk+'\')" style="margin-left:auto;">🗑️ Is din ki saari delete</button></div>';
+      ''+(typeof isAdmin==='function'&&isAdmin()?'<button class="btn btn-red btn-sm" onclick="deleteHistoryDay(\''+dk+'\')" style="margin-left:auto;">🗑️ Is din ki saari delete</button>':'')+'</div>';
     items.forEach(function(o){html+=itemHTML(o);});
   });
   list.innerHTML=html;
@@ -3470,6 +3477,8 @@ function fallbackCopy(text){
 }
 function deleteFromHistory(i){
   const arr=getHistory();
+  var h=arr[i];
+  if(h&&typeof isAdmin==='function'&&!isAdmin()&&memberOf(h)!==(myName()||'Main')){alert('Ye '+memberOf(h)+' ki listing hai — sirf admin ya woh khud delete kar sakte hain.');return;}
   var _id=arr[i]&&arr[i].id;
   arr.splice(i,1);setHistory(arr);
   if(_id){addDelIds([_id]);cloudPushDel([_id]);}
@@ -3513,6 +3522,130 @@ function preview(){
 }
 
 /* ================= SHARE DATA (Export/Import) ================= */
+/* ===== GOOGLE AUTH (admin + member roles, approval queue) ===== */
+var GOOGLE_CLIENT_ID='';
+var ADMIN_EMAILS=[];
+var MEMBERS_KEY='m98m_members_v1';
+function getMembers(){try{return JSON.parse(localStorage.getItem(MEMBERS_KEY))||{};}catch(e){return {};}}
+function setMembers(m){try{localStorage.setItem(MEMBERS_KEY,JSON.stringify(m));}catch(e){}}
+function authUser(){try{return JSON.parse(sessionStorage.getItem('m98m_auth'))||null;}catch(e){return null;}}
+function isAdmin(){var u=authUser();return !!(u&&u.role==='admin');}
+function myName(){try{return localStorage.getItem(MEMBER_KEY)||'';}catch(e){return '';}}
+function authGrant(role,email,name){
+  try{sessionStorage.setItem('m98m_auth',JSON.stringify({role:role,email:email,name:name}));}catch(e){}
+  try{sessionStorage.setItem('m98m_unlocked','1');}catch(e){}
+  if(name){try{localStorage.setItem(MEMBER_KEY,name);}catch(e){}}
+  var g=document.getElementById('pwGate'); if(g)g.style.display='none';
+  applyRoleUI();
+  try{cloudSync(true);}catch(e){}
+}
+function applyRoleUI(){
+  var u=authUser(); if(!u)return;
+  document.body.classList.toggle('role-member', u.role!=='admin');
+  var chip=document.getElementById('userChip');
+  if(chip){chip.style.display='inline-block';chip.textContent=(u.role==='admin'?'👑 ':'👤 ')+u.name+(u.role==='admin'?' (Admin)':'');}
+}
+function authHandleIdentity(email,name){
+  email=(email||'').toLowerCase().trim();
+  var msg=document.getElementById('authMsg');
+  if(ADMIN_EMAILS.indexOf(email)>=0){authGrant('admin',email,name||email.split('@')[0]);return;}
+  // member? cloud se approved list dekho
+  var u=cloudUrl();
+  var localM=getMembers();
+  if(localM[email]&&!localM[email].denied){authGrant('member',email,(localM[email].name||name||email.split('@')[0]));return;}
+  if(!u){if(msg){msg.style.display='block';msg.style.color='#ff8f8f';msg.textContent='Cloud set nahi hai — admin se raabta karein.';}return;}
+  if(msg){msg.style.display='block';msg.style.color='#8fa3b8';msg.textContent='⏳ Access check ho raha hai...';}
+  fetch(u+'?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+    var mem=(d.lib&&d.lib.members)||{};
+    var mm={};Object.keys(mem).forEach(function(k){mm[k.toLowerCase()]=mem[k];});
+    if(mm[email]&&!mm[email].denied){
+      var nm=mm[email].name||name||email.split('@')[0];
+      var lm=getMembers();lm[email]=mm[email];setMembers(lm);
+      authGrant('member',email,nm);return;
+    }
+    // request bhejo (agar pehle nahi bheji)
+    var reqKey='m98m_req_sent_'+email;
+    var already='';try{already=localStorage.getItem(reqKey)||'';}catch(e){}
+    if(!already){
+      var item={id:'req_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), req:email, name:name||'', ts:Date.now()};
+      fetch(u,{method:'POST',body:JSON.stringify({op:'log',item:item})}).catch(function(){});
+      try{localStorage.setItem(reqKey,'1');}catch(e){}
+    }
+    if(msg){msg.style.display='block';msg.style.color='#f0b429';
+      msg.innerHTML='🙋 <b>Approval request bhej di gayi!</b><br>Admin (boss) jab approve kar denge, dobara "Sign in with Google" dabana — andar aa jaoge.';}
+  }).catch(function(){
+    if(msg){msg.style.display='block';msg.style.color='#ff8f8f';msg.textContent='❌ Cloud se connect nahi hua — internet check karke dobara sign in karo.';}
+  });
+}
+function onGoogleCred(resp){
+  try{
+    var payload=JSON.parse(atob(resp.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    authHandleIdentity(payload.email, payload.name||payload.given_name||'');
+  }catch(e){
+    var msg=document.getElementById('authMsg');
+    if(msg){msg.style.display='block';msg.style.color='#ff8f8f';msg.textContent='Sign-in read nahi hua — dobara try karo.';}
+  }
+}
+function initAuth(){
+  var u=authUser();
+  if(u){var g=document.getElementById('pwGate');if(g)g.style.display='none';applyRoleUI();return;}
+  if(!GOOGLE_CLIENT_ID){return;} /* Google mode off -> purana password gate chalta rahe */
+  // Google mode ON: pw input chhupao, GIS load karo
+  var pi=document.getElementById('pwInput'), pb=document.getElementById('pwBtn'), sub=document.getElementById('pwSub');
+  if(pi)pi.style.display='none'; if(pb)pb.style.display='none';
+  if(sub)sub.textContent='Apne Google account se sign in karein';
+  var fb=document.getElementById('pwFallbackLink'); if(fb)fb.style.display='block';
+  var s=document.createElement('script');
+  s.src='https://accounts.google.com/gsi/client'; s.async=true;
+  s.onload=function(){
+    try{
+      google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID, callback:onGoogleCred});
+      google.accounts.id.renderButton(document.getElementById('gsiBtn'),{theme:'filled_blue',size:'large',width:280,text:'signin_with'});
+    }catch(e){pwFallbackShow();}
+  };
+  s.onerror=function(){pwFallbackShow();
+    var msg=document.getElementById('authMsg');
+    if(msg){msg.style.display='block';msg.style.color='#f0b429';msg.textContent='Google load nahi hua — password se kholein.';}
+  };
+  document.head.appendChild(s);
+}
+function pwFallbackShow(){
+  var pi=document.getElementById('pwInput'), pb=document.getElementById('pwBtn');
+  if(pi)pi.style.display='block'; if(pb)pb.style.display='block';
+  var fb=document.getElementById('pwFallbackLink'); if(fb)fb.style.display='none';
+}
+/* ---- ADMIN: pending requests panel ---- */
+function renderPending(logItems){
+  var box=document.getElementById('pendingBox'); if(!box)return;
+  if(!isAdmin()){box.style.display='none';return;}
+  var mem=getMembers();
+  var seen={},reqs=[];
+  (logItems||[]).forEach(function(h){
+    if(h&&h.req){var e=(h.req||'').toLowerCase();
+      if(!mem[e]&&!seen[e]){seen[e]=1;reqs.push({email:e,name:h.name||'',ts:h.ts||0});}}
+  });
+  if(!reqs.length){box.style.display='none';box.innerHTML='';return;}
+  var h='<div style="font-weight:bold;color:#f0b429;font-size:13.5px;margin-bottom:8px;">🙋 Pending approvals ('+reqs.length+') — team ke naye log andar aane ka intezar kar rahe hain:</div>';
+  reqs.forEach(function(r){
+    h+='<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;margin-bottom:6px;flex-wrap:wrap;">'
+      +'<span style="color:#cfe0f0;font-size:13px;flex:1;min-width:180px;">👤 '+esc(r.name||'(no name)')+' — <span style="color:#8fa3b8;">'+esc(r.email)+'</span></span>'
+      +'<button class="btn btn-sm" type="button" onclick="approveMember(\''+escAttr(r.email)+'\',\''+escAttr(r.name)+'\')">✅ Approve</button>'
+      +'<button class="btn btn2 btn-sm" type="button" onclick="denyMember(\''+escAttr(r.email)+'\')">🚫 Deny</button></div>';
+  });
+  box.innerHTML=h;box.style.display='block';
+}
+function approveMember(email,name){
+  var m=getMembers();m[email.toLowerCase()]={name:name||email.split('@')[0],at:Date.now()};setMembers(m);
+  cloudPushLib();
+  var box=document.getElementById('pendingBox');if(box)box.innerHTML='<div class="msg ok">✅ '+esc(email)+' approve ho gaya — usse bolo dobara Sign in kare.</div>';
+  setTimeout(function(){cloudSync(true);},800);
+}
+function denyMember(email){
+  var m=getMembers();m[email.toLowerCase()]={denied:1,at:Date.now()};setMembers(m);
+  cloudPushLib();
+  var box=document.getElementById('pendingBox');if(box)box.innerHTML='<div class="msg">🚫 '+esc(email)+' deny kar diya.</div>';
+}
+
 /* ===== TEAM CLOUD (Google Sheet backend - live sharing) ===== */
 var TEAM_CLOUD_URL='https://script.google.com/macros/s/AKfycbwQExEdpJoWAkSv8t0sk3wsMkYENtqrmE9ZdooTZBrU6z1um3FkJbOQTEnzZYZ9N421/exec';
 var CLOUD_URL_KEY='m98m_cloud_url_v1';
@@ -3554,12 +3687,13 @@ function cloudPushLog(entry){
 }
 function cloudPushLib(){
   var u=cloudUrl(); if(!u)return Promise.resolve();
-  var lib={galleries:getGals(),cards:getCards(),stores:getStores()};
+  var lib={galleries:getGals(),cards:getCards(),stores:getStores(),members:getMembers()};
   return fetch(u,{method:'POST',body:JSON.stringify({op:'lib',lib:lib})}).catch(function(){});
 }
 function cloudMergeLib(lib){
   if(!lib)return {gals:0,sets:0,stores:0};
   var stats={gals:0,sets:0,stores:0};
+  if(lib.members){var lm=getMembers();Object.keys(lib.members).forEach(function(e){if(!lm[e])lm[e]=lib.members[e];});setMembers(lm);}
   var existGals=getGals(); var keys={}; existGals.forEach(function(g){keys[(g.account||'')+'|'+g.title]=1;});
   (lib.galleries||[]).forEach(function(g){var k=(g.account||'')+'|'+g.title; if(!keys[k]){existGals.push(g);keys[k]=1;stats.gals++;}});
   setGals(existGals);
@@ -3593,6 +3727,7 @@ function cloudMergeLog(items){
   (items||[]).forEach(function(h){
     if(!h||!h.id||ids[h.id])return;
     if(h.del)return; // del-marker koi listing nahi
+    if(h.req)return; // approval request koi listing nahi
     if(tomb[h.id])return; // delete ho chuki - wapas nahi
     var t=h.title||'(no title)';
     if(h.member&&h.member!==me){var tag='['+h.member+'] '; if(t.indexOf(tag)!==0)t=tag+t;}
@@ -3612,6 +3747,7 @@ function cloudSync(silent){
   fetch(u+'?what=all&t='+Date.now()).then(function(r){return r.json();}).then(function(d){
     var added=cloudMergeLog(d.log||[]);
     var st=cloudMergeLib(d.lib||null);
+    try{renderPending(d.log||[]);}catch(e){}
     if(typeof renderHistory==='function')renderHistory();
     if(typeof renderStats==='function')renderStats();
     if(typeof refreshAllSelects==='function')refreshAllSelects();
@@ -3978,6 +4114,7 @@ function m98LiveReGen(){
 migrateDriveLinksInLibrary();
 teamSyncCheck();
 cloudInit();
+initAuth();
 refreshAllSelects();
 refreshTemplateSelect();
 populateFontSelect();
