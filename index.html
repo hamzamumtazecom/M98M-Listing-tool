@@ -94,7 +94,7 @@ hr{border:none;border-top:1px solid #2c4060;margin:14px 0;}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.4 — 4 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.5 — 4 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -3484,7 +3484,7 @@ function preview(){
 
 /* ================= SHARE DATA (Export/Import) ================= */
 /* ===== TEAM CLOUD (Google Sheet backend - live sharing) ===== */
-var TEAM_CLOUD_URL='';
+var TEAM_CLOUD_URL='https://script.google.com/macros/s/AKfycbwQExEdpJoWAkSv8t0sk3wsMkYENtqrmE9ZdooTZBrU6z1um3FkJbOQTEnzZYZ9N421/exec';
 var CLOUD_URL_KEY='m98m_cloud_url_v1';
 function cloudUrl(){var u='';try{u=localStorage.getItem(CLOUD_URL_KEY)||'';}catch(e){}return (u||TEAM_CLOUD_URL||'').trim();}
 function cloudSaveUrl(){
