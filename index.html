@@ -94,7 +94,7 @@ hr{border:none;border-top:1px solid #2c4060;margin:14px 0;}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.3 — 4 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v1.4 — 4 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -556,6 +556,21 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
     <label>📥 IMPORT (kisi ne bheji hui file load karein)</label>
     <div class="card">
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <div style="margin-bottom:16px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">☁️ TEAM CLOUD <span class="sublbl">— LIVE sharing: sab ka kaam sab ko dikhe</span></span>
+          <span id="cloudStatus" style="font-size:12px;font-weight:bold;padding:4px 10px;border-radius:999px;background:#3a2c14;color:#f0b429;">OFF — cloud link set nahi hai</span>
+          <span id="cloudLast" style="font-size:11px;color:#7f93a8;"></span>
+        </div>
+        <div class="hint" style="margin-top:8px;line-height:1.7;">Ek baar cloud link lagao (Google Sheet wala — setup guide boss ke paas hai) → uske baad <b>har listing khud cloud mein jayegi</b> aur har 2 minute mein <b>sab ki listings sab ko</b> History mein [naam] tag ke saath milengi. Galleries/cards/stores bhi share hote hain.</div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
+          <input type="text" id="cloudUrlInput" placeholder="Cloud link yahan paste karo (https://script.google.com/macros/s/.../exec)" style="flex:1;min-width:240px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#cfe0f0;padding:8px 10px;font-size:12px;">
+          <button class="btn btn2 btn-sm" type="button" onclick="cloudSaveUrl()">💾 Save</button>
+          <button class="btn btn-sm" type="button" onclick="cloudSync(false)">🔄 Sync now</button>
+        </div>
+        <div class="msg" id="cloudMsg"></div>
+      </div>
+
       <div style="margin-bottom:16px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
         <div style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">👥 TEAM SYNC <span class="sublbl">— hosted site se master data ek click mein</span></div>
         <div class="hint" style="margin-top:8px;line-height:1.8;">
@@ -3145,6 +3160,7 @@ function saveToHistory(title, html, theme, desc, durationMs){
   arr.unshift({id:'h'+now.toString(36)+Math.random().toString(36).slice(2,7), title:title||'(no title)', html:html, desc:desc||'', theme:theme||'', date:new Date().toLocaleString('en-GB'), ts:now, durationMs:durationMs||0});
   if(arr.length>HISTORY_LIMIT)arr.length=HISTORY_LIMIT;
   setHistory(arr);
+  try{if(typeof cloudPushLog==='function')cloudPushLog(arr[0]);}catch(e){}
 }
 function getHistoryStorageInfo(){
   try{
@@ -3467,6 +3483,93 @@ function preview(){
 }
 
 /* ================= SHARE DATA (Export/Import) ================= */
+/* ===== TEAM CLOUD (Google Sheet backend - live sharing) ===== */
+var TEAM_CLOUD_URL='';
+var CLOUD_URL_KEY='m98m_cloud_url_v1';
+function cloudUrl(){var u='';try{u=localStorage.getItem(CLOUD_URL_KEY)||'';}catch(e){}return (u||TEAM_CLOUD_URL||'').trim();}
+function cloudSaveUrl(){
+  var v=(document.getElementById('cloudUrlInput').value||'').trim();
+  try{localStorage.setItem(CLOUD_URL_KEY,v);}catch(e){}
+  cloudStatusRefresh();
+  var m=document.getElementById('cloudMsg');m.className='msg ok';
+  m.textContent=v?'\u2705 Cloud link save ho gaya. Ab "Sync now" dabao.':'Cloud link hata diya.';
+}
+function cloudStatusRefresh(){
+  var st=document.getElementById('cloudStatus'); if(!st)return;
+  if(cloudUrl()){st.textContent='ON \u2014 team live sharing \u2705';st.style.background='#123a2c';st.style.color='#4dd0b8';}
+  else{st.textContent='OFF \u2014 cloud link set nahi hai';st.style.background='#3a2c14';st.style.color='#f0b429';}
+}
+function cloudPushLog(entry){
+  var u=cloudUrl(); if(!u)return;
+  try{
+    var item={id:entry.id,member:workMemberName(),title:entry.title,theme:entry.theme||'',ts:entry.ts,date:entry.date||'',html:entry.html||'',desc:entry.desc||''};
+    fetch(u,{method:'POST',body:JSON.stringify({op:'log',item:item})}).catch(function(){});
+  }catch(e){}
+}
+function cloudPushLib(){
+  var u=cloudUrl(); if(!u)return Promise.resolve();
+  var lib={galleries:getGals(),cards:getCards(),stores:getStores()};
+  return fetch(u,{method:'POST',body:JSON.stringify({op:'lib',lib:lib})}).catch(function(){});
+}
+function cloudMergeLib(lib){
+  if(!lib)return {gals:0,sets:0,stores:0};
+  var stats={gals:0,sets:0,stores:0};
+  var existGals=getGals(); var keys={}; existGals.forEach(function(g){keys[(g.account||'')+'|'+g.title]=1;});
+  (lib.galleries||[]).forEach(function(g){var k=(g.account||'')+'|'+g.title; if(!keys[k]){existGals.push(g);keys[k]=1;stats.gals++;}});
+  setGals(existGals);
+  var existCards=getCards();
+  Object.keys(lib.cards||{}).forEach(function(sn){
+    if(!existCards[sn]){existCards[sn]=[];stats.sets++;}
+    var t={}; existCards[sn].forEach(function(p){t[(p.title||'')+'|'+(p.link||'')]=1;});
+    (lib.cards[sn]||[]).forEach(function(p){var k=(p.title||'')+'|'+(p.link||''); if(!t[k]){existCards[sn].push(p);t[k]=1;}});
+  });
+  setCards(existCards);
+  var existStores=getStores();
+  Object.keys(lib.stores||{}).forEach(function(a){if(!existStores[a]){existStores[a]=lib.stores[a];stats.stores++;}});
+  setStores(existStores);
+  return stats;
+}
+function cloudMergeLog(items){
+  var arr=getHistory(); var ids={}; arr.forEach(function(h){ids[h.id]=1;});
+  var me=''; try{me=localStorage.getItem(MEMBER_KEY)||'';}catch(e){}
+  var added=0;
+  (items||[]).forEach(function(h){
+    if(!h||!h.id||ids[h.id])return;
+    var t=h.title||'(no title)';
+    if(h.member&&h.member!==me){var tag='['+h.member+'] '; if(t.indexOf(tag)!==0)t=tag+t;}
+    arr.push({id:h.id,title:t,html:h.html||'',desc:h.desc||'',theme:h.theme||'',date:h.date||'',ts:h.ts||0,durationMs:0,member:h.member||''});
+    ids[h.id]=1;added++;
+  });
+  arr.sort(function(a,b){return (b.ts||0)-(a.ts||0);});
+  if(arr.length>HISTORY_LIMIT)arr.length=HISTORY_LIMIT;
+  setHistory(arr);
+  return added;
+}
+function cloudSync(silent){
+  var u=cloudUrl();
+  var m=document.getElementById('cloudMsg');
+  if(!u){if(!silent&&m){m.className='msg err';m.textContent='\u274C Pehle cloud link paste karke save karo.';}return;}
+  if(!silent&&m){m.className='msg';m.textContent='\u23F3 Cloud se sync ho raha hai...';}
+  fetch(u+'?what=all&t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+    var added=cloudMergeLog(d.log||[]);
+    var st=cloudMergeLib(d.lib||null);
+    if(typeof renderHistory==='function')renderHistory();
+    if(typeof renderStats==='function')renderStats();
+    if(typeof refreshAllSelects==='function')refreshAllSelects();
+    cloudPushLib();
+    if(m&&!silent){m.className='msg ok';
+      m.textContent='\u2705 Sync complete! Nayi team listings: '+added+' \u2022 galleries+'+st.gals+' \u2022 card sets+'+st.sets+' \u2022 stores+'+st.stores;}
+    var bl=document.getElementById('cloudLast'); if(bl)bl.textContent='Last sync: '+new Date().toLocaleTimeString('en-GB');
+  }).catch(function(e){
+    if(m&&!silent){m.className='msg err';m.textContent='\u274C Cloud se connect nahi hua: '+e.message+' (link check karo / internet dekho)';}
+  });
+}
+function cloudInit(){
+  var inp=document.getElementById('cloudUrlInput'); if(inp)inp.value=cloudUrl();
+  cloudStatusRefresh();
+  if(cloudUrl()){ cloudSync(true); setInterval(function(){cloudSync(true);},120000); }
+}
+
 /* ===== TEAM WORK EXPORT/IMPORT (team ka kaam boss tak) ===== */
 var MEMBER_KEY='m98m_member_name_v1';
 function workMemberName(){
@@ -3814,6 +3917,7 @@ function m98LiveReGen(){
 
 migrateDriveLinksInLibrary();
 teamSyncCheck();
+cloudInit();
 refreshAllSelects();
 refreshTemplateSelect();
 populateFontSelect();
