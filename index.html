@@ -95,7 +95,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.1 — 7 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.2 — 7 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -3533,6 +3533,8 @@ function authHandleIdentity(email,name){
   fetch(u+'?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
     var mem=(d.lib&&d.lib.members)||{};
     var mm={};Object.keys(mem).forEach(function(k){mm[k.toLowerCase()]=mem[k];});
+    var fromLog=membersFromLog(d.log||[]);
+    Object.keys(fromLog).forEach(function(k){mm[k]=fromLog[k];});
     if(mm[email]&&!mm[email].denied){
       var nm=mm[email].name||name||email.split('@')[0];
       var lm=getMembers();lm[email]=mm[email];setMembers(lm);
@@ -3618,16 +3620,34 @@ function renderPending(logItems){
   });
   box.innerHTML=h;box.style.display='block';
 }
+function cloudPushApproval(kind,email,name){
+  var u=cloudUrl(); if(!u)return;
+  var item={id:kind+'_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), ts:Date.now()};
+  if(kind==='app'){item.approve=email;item.name=name||'';}else{item.deny=email;}
+  try{fetch(u,{method:'POST',body:JSON.stringify({op:'log',item:item})}).catch(function(){});}catch(e){}
+}
 function approveMember(email,name){
-  var m=getMembers();m[email.toLowerCase()]={name:name||email.split('@')[0],at:Date.now()};setMembers(m);
+  email=email.toLowerCase();
+  var m=getMembers();m[email]={name:name||email.split('@')[0],at:Date.now()};setMembers(m);
+  cloudPushApproval('app',email,name);
   cloudPushLib();
   var box=document.getElementById('pendingBox');if(box)box.innerHTML='<div class="msg ok">✅ '+esc(email)+' approve ho gaya — usse bolo dobara Sign in kare.</div>';
   setTimeout(function(){cloudSync(true);},800);
 }
 function denyMember(email){
-  var m=getMembers();m[email.toLowerCase()]={denied:1,at:Date.now()};setMembers(m);
+  email=email.toLowerCase();
+  var m=getMembers();m[email]={denied:1,at:Date.now()};setMembers(m);
+  cloudPushApproval('den',email,'');
   cloudPushLib();
   var box=document.getElementById('pendingBox');if(box)box.innerHTML='<div class="msg">🚫 '+esc(email)+' deny kar diya.</div>';
+}
+function membersFromLog(log){
+  var out={};
+  (log||[]).slice().sort(function(a,b){return (a.ts||0)-(b.ts||0);}).forEach(function(h){
+    if(h&&h.approve)out[(h.approve||'').toLowerCase()]={name:h.name||'',at:h.ts||0};
+    if(h&&h.deny)out[(h.deny||'').toLowerCase()]={denied:1,at:h.ts||0};
+  });
+  return out;
 }
 
 /* ===== TEAM CLOUD (Google Sheet backend - live sharing) ===== */
@@ -3700,6 +3720,7 @@ function cloudMergeLog(items){
     if(h&&h.del){var d=Array.isArray(h.del)?h.del:[h.del];newDels=newDels.concat(d);}
   });
   if(newDels.length)addDelIds(newDels);
+  try{var fl=membersFromLog(items);if(Object.keys(fl).length){var lm=getMembers();Object.keys(fl).forEach(function(k){lm[k]=fl[k];});setMembers(lm);}}catch(e){}
   var tomb=getDelIds();
   var arr=getHistory();
   // propagate: doosron ke deletes yahan bhi lagao
@@ -3712,6 +3733,7 @@ function cloudMergeLog(items){
     if(!h||!h.id||ids[h.id])return;
     if(h.del)return; // del-marker koi listing nahi
     if(h.req)return; // approval request koi listing nahi
+    if(h.approve||h.deny)return; // approval markers koi listing nahi
     if(tomb[h.id])return; // delete ho chuki - wapas nahi
     var t=h.title||'(no title)';
     if(h.member&&h.member!==me){var tag='['+h.member+'] '; if(t.indexOf(tag)!==0)t=tag+t;}
