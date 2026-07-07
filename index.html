@@ -95,7 +95,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.2 — 7 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.3 — 7 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -571,6 +571,15 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
         </div>
         <div class="msg" id="cloudMsg"></div>
         <div id="pendingBox" style="display:none;margin-top:10px;"></div>
+        <div class="adminOnly" style="margin-top:10px;border-top:1px dashed #2c4060;padding-top:10px;">
+          <div style="font-size:12px;color:#7f93a8;margin-bottom:6px;">👑 Admin: member manually add karo (email likho → seedha approve)</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+            <input type="text" id="manualEmail" placeholder="member@gmail.com" style="flex:1;min-width:180px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#cfe0f0;padding:8px 10px;font-size:12.5px;">
+            <input type="text" id="manualName" placeholder="Naam" style="width:120px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#cfe0f0;padding:8px 10px;font-size:12.5px;">
+            <button class="btn btn-sm" type="button" onclick="manualAddMember()">➕ Add member</button>
+          </div>
+          <div class="msg" id="manualMsg"></div>
+        </div>
       </div>
 
       <div style="margin-bottom:16px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
@@ -3604,7 +3613,7 @@ function initAuth(){
 function renderPending(logItems){
   var box=document.getElementById('pendingBox'); if(!box)return;
   if(!isAdmin()){box.style.display='none';return;}
-  var mem=getMembers();
+  var mem=membersFromLog(logItems||[]); /* cloud ki sachchai — local cache nahi */
   var seen={},reqs=[];
   (logItems||[]).forEach(function(h){
     if(h&&h.req){var e=(h.req||'').toLowerCase();
@@ -3625,6 +3634,15 @@ function cloudPushApproval(kind,email,name){
   var item={id:kind+'_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), ts:Date.now()};
   if(kind==='app'){item.approve=email;item.name=name||'';}else{item.deny=email;}
   try{fetch(u,{method:'POST',body:JSON.stringify({op:'log',item:item})}).catch(function(){});}catch(e){}
+}
+function manualAddMember(){
+  var e=(document.getElementById('manualEmail').value||'').trim().toLowerCase();
+  var n=(document.getElementById('manualName').value||'').trim();
+  var m=document.getElementById('manualMsg');
+  if(!e||e.indexOf('@')<1){m.className='msg err';m.textContent='Sahi email likho.';return;}
+  approveMember(e,n||e.split('@')[0]);
+  document.getElementById('manualEmail').value='';document.getElementById('manualName').value='';
+  m.className='msg ok';m.textContent='✅ '+e+' approve ho gaya — usse bolo Sign in kare.';
 }
 function approveMember(email,name){
   email=email.toLowerCase();
