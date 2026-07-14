@@ -10,9 +10,15 @@ body{font-family:Arial,Helvetica,sans-serif;background:#0f1b2d;color:#e8eef5;pad
 .wrap{max-width:1100px;margin:0 auto;}
 h1{font-size:22px;color:#4dd0b8;margin-bottom:4px;}
 .sub{font-size:13px;color:#8fa3b8;margin-bottom:18px;}
-.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
-.tab{background:#1a2940;border:1px solid #2c4060;color:#cfe0f0;padding:10px 22px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:bold;}
-.tab.active{background:#00a896;border-color:#00a896;color:#fff;}
+.appbar{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,#0d1826,#0b1420);border-bottom:1px solid #21344d;margin:0 -16px 16px;padding:0 16px;box-shadow:0 6px 18px rgba(0,0,0,.35);}
+.appbar-inner{max-width:1180px;margin:0 auto;}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin;padding:8px 0;-webkit-overflow-scrolling:touch;}
+.tabs::-webkit-scrollbar{height:5px;}.tabs::-webkit-scrollbar-thumb{background:#2c4060;border-radius:5px;}
+.tab{background:transparent;border:1px solid transparent;color:#9fb4cc;padding:9px 16px;border-radius:9px;cursor:pointer;font-size:13.5px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;transition:background .12s,color .12s;}
+.tab:hover{background:#16273c;color:#dbe8f6;}
+.tab.active{background:#00a896;border-color:#00a896;color:#fff;box-shadow:0 3px 10px rgba(0,168,150,.35);}
+.tab .tdot{display:none;}
+@media(max-width:640px){.tab{padding:9px 13px;font-size:13px;}}
 .panel{display:none;background:#16243a;border:1px solid #2c4060;border-radius:12px;padding:18px;}
 .panel.active{display:block;}
 label{display:block;font-size:13px;font-weight:bold;color:#8fc6e8;margin:14px 0 4px 0;letter-spacing:0.3px;}
@@ -95,19 +101,19 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.5 — 7 Jul 2026</span></h1>
-  <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.6 — 7 Jul 2026</span></h1>
+  <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
-<div class="tabs">
-    <div class="tab active" onclick="showTab(0)">⚡ Generate Listing</div>
-    <div class="tab" onclick="showTab(1)">🖼️ Gallery Library</div>
-    <div class="tab" onclick="showTab(2)">🛍️ Product Cards Library</div>
-    <div class="tab" onclick="showTab(3)">👤 Accounts (Store Links)</div>
-    <div class="tab" onclick="showTab(4)">📤 Share Data</div>
+<div class="appbar"><div class="appbar-inner"><div class="tabs">
+    <div class="tab active" onclick="showTab(0)">⚡ Generate</div>
+    <div class="tab" onclick="showTab(1)">🖼️ Galleries</div>
+    <div class="tab" onclick="showTab(2)">🛍️ Product Cards</div>
+    <div class="tab" onclick="showTab(3)">👤 Accounts</div>
+    <div class="tab" onclick="showTab(6)">🎨 Templates</div>
     <div class="tab" onclick="showTab(5)">🕘 History</div>
-    <div class="tab" onclick="showTab(6)">🎨 Template</div>
-  </div>
+    <div class="tab adminOnly" onclick="showTab(4)">⚙️ Admin &amp; Sync</div>
+  </div></div></div>
 
   <!-- ============ GENERATE TAB ============ -->
   <div class="panel active" id="panel0">
@@ -3947,27 +3953,36 @@ function cloudPushLog(entry){
 }
 function cloudPushLib(){
   var u=cloudUrl(); if(!u)return Promise.resolve();
-  var lib={galleries:getGals(),cards:getCards(),stores:getStores(),members:getMembers()};
+  // Sirf ADMIN library master banata hai. Members apni lib push nahi karte (warna master ganda ho).
+  if(typeof isAdmin==='function' && !isAdmin()){ return Promise.resolve(); }
+  var rev=Date.now();
+  try{localStorage.setItem('m98m_lib_rev_v1',String(rev));}catch(e){}
+  var lib={galleries:getGals(),cards:getCards(),stores:getStores(),members:getMembers(),adminMaster:true,rev:rev};
   return fetch(u,{method:'POST',body:JSON.stringify({op:'lib',lib:lib})}).catch(function(){});
 }
+function libRev(){try{return Number(localStorage.getItem('m98m_lib_rev_v1'))||0;}catch(e){return 0;}}
+function setLibRev(v){try{localStorage.setItem('m98m_lib_rev_v1',String(v||0));}catch(e){}}
 function cloudMergeLib(lib){
-  if(!lib)return {gals:0,sets:0,stores:0};
-  var stats={gals:0,sets:0,stores:0};
+  if(!lib)return {gals:0,sets:0,stores:0,replaced:false};
+  var stats={gals:0,sets:0,stores:0,replaced:false};
+  // members list hamesha union (approval markers)
   if(lib.members){var lm=getMembers();Object.keys(lib.members).forEach(function(e){if(!lm[e])lm[e]=lib.members[e];});setMembers(lm);}
-  var existGals=getGals(); var keys={}; existGals.forEach(function(g){keys[(g.account||'')+'|'+g.title]=1;});
-  (lib.galleries||[]).forEach(function(g){var k=(g.account||'')+'|'+g.title; if(!keys[k]){existGals.push(g);keys[k]=1;stats.gals++;}});
-  setGals(existGals);
-  var existCards=getCards();
-  Object.keys(lib.cards||{}).forEach(function(sn){
-    if(!existCards[sn]){existCards[sn]=[];stats.sets++;}
-    var t={}; existCards[sn].forEach(function(p){t[(p.title||'')+'|'+(p.link||'')]=1;});
-    (lib.cards[sn]||[]).forEach(function(p){var k=(p.title||'')+'|'+(p.link||''); if(!t[k]){existCards[sn].push(p);t[k]=1;}});
-  });
-  setCards(existCards);
-  var existStores=getStores();
-  Object.keys(lib.stores||{}).forEach(function(a){if(!existStores[a]){existStores[a]=lib.stores[a];stats.stores++;}});
-  setStores(existStores);
-  return stats;
+  // MASTER model: agar admin master hai aur naya rev hai to library ko REPLACE karo (mixing/duplicate khatam)
+  if(lib.adminMaster){
+    if(typeof isAdmin==='function' && isAdmin()){
+      // Admin khud master hai - apni local cheez cloud se overwrite mat karo
+      return stats;
+    }
+    var incoming=Number(lib.rev||0);
+    if(incoming && incoming<=libRev()){ return stats; } // pehle hi latest hai
+    if(lib.galleries){ setGals(lib.galleries); stats.gals=lib.galleries.length; }
+    if(lib.cards){ setCards(lib.cards); stats.sets=Object.keys(lib.cards).length; }
+    if(lib.stores){ setStores(lib.stores); stats.stores=Object.keys(lib.stores).length; }
+    setLibRev(incoming);
+    stats.replaced=true;
+    return stats;
+  }
+  return stats; // koi master nahi to kuch mat chhero (purana union-mix band)
 }
 function cloudMergeLog(items){
   // pehle: cloud ke del-markers jama karo
