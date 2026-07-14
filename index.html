@@ -101,7 +101,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.7 — 7 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.8 — 7 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -791,7 +791,16 @@ const DEFAULT_ACCOUNT='Personal';
 // getGalsByAccount() returns the new account-grouped object.
 
 function getGalsRaw(){try{return JSON.parse(localStorage.getItem(KEY_GALS))||[];}catch(e){return[];}}
-function setGalsRaw(a){localStorage.setItem(KEY_GALS,JSON.stringify(a));}
+var __libPushTimer=null;
+function libChanged(){
+  try{
+    if(typeof isAdmin==='function' && !isAdmin())return;
+    if(typeof cloudUrl!=='function' || !cloudUrl())return;
+    if(__libPushTimer)clearTimeout(__libPushTimer);
+    __libPushTimer=setTimeout(function(){ try{cloudPushLib();}catch(e){} }, 1200);
+  }catch(e){}
+}
+function setGalsRaw(a){localStorage.setItem(KEY_GALS,JSON.stringify(a));libChanged();}
 
 function getGalsByAccount(){
   // Returns object: {accountName: [galleries], ...}
@@ -834,9 +843,9 @@ function setGals(flat){
 }
 
 function getCards(){try{return JSON.parse(localStorage.getItem(KEY_CARDS))||{};}catch(e){return{};}}
-function setCards(a){localStorage.setItem(KEY_CARDS,JSON.stringify(a));}
+function setCards(a){localStorage.setItem(KEY_CARDS,JSON.stringify(a));libChanged();}
 function getStores(){try{return JSON.parse(localStorage.getItem(KEY_STORES))||{};}catch(e){return{};}}
-function setStores(a){localStorage.setItem(KEY_STORES,JSON.stringify(a));}
+function setStores(a){localStorage.setItem(KEY_STORES,JSON.stringify(a));libChanged();}
 
 /* migrate from v3/v4 if exists */
 (function migrate(){
