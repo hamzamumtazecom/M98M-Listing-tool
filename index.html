@@ -101,7 +101,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.8 — 7 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.9 — 7 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -578,6 +578,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
         </div>
         <div class="msg" id="cloudMsg"></div>
         <div id="pendingBox" style="display:none;margin-top:10px;"></div>
+        <div id="membersBox" class="adminOnly" style="display:none;margin-top:10px;border-top:1px dashed #2c4060;padding-top:12px;"></div>
         <div class="adminOnly" style="margin-top:10px;border-top:1px dashed #2c4060;padding-top:10px;">
           <div style="font-size:12px;color:#7f93a8;margin-bottom:6px;">👑 Admin: member manually add karo (email likho → seedha approve)</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
@@ -3773,6 +3774,13 @@ function authGrant(role,email,name){
   if(name){try{localStorage.setItem(MEMBER_KEY,name);}catch(e){}}
   var g=document.getElementById('pwGate'); if(g)g.style.display='none';
   applyRoleUI();
+  // last-active marker (member + admin) cloud ko - taake admin ko dikhe kaun kab aaya
+  try{
+    if(role==='member' && email && cloudUrl()){
+      var it={id:'seen_'+Date.now().toString(36)+Math.random().toString(36).slice(2,5), seen:email, name:name||'', ts:Date.now()};
+      fetch(cloudUrl(),{method:'POST',body:JSON.stringify({op:'log',item:it})}).catch(function(){});
+    }
+  }catch(e){}
   try{cloudSync(true);}catch(e){}
 }
 function applyRoleUI(){
@@ -3796,7 +3804,7 @@ function authHandleIdentity(email,name){
     var mm={};Object.keys(mem).forEach(function(k){mm[k.toLowerCase()]=mem[k];});
     var fromLog=membersFromLog(d.log||[]);
     Object.keys(fromLog).forEach(function(k){mm[k]=fromLog[k];});
-    if(mm[email]&&!mm[email].denied){
+    if(mm[email]&&!mm[email].denied&&!mm[email].removed){
       var nm=mm[email].name||name||email.split('@')[0];
       var lm=getMembers();lm[email]=mm[email];setMembers(lm);
       authGrant('member',email,nm);return;
@@ -3896,6 +3904,53 @@ function manualAddMember(){
   document.getElementById('manualEmail').value='';document.getElementById('manualName').value='';
   m.className='msg ok';m.textContent='✅ '+e+' approve ho gaya — usse bolo Sign in kare.';
 }
+function removeMember(email){
+  email=(email||'').toLowerCase();
+  if(!confirm(email+' ko remove karna hai? Wo dobara sign-in karega to phir approval maangega.'))return;
+  var m=getMembers(); delete m[email]; setMembers(m);
+  // cloud ko remove marker
+  var u=cloudUrl();
+  if(u){try{fetch(u,{method:'POST',body:JSON.stringify({op:'log',item:{id:'rem_'+Date.now().toString(36)+Math.random().toString(36).slice(2,5), remove:email, ts:Date.now()}})}).catch(function(){});}catch(e){}}
+  // uske req-sent guard bhi clear (taake dobara request bhej sake)
+  try{localStorage.removeItem('m98m_req_sent_'+email);}catch(e){}
+  var box=document.getElementById('membersBox'); if(box){var d=document.createElement('div');d.className='msg';d.textContent='\uD83D\uDEAB '+email+' remove ho gaya.';box.insertBefore(d,box.firstChild);}
+  setTimeout(function(){cloudSync(true);},700);
+}
+function fmtWhen(ts){
+  if(!ts)return '—';
+  var d=new Date(ts), now=Date.now(), diff=now-ts;
+  if(diff<60000)return 'abhi';
+  if(diff<3600000)return Math.floor(diff/60000)+' min pehle';
+  if(diff<86400000)return Math.floor(diff/3600000)+' ghante pehle';
+  if(diff<604800000)return Math.floor(diff/86400000)+' din pehle';
+  return d.toLocaleDateString('en-GB');
+}
+function renderMembers(logItems){
+  var box=document.getElementById('membersBox'); if(!box)return;
+  if(typeof isAdmin!=='function' || !isAdmin()){box.style.display='none';return;}
+  box.style.display='block';
+  var mem=membersFromLog(logItems||[]);
+  // sirf active (approved, not denied/removed)
+  var active=[];
+  Object.keys(mem).forEach(function(e){var m=mem[e]; if(m.at && !m.denied && !m.removed)active.push({email:e,name:m.name||e.split('@')[0],at:m.at,seen:m.seen||0});});
+  active.sort(function(a,b){return (b.seen||b.at)-(a.seen||a.at);});
+  var admins=(typeof ADMIN_EMAILS!=='undefined')?ADMIN_EMAILS:[];
+  var h='<div style="font-weight:bold;color:#4dd0b8;font-size:13.5px;margin-bottom:4px;">\uD83D\uDC65 Team Members ('+active.length+')</div>';
+  h+='<div class="hint" style="margin-bottom:10px;">Ye woh log hain jinko aapne allow kiya. Kisi ko hataana ho to Remove dabayein.</div>';
+  // admin khud
+  admins.forEach(function(ae){
+    h+='<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:#0d1f19;border:1px solid #1f5a4f;border-radius:8px;margin-bottom:6px;flex-wrap:wrap;">'
+      +'<span style="font-size:13px;color:#cfe0f0;flex:1;min-width:160px;">\uD83D\uDC51 <b>'+esc(ae)+'</b> <span style="color:#4dd0b8;">(Admin \u2014 aap)</span></span></div>';
+  });
+  if(!active.length){h+='<div class="hint" style="padding:10px;background:#0d1620;border:1px dashed #2c4060;border-radius:8px;">Abhi koi member approved nahi hai. Neeche request aaye to Approve karein.</div>';}
+  active.forEach(function(m){
+    h+='<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;margin-bottom:6px;flex-wrap:wrap;">'
+      +'<span style="font-size:13px;color:#cfe0f0;flex:1;min-width:200px;">\uD83D\uDC64 <b>'+esc(m.name)+'</b><br><span style="color:#8fa3b8;font-size:12px;">'+esc(m.email)+'</span></span>'
+      +'<span style="font-size:11.5px;color:#7f93a8;min-width:130px;">Joined: '+fmtWhen(m.at)+'<br>Last active: '+fmtWhen(m.seen)+'</span>'
+      +'<button class="btn btn2 btn-sm" type="button" onclick="removeMember(\''+escAttr(m.email)+'\')">\uD83D\uDDD1\uFE0F Remove</button></div>';
+  });
+  box.innerHTML=h;
+}
 function approveMember(email,name){
   email=email.toLowerCase();
   var m=getMembers();m[email]={name:name||email.split('@')[0],at:Date.now()};setMembers(m);
@@ -3914,8 +3969,12 @@ function denyMember(email){
 function membersFromLog(log){
   var out={};
   (log||[]).slice().sort(function(a,b){return (a.ts||0)-(b.ts||0);}).forEach(function(h){
-    if(h&&h.approve)out[(h.approve||'').toLowerCase()]={name:h.name||'',at:h.ts||0};
-    if(h&&h.deny)out[(h.deny||'').toLowerCase()]={denied:1,at:h.ts||0};
+    if(!h)return;
+    var e;
+    if(h.approve){e=(h.approve||'').toLowerCase();out[e]=out[e]||{};out[e].name=h.name||out[e].name||'';out[e].at=out[e].at||h.ts||0;out[e].denied=0;out[e].removed=0;}
+    if(h.deny){e=(h.deny||'').toLowerCase();out[e]=out[e]||{};out[e].denied=1;out[e].at=out[e].at||h.ts||0;}
+    if(h.remove){e=(h.remove||'').toLowerCase();out[e]=out[e]||{};out[e].removed=1;out[e].removedAt=h.ts||0;out[e].denied=1;}
+    if(h.seen){e=(h.seen||'').toLowerCase();if(out[e]){out[e].seen=Math.max(out[e].seen||0,h.ts||0);if(h.name)out[e].name=out[e].name||h.name;}}
   });
   return out;
 }
@@ -4016,7 +4075,7 @@ function cloudMergeLog(items){
     if(!h||!h.id||ids[h.id])return;
     if(h.del)return; // del-marker koi listing nahi
     if(h.req)return; // approval request koi listing nahi
-    if(h.approve||h.deny)return; // approval markers koi listing nahi
+    if(h.approve||h.deny||h.seen||h.remove)return; // member markers koi listing nahi
     if(tomb[h.id])return; // delete ho chuki - wapas nahi
     var t=h.title||'(no title)';
     if(h.member&&h.member!==me){var tag='['+h.member+'] '; if(t.indexOf(tag)!==0)t=tag+t;}
@@ -4042,6 +4101,7 @@ function cloudSync(silent){
     if(mx>0)cloudSetSince(Math.max(0,mx-600000)); /* 10 min overlap - clock farq cover */
     var st=cloudMergeLib(d.lib||null);
     try{renderPending(d.log||[]);}catch(e){}
+    try{renderMembers(d.log||[]);}catch(e){}
     if(typeof renderHistory==='function')renderHistory();
     if(typeof renderStats==='function')renderStats();
     if(typeof refreshAllSelects==='function')refreshAllSelects();
