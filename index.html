@@ -101,18 +101,18 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.6 — 7 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.7 — 7 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
 <div class="appbar"><div class="appbar-inner"><div class="tabs">
-    <div class="tab active" onclick="showTab(0)">⚡ Generate</div>
-    <div class="tab" onclick="showTab(1)">🖼️ Galleries</div>
-    <div class="tab" onclick="showTab(2)">🛍️ Product Cards</div>
-    <div class="tab" onclick="showTab(3)">👤 Accounts</div>
-    <div class="tab" onclick="showTab(6)">🎨 Templates</div>
-    <div class="tab" onclick="showTab(5)">🕘 History</div>
-    <div class="tab adminOnly" onclick="showTab(4)">⚙️ Admin &amp; Sync</div>
+    <div class="tab active" data-tab="0" onclick="showTab(0)">⚡ Generate</div>
+    <div class="tab" data-tab="1" onclick="showTab(1)">🖼️ Galleries</div>
+    <div class="tab" data-tab="2" onclick="showTab(2)">🛍️ Product Cards</div>
+    <div class="tab" data-tab="3" onclick="showTab(3)">👤 Accounts</div>
+    <div class="tab" data-tab="6" onclick="showTab(6)">🎨 Templates</div>
+    <div class="tab" data-tab="5" onclick="showTab(5)">🕘 History</div>
+    <div class="tab adminOnly" data-tab="4" onclick="showTab(4)">⚙️ Admin &amp; Sync</div>
   </div></div></div>
 
   <!-- ============ GENERATE TAB ============ -->
@@ -869,9 +869,12 @@ function setStores(a){localStorage.setItem(KEY_STORES,JSON.stringify(a));}
 
 /* ================= UI ================= */
 function showTab(i){
-  document.querySelectorAll('.tab').forEach((t,x)=>t.classList.toggle('active',x===i));
-  document.querySelectorAll('.panel').forEach((p,x)=>p.classList.toggle('active',x===i));
+  document.querySelectorAll('.tab').forEach(function(t){
+    var ti=t.getAttribute('data-tab'); t.classList.toggle('active', ti!==null && Number(ti)===i);
+  });
+  for(var x=0;x<=6;x++){var pn=document.getElementById('panel'+x); if(pn)pn.classList.toggle('active', x===i);}
   if(i===5)renderHistory();
+  try{window.scrollTo(0,0);}catch(e){}
 }
 
 function refreshAllSelects(){
