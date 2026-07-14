@@ -95,7 +95,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.3 — 7 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v2.4 — 7 Jul 2026</span></h1>
   <div class="sub">Description + Gallery + Cards + Store → professional eBay listing HTML. <span style="color:#4dd0b8;">Account preset</span> se aik click mein sab auto-fill. <a href="#" onclick="showTab(4);return false;" style="color:#4dd0b8;">Data backup/share: "Share Data" tab</a></div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -3672,9 +3672,13 @@ function membersFromLog(log){
 var TEAM_CLOUD_URL='https://script.google.com/macros/s/AKfycbwQExEdpJoWAkSv8t0sk3wsMkYENtqrmE9ZdooTZBrU6z1um3FkJbOQTEnzZYZ9N421/exec';
 var CLOUD_URL_KEY='m98m_cloud_url_v1';
 function cloudUrl(){var u='';try{u=localStorage.getItem(CLOUD_URL_KEY)||'';}catch(e){}return (u||TEAM_CLOUD_URL||'').trim();}
+var CLOUD_SINCE_KEY='m98m_cloud_since_v1';
+function cloudSince(){try{return Number(localStorage.getItem(CLOUD_SINCE_KEY))||0;}catch(e){return 0;}}
+function cloudSetSince(v){try{localStorage.setItem(CLOUD_SINCE_KEY,String(v||0));}catch(e){}}
 function cloudSaveUrl(){
   var v=(document.getElementById('cloudUrlInput').value||'').trim();
   try{localStorage.setItem(CLOUD_URL_KEY,v);}catch(e){}
+  cloudSetSince(0);
   cloudStatusRefresh();
   var m=document.getElementById('cloudMsg');m.className='msg ok';
   m.textContent=v?'\u2705 Cloud link save ho gaya. Ab "Sync now" dabao.':'Cloud link hata diya.';
@@ -3768,8 +3772,13 @@ function cloudSync(silent){
   var m=document.getElementById('cloudMsg');
   if(!u){if(!silent&&m){m.className='msg err';m.textContent='\u274C Pehle cloud link paste karke save karo.';}return;}
   if(!silent&&m){m.className='msg';m.textContent='\u23F3 Cloud se sync ho raha hai...';}
-  fetch(u+'?what=all&t='+Date.now()).then(function(r){return r.json();}).then(function(d){
-    var added=cloudMergeLog(d.log||[]);
+  var __since=cloudSince();
+  fetch(u+'?what=all&since='+__since+'&t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+    var items=d.log||[];
+    var added=cloudMergeLog(items);
+    var mx=__since;
+    items.forEach(function(h){if(h&&h.ts&&h.ts>mx)mx=h.ts;});
+    if(mx>0)cloudSetSince(Math.max(0,mx-600000)); /* 10 min overlap - clock farq cover */
     var st=cloudMergeLib(d.lib||null);
     try{renderPending(d.log||[]);}catch(e){}
     if(typeof renderHistory==='function')renderHistory();
