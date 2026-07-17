@@ -644,7 +644,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
 
   <!-- ============ HISTORY TAB ============ -->
   <div class="panel" id="panel5">
-    <div class="tiny">🕘 Yahan aap ki generate ki hui pichli listings save hoti hain. <b>📥 Load description</b> = us product ki description wapas Step 1 mein aa jati hai — phir dusra account preset chun kar dobara GENERATE karein (same product, alag account ke liye — bohat fast!). <b>📋 Copy HTML</b> = seedha HTML. (Sirf is browser mein save hoti hain.)</div>
+    <div class="tiny">🕘 Yahan aap ki generate ki hui pichli listings save hoti hain. <b>📥 Load desc + images</b> = us product ki description + wahi gallery images + cards + store + template sab wapas Step 1 mein aa jate hain — seedha GENERATE dabayein, ya account preset badal kar dusre account ke liye banayein (bohat fast!). <b>📋 Copy HTML</b> = seedha HTML. (Sirf is browser mein save hoti hain.)</div>
 
     <div style="margin-top:12px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
       <div style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">👥 TEAM WORK <span class="sublbl">— team ka kaam boss tak pahunchane ka system</span></div>
@@ -2764,7 +2764,12 @@ function generate(){
   res.html=applyFont(res.html);
   document.getElementById('output').value=res.html;
   var _pv=document.getElementById('pv'); if(_pv && _pv.getAttribute('style') && _pv.style.display!=='none'){ _pv.srcdoc=res.html; }
-  saveToHistory(res.title, res.html, res.themeKey, desc);
+  saveToHistory(res.title, res.html, res.themeKey, desc, undefined, {
+    imgs:imgs, store:store, tpl:tpl, themeSel:themeKey,
+    cardSet:((document.getElementById('cardsAccSelect')||{}).value||''),
+    cardPicks:(typeof pickedProducts!=='undefined'?pickedProducts.slice():[]),
+    acct:getSelectedAccountName()
+  });
   let info='✅ Listing ready! ';
   if(res.autoPicked)info+='🎨 Theme: '+(THEME_NAMES[res.themeKey]||res.themeKey)+' • ';
   const warn=[];
@@ -2898,6 +2903,7 @@ function generateAllAccounts(){
     }else{
       bulkGenerated.push({
         account:name, html:applyFont(res.html), title:res.title, theme:res.themeKey,
+        imgs:imgs, store:store, tpl:tpl,
         imgCount:res.imgCount, cardCount:res.cardCount, hasStore:res.hasStore,
         autoPicked:res.autoPicked, warns:warns,
         cardAccName:cardAcc||'', storeAccName:storeAcc||'',
@@ -2914,7 +2920,7 @@ function generateAllAccounts(){
   // ===== Har account ki listing AUTOMATICALLY History mein save karo (alag-alag) =====
   bulkGenerated.forEach(b=>{
     if(!b.error){
-      saveToHistory(b.title+' ['+b.account+']', b.html, b.theme, desc);
+      saveToHistory(b.title+' ['+b.account+']', b.html, b.theme, desc, undefined, {imgs:b.imgs||[], store:b.store||'', tpl:b.tpl||'', acct:b.account});
     }
   });
   renderHistory();
@@ -3405,11 +3411,13 @@ try{window.addEventListener('beforeunload',function(){try{if(_histWriteT)clearTi
 
 const HISTORY_LIMIT=1000; // IndexedDB (disk-backed) — localStorage jaisa ~5MB cap nahi
 
-function saveToHistory(title, html, theme, desc, durationMs){
+function saveToHistory(title, html, theme, desc, durationMs, extra){
   const arr=getHistory();
   const now=Date.now();
   var _me='';try{_me=localStorage.getItem('m98m_member_name_v1')||'';}catch(e){}
-  arr.unshift({id:'h'+now.toString(36)+Math.random().toString(36).slice(2,7), title:title||'(no title)', html:html, desc:desc||'', theme:theme||'', date:new Date().toLocaleString('en-GB'), ts:now, durationMs:durationMs||0, member:_me});
+  var x=extra||{};
+  arr.unshift({id:'h'+now.toString(36)+Math.random().toString(36).slice(2,7), title:title||'(no title)', html:html, desc:desc||'', theme:theme||'', date:new Date().toLocaleString('en-GB'), ts:now, durationMs:durationMs||0, member:_me,
+    imgs:(x.imgs||[]).slice(0,20), store:x.store||'', tpl:x.tpl||'', themeSel:x.themeSel||'', cardSet:x.cardSet||'', cardPicks:(x.cardPicks||[]).slice(0,8), acct:x.acct||''});
   if(arr.length>HISTORY_LIMIT)arr.length=HISTORY_LIMIT;
   setHistory(arr);
   try{if(typeof cloudPushLog==='function')cloudPushLog(arr[0]);}catch(e){}
@@ -3623,8 +3631,9 @@ function renderHistory(){
     var h=o.h,i=o.i;
     var themeName=h.theme?(THEME_NAMES[h.theme]||h.theme):'';
     var hasDesc=!!h.desc;
-    var descTag=hasDesc?'<span style="color:#5dcaa5;"> • 📝 description ready</span>':'<span style="color:#e0a050;"> • ⚠️ purani (description nahi)</span>';
-    var loadBtn=hasDesc?('<button class="btn btn-sm" onclick="loadFromHistory('+i+')">📥 Load description</button>'):('<button class="btn btn2 btn-sm" onclick="loadFromHistory('+i+')" style="opacity:.6;">📥 Load (purani)</button>');
+    var nImg=(h.imgs&&h.imgs.length)||0;
+    var descTag=hasDesc?('<span style="color:#5dcaa5;"> • 📝 description ready'+(nImg?(' • 🖼️ '+nImg+' images'):'')+'</span>'):'<span style="color:#e0a050;"> • ⚠️ purani (description nahi)</span>';
+    var loadBtn=hasDesc?('<button class="btn btn-sm" onclick="loadFromHistory('+i+')">📥 Load '+(nImg?('desc + images'):'description')+'</button>'):('<button class="btn btn2 btn-sm" onclick="loadFromHistory('+i+')" style="opacity:.6;">📥 Load (purani)</button>');
     return '<div class="hist-item"><div class="ht">'+escAttr(h.title)+'</div>'+
       '<div class="hd">🕘 '+escAttr(h.date)+' • '+h.html.length+' chars'+(themeName?(' • 🎨 '+escAttr(themeName)):'')+descTag+'</div>'+
       '<div class="row">'+loadBtn+
@@ -3676,7 +3685,45 @@ function loadFromHistory(i){
   if(h.desc){
     document.getElementById('descInput').value=h.desc;
     updateTitleCounter();saveDraft();
-    const m=document.getElementById('genMsg');m.className='msg ok';m.textContent='📥 Description Step 1 mein load ho gayi! Ab account preset chunein (gallery/cards/store) aur GENERATE dabayein — dusre account ke liye (same product).';
+    var back=[];
+    // 🖼️ GALLERY IMAGES wapas
+    if(h.imgs&&h.imgs.length){
+      var _gs=document.getElementById('gallerySelect'); if(_gs)_gs.value='';
+      var _gi=document.getElementById('galleryInput');
+      if(_gi)_gi.value=h.imgs.map(normImgUrl).join('\n');
+      back.push('🖼️ '+h.imgs.length+' images');
+    }
+    // 🔗 STORE link wapas
+    if(h.store){
+      var _ss=document.getElementById('storeAccSelect'); if(_ss)_ss.value='';
+      var _si=document.getElementById('storeInput'); if(_si)_si.value=h.store;
+      back.push('🔗 store link');
+    }
+    // 🛍️ CARDS wapas (set + wahi picks)
+    if(h.cardSet){
+      var _cs=document.getElementById('cardsAccSelect');
+      var _ok=_cs&&[].some.call(_cs.options,function(o){return o.value===h.cardSet;});
+      if(_ok){
+        _cs.value=h.cardSet;
+        try{onCardsAccChange();}catch(e){}
+        if(h.cardPicks&&h.cardPicks.length){
+          try{pickedProducts=h.cardPicks.slice();renderProductPicker();back.push('🛍️ '+h.cardPicks.length+' cards');}catch(e){}
+        }
+      }
+    }
+    // 🎨 TEMPLATE + theme wapas
+    if(h.tpl){
+      var _ts=document.getElementById('templateSelect');
+      if(_ts&&[].some.call(_ts.options,function(o){return o.value===h.tpl;})){_ts.value=h.tpl;back.push('🎨 template');}
+    }
+    if(h.themeSel){
+      var _th=document.getElementById('themeSelect');
+      if(_th&&[].some.call(_th.options,function(o){return o.value===h.themeSel;}))_th.value=h.themeSel;
+    }
+    const m=document.getElementById('genMsg');m.className='msg ok';
+    m.textContent = back.length
+      ? '📥 Sab wapas load ho gaya: 📝 description + '+back.join(' + ')+' — ab seedha GENERATE dabayein. (Ya account preset badal kar dusre account ke liye banayein.)'
+      : '📥 Description Step 1 mein load ho gayi! (Ye purani entry hai — us waqt images save nahi hoti thin.) Ab account preset chunein aur GENERATE dabayein.';
     window.scrollTo(0,0);
   }else{
     const m=document.getElementById('genMsg');m.className='msg err';m.textContent='⚠️ Ye PURANI listing hai (description save hone wale feature se pehle ki). Iski description recover nahi ho sakti. Bas ek nayi listing GENERATE karein — ab har nayi listing ki description save hoti hai aur Load par Step 1 mein wapas aa jati hai. Purani entries delete kar sakte hain.';
