@@ -326,7 +326,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v4.3 — 17 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v4.4 — 17 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -398,6 +398,11 @@ Safety note two</div>
 https://i.ebayimg.com/images/g/xxxx/s-l1600.jpg
 https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"></textarea>
     <div class="hint">💡 Jitne URLs paste karenge utni images listing mein aayengi (max 20). Library mein save karne pe baad mein dusre listings pe reuse kar sakte hain.</div>
+
+    <label style="margin-top:12px;"><span class="step">2b</span> VIDEO <span class="sublbl">— optional, khali chhor dein to skip ho jayega</span></label>
+    <input id="videoInput" type="text" placeholder="Video ka direct .mp4 link (optional) — e.g. https://.../product.mp4" oninput="saveDraft()" style="width:100%;box-sizing:border-box;">
+    <input id="videoPosterInput" type="text" placeholder="Video thumbnail/poster image link (optional)" oninput="saveDraft()" style="width:100%;box-sizing:border-box;margin-top:6px;">
+    <div class="hint">🎬 Video ho to gallery mein pehle slide par ▶ ke saath aayega. <b>Note:</b> eBay live listing description se video aksar strip ho jati hai (eBay ka apna video-upload alag hota hai) — preview/apni site ke liye theek hai, images hamesha chalti hain.</div>
 
     <label><span class="step">3</span> PRODUCT CARDS <span class="sublbl">— Cards Library se 4 promo products chunein</span></label>
     <div class="row">
@@ -2033,13 +2038,15 @@ function secHead(t,header){
     <div style="background:#ffffff;border:1px solid ${t.br};border-top:none;border-radius:0 0 10px 10px;`;
 }
 
-function buildGallery(t,imgs){
-  if(imgs.length===0)return{css:'',html:''};
+function buildGallery(t,imgs,vid,vidPoster){
+  vid=(vid||'').trim();vidPoster=(vidPoster||'').trim();
+  if(imgs.length===0 && !vid)return{css:'',html:''};
   // Auto-upgrade low-res eBay URLs to high-res (e.g. /s-l225/ -> /s-l500/)
   imgs=imgs.map(u=>u?u.replace(/\/s-l\d+\./i,'/s-l500.'):u);
-  // Limit to 20 images (sane upper bound — more than that would make page very long)
-  const n=Math.min(imgs.length,20);
-  let css='<style>\n.gx-radio{display:none;}\n.gx-slide{display:none;}\n';
+  // Total slides = images + (1 if video). Cap images at 20.
+  const nImg=Math.min(imgs.length,20);
+  const n=nImg+(vid?1:0);
+  let css='<style>\n.gx-radio{display:none;}\n.gx-slide{display:none;}\n.gx-zck{display:none;}\n';
   for(let i=1;i<=n;i++)css+=`#gx${i}:checked ~ .gx-layout .gx-stage .gx-s${i}{display:block;}\n`;
   // Layout: main image left (75%), thumbnails right column (25%). Mobile: stacked.
   css+=`.gx-layout{display:table;width:100%;table-layout:fixed;}\n`;
@@ -2055,17 +2062,38 @@ function buildGallery(t,imgs){
   // Minimum 400px so even single-image gallery looks good, capped at 900px for very tall portraits
   const thumbsHeight=Math.max(400,Math.min(900,n*106));
   css+=`.gx-stage img{max-width:100%;max-height:${thumbsHeight}px;height:auto;width:auto;border-radius:10px;object-fit:contain;}\n`;
+  // ===== CSS-only ZOOM (eBay-safe, no JS): image ko ek "zoom frame" mein rakho, click par scale up =====
+  css+=`.gx-zoom{position:relative;display:inline-block;max-width:100%;overflow:hidden;border-radius:10px;cursor:zoom-in;}\n`;
+  css+=`.gx-zoom img{transition:transform .35s ease;transform-origin:center center;display:block;}\n`;
+  css+=`.gx-zbadge{position:absolute;top:8px;right:8px;background:rgba(11,60,73,.82);color:#fff;font-size:11px;font-weight:bold;padding:4px 9px;border-radius:20px;pointer-events:none;z-index:2;}\n`;
+  css+=`.gx-zbadge .zt-out{display:none;}\n`;
+  // checked = zoomed: scale up, cursor becomes zoom-out, badge text swaps
+  const zsel=[];for(let i=1;i<=n;i++)zsel.push(`#gz${i}:checked ~ .gx-layout .gx-stage .gx-s${i} .gx-zoom img`);
+  css+=zsel.join(',')+`{transform:scale(2.3);}\n`;
+  const zc=[];for(let i=1;i<=n;i++)zc.push(`#gz${i}:checked ~ .gx-layout .gx-stage .gx-s${i} .gx-zoom`);
+  css+=zc.join(',')+`{cursor:zoom-out;}\n`;
+  const zb1=[];for(let i=1;i<=n;i++)zb1.push(`#gz${i}:checked ~ .gx-layout .gx-stage .gx-s${i} .gx-zbadge .zt-in`);
+  css+=zb1.join(',')+`{display:none;}\n`;
+  const zb2=[];for(let i=1;i<=n;i++)zb2.push(`#gz${i}:checked ~ .gx-layout .gx-stage .gx-s${i} .gx-zbadge .zt-out`);
+  css+=zb2.join(',')+`{display:inline;}\n`;
   // Mobile: stack vertically (thumbs become horizontal row at bottom)
   css+=`@media (max-width:600px){\n  .gx-layout,.gx-stage,.gx-thumbs{display:block;width:100%;padding:0;}\n  .gx-stage{padding-bottom:12px;}\n  .gx-thumbs{text-align:center;font-size:0;}\n  .gx-thumbs label{display:inline-block;margin:3px;padding:3px;}\n  .gx-thumbs img{max-height:60px;}\n  .gx-stage img{max-height:340px;}\n}\n`;
   css+='</style>\n\n';
-  let html=secHead(t,'📸 Product Gallery <span style="font-size:12px;font-weight:normal;">&mdash; click thumbnails to view</span>')+'padding:18px;">\n\n';
+  let html=secHead(t,'📸 Product Gallery <span style="font-size:12px;font-weight:normal;">&mdash; click image to zoom, thumbnails to switch</span>')+'padding:18px;">\n\n';
   for(let i=1;i<=n;i++)html+=`      <input type="radio" name="gx" id="gx${i}" class="gx-radio"${i===1?' checked':''}>\n`;
+  for(let i=1;i<=n;i++)html+=`      <input type="checkbox" id="gz${i}" class="gx-zck">\n`;
   html+='\n      <div class="gx-layout">\n';
   html+='        <div class="gx-stage">\n';
   // First slide visible by default
   for(let i=1;i<=n;i++){
     const styleAttr=i===1?'display:block;':'';
-    html+=`          <div class="gx-slide gx-s${i}" style="${styleAttr}"><img src="${imgs[i-1]}" alt="Product View ${i}" style="max-width:100%;max-height:${thumbsHeight}px;height:auto;width:auto;border-radius:10px;object-fit:contain;"></div>\n`;
+    const isVid=vid && i===1;
+    if(isVid){
+      html+=`          <div class="gx-slide gx-s${i}" style="${styleAttr}"><video controls playsinline preload="metadata"${vidPoster?` poster="${vidPoster}"`:''} style="max-width:100%;max-height:${thumbsHeight}px;border-radius:10px;background:#000;"><source src="${vid}" type="video/mp4">${vidPoster?`<img src="${vidPoster}" alt="Product Video" style="max-width:100%;border-radius:10px;">`:'Video preview'}</video></div>\n`;
+    }else{
+      const imgUrl=vid?imgs[i-2]:imgs[i-1];
+      html+=`          <div class="gx-slide gx-s${i}" style="${styleAttr}"><label class="gx-zoom" for="gz${i}"><span class="gx-zbadge"><span class="zt-in">🔍 Click to zoom</span><span class="zt-out">✖ Close</span></span><img src="${imgUrl}" alt="Product View ${i}" style="max-width:100%;max-height:${thumbsHeight}px;height:auto;width:auto;border-radius:10px;object-fit:contain;"></label></div>\n`;
+    }
   }
   // When ANY thumbnail other than first is checked, hide first slide
   let hideFirst='';
@@ -2075,7 +2103,16 @@ function buildGallery(t,imgs){
   }
   html+='        </div>\n';
   html+='        <div class="gx-thumbs">\n';
-  for(let i=1;i<=n;i++)html+=`          <label for="gx${i}" class="gx-t${i}"><img src="${imgs[i-1]}" alt="View ${i}"></label>\n`;
+  for(let i=1;i<=n;i++){
+    const isVidThumb=vid && i===1;
+    if(isVidThumb){
+      const thumbSrc=vidPoster||'';
+      html+=`          <label for="gx${i}" class="gx-t${i}" style="position:relative;display:block;">${thumbSrc?`<img src="${thumbSrc}" alt="Video">`:'<div style="padding:26px 6px;font-size:12px;color:#fff;background:#0b3c49;border-radius:5px;">Video</div>'}<span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:20px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7);pointer-events:none;">&#9654;</span></label>\n`;
+    }else{
+      const imgUrl=vid?imgs[i-2]:imgs[i-1];
+      html+=`          <label for="gx${i}" class="gx-t${i}"><img src="${imgUrl}" alt="View ${i}"></label>\n`;
+    }
+  }
   html+='        </div>\n';
   html+='      </div>\n\n    </div>\n  </div>\n\n';
   return{css:css,html:html};
@@ -2939,7 +2976,9 @@ function buildListingHTML(desc, themeKeyIn, imgs, cards, store){
   const featSec=parsed.sections.find(s=>s.type==='features');
   const pkgSec=parsed.sections.find(s=>s.type==='package');
   const notesSec=parsed.sections.find(s=>s.type==='notes');
-  const gallery=buildGallery(t,imgs);
+  const _vid=((document.getElementById('videoInput')||{}).value||'').trim();
+  const _vidPoster=((document.getElementById('videoPosterInput')||{}).value||'').trim();
+  const gallery=buildGallery(t,imgs,_vid,_vidPoster);
 
   let html=gallery.css;
   html+=`<div style="width:100%;max-width:1280px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;background:${t.bg};padding-bottom:20px;">
@@ -5467,6 +5506,8 @@ function saveDraft(){
     storeAcc:document.getElementById('storeAccSelect').value,
     store:document.getElementById('storeInput').value,
     theme:document.getElementById('themeSelect').value,
+    video:(document.getElementById('videoInput')||{}).value||'',
+    videoPoster:(document.getElementById('videoPosterInput')||{}).value||'',
     picked:pickedProducts
   };
   localStorage.setItem(DRAFT_KEY,JSON.stringify(d));
@@ -5476,6 +5517,8 @@ function loadDraft(){
     const d=JSON.parse(localStorage.getItem(DRAFT_KEY));if(!d)return;
     document.getElementById('descInput').value=d.desc||'';
     document.getElementById('galleryInput').value=d.gallery||'';
+    if(document.getElementById('videoInput'))document.getElementById('videoInput').value=d.video||'';
+    if(document.getElementById('videoPosterInput'))document.getElementById('videoPosterInput').value=d.videoPoster||'';
     document.getElementById('storeInput').value=d.store||'';
     document.getElementById('themeSelect').value=d.theme||'auto';
     if(d.gallerySel)document.getElementById('gallerySelect').value=d.gallerySel;
@@ -5491,8 +5534,9 @@ function loadDraft(){
 }
 
 /* Auto-save on input */
-['descInput','galleryInput','storeInput','themeSelect'].forEach(id=>{
+['descInput','galleryInput','storeInput','themeSelect','videoInput','videoPosterInput'].forEach(id=>{
   const el=document.getElementById(id);
+  if(!el)return;
   el.addEventListener('input',saveDraft);
   el.addEventListener('change',saveDraft);
 });
