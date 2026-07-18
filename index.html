@@ -126,6 +126,42 @@ body.role-member .adminOnly{display:none !important}
   .magate-form{padding:26px 22px 26px;}
 }
 </style>
+<style id="m98mProCss">
+.lib-search{width:100%;box-sizing:border-box;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#e6edf3;font-size:13px;padding:8px 12px;margin:0 0 10px;outline:none;}
+.lib-search:focus{border-color:#00a896;}
+.lib-toolbar{display:flex;gap:8px;align-items:center;margin:0 0 10px;}
+.lib-toolbar .lib-search{margin:0;flex:1;}
+#valPanel{display:none;margin-top:10px;padding:12px 14px;background:#0d1620;border:1px solid #2c4060;border-radius:10px;font-size:13px;line-height:1.7;}
+#valPanel .v-ok{color:#4dd0b8;}
+#valPanel .v-warn{color:#ffcf82;}
+#valPanel .v-err{color:#ff9f9f;}
+#abPanel{display:none;margin-top:12px;padding:14px;background:#0d1620;border:1px solid #2c4060;border-radius:10px;}
+.ab-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.ab-acc{flex:0 0 150px;font-size:12px;color:#8fc7ff;font-weight:bold;}
+.ab-row input{flex:1;background:#101b28;border:1px solid #2c4060;border-radius:7px;color:#e6edf3;font-size:13px;padding:7px 10px;outline:none;}
+.ab-row input:focus{border-color:#00a896;}
+.ab-cnt{flex:0 0 44px;text-align:right;font-size:11px;color:#7f93a8;}
+.ab-cnt.over{color:#ff9f9f;font-weight:bold;}
+#ihcOverlay{display:none;position:fixed;inset:0;background:rgba(4,8,14,.82);z-index:100010;align-items:center;justify-content:center;padding:20px;font-family:Arial,Helvetica,sans-serif;}
+#ihcBox{width:100%;max-width:620px;max-height:82vh;display:flex;flex-direction:column;background:#131c28;border:1px solid #2c4060;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.65);overflow:hidden;}
+#ihcHead{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid #223349;color:#e6edf3;font-weight:bold;}
+#ihcHead .sp{flex:1;}
+#ihcProgTxt{font-size:12px;color:#8fa3b8;font-weight:normal;}
+#ihcBarWrap{height:6px;background:#0d1620;}
+#ihcBar{height:6px;width:0%;background:#00a896;transition:width .2s;}
+#ihcResults{padding:12px 18px;overflow-y:auto;font-size:13px;line-height:1.6;color:#cfe0ee;}
+.ihc-dead{padding:8px 10px;margin-bottom:8px;background:#241318;border:1px solid #5a2c2c;border-radius:8px;word-break:break-all;}
+.ihc-dead .t{color:#ff9f9f;font-weight:bold;font-size:12px;}
+.ihc-dead .u{color:#c9a0a0;font-size:11px;}
+.ihc-sum{margin-bottom:10px;color:#4dd0b8;font-weight:bold;}
+</style>
+<div id="ihcOverlay">
+  <div id="ihcBox">
+    <div id="ihcHead">🩺 Image Health Check <span class="sp"></span><span id="ihcProgTxt"></span><button class="btn btn2 btn-sm" onclick="ihcClose()">✖ Band karein</button></div>
+    <div id="ihcBarWrap"><div id="ihcBar"></div></div>
+    <div id="ihcResults"><div class="hint">Check chal raha hai…</div></div>
+  </div>
+</div>
 <div id="pwGate">
   <div class="magate-card">
     <div class="magate-scene">
@@ -179,7 +215,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v3.7 — 17 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v3.8 — 17 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -348,7 +384,10 @@ https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"
     <div id="fontPreview" style="margin-top:8px;padding:14px 16px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#e6edf3;font-size:22px;line-height:1.35;text-align:center;">Aa Bb Cc &nbsp;·&nbsp; White Blackout Curtains &nbsp;·&nbsp; 130×90 cm</div>
 
     <button class="btn" onclick="generate()">⚡ GENERATE FULL LISTING</button>
+    <div id="valPanel"></div>
     <div class="msg" id="genMsg"></div>
+    <button class="btn btn2" style="margin-top:10px;" onclick="abGenerate()">🎯 7 A/B TITLES (har account ke liye)</button>
+    <div id="abPanel"></div>
 
     <!-- ============ MULTI-ACCOUNT BULK GENERATE (NEW) ============ -->
     <div style="margin-top:22px;padding:18px;background:linear-gradient(135deg,#0f2a26,#0d1f2c);border:1px solid #1f5a4f;border-radius:12px;">
@@ -490,6 +529,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
       <hr>
 
       <label>📋 GALLERIES in this account</label>
+      <div class="lib-toolbar"><input class="lib-search" id="galSearch" placeholder="🔍 Gallery search karein…" oninput="m98mFilterList('galSearch','galList')"><button class="btn btn2 btn-sm" onclick="ihcRun()" title="Poori library ke image links test karein">🩺 Check Images</button></div>
       <div id="galList"></div>
 
       <hr>
@@ -582,6 +622,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
       <hr>
 
       <label>📦 SAVED PRODUCTS in this set</label>
+      <input class="lib-search" id="prodSearch" placeholder="🔍 Product card search karein…" oninput="m98mFilterList('prodSearch','prodList')">
       <div id="prodList"></div>
 
       <hr>
@@ -620,7 +661,8 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
     <hr>
 
     <label>📋 SAVED STORE LINKS</label>
-    <div id="storeList"></div>
+    <input class="lib-search" id="storeSearch" placeholder="🔍 Account/store search karein…" oninput="m98mFilterList('storeSearch','storeList')">
+      <div id="storeList"></div>
     <div class="msg" id="storeMsg"></div>
   </div>
 
@@ -2826,7 +2868,7 @@ function buildListingHTML(desc, themeKeyIn, imgs, cards, store){
   return {html:html, title:parsed.title, themeKey:themeKey, autoPicked:autoPicked, imgCount:imgs.length, cardCount:cards.length, hasStore:!!store};
 }
 
-function generate(){
+function generateCore(){
   saveDraft();
   const msg=document.getElementById('genMsg');
   const desc=document.getElementById('descInput').value;
@@ -3966,6 +4008,179 @@ function lampToggle(on){
   if(document.readyState!=='loading')cordInit();
   else document.addEventListener('DOMContentLoaded',cordInit);
 })();
+
+/* ==================== v3.8 PRO FEATURES ==================== */
+
+/* ---- 1. Library search filters ---- */
+function m98mFilterList(inpId,listId){
+  var q=((document.getElementById(inpId)||{}).value||'').toLowerCase().trim();
+  var list=document.getElementById(listId); if(!list)return;
+  var rows=list.querySelectorAll('.prod-row');
+  for(var i=0;i<rows.length;i++){
+    rows[i].style.display=(!q||rows[i].textContent.toLowerCase().indexOf(q)>=0)?'':'none';
+  }
+}
+(function(){
+  function hook(){
+    [['galSearch','galList'],['prodSearch','prodList'],['storeSearch','storeList']].forEach(function(p){
+      var list=document.getElementById(p[1]); if(!list)return;
+      try{
+        new MutationObserver(function(){m98mFilterList(p[0],p[1]);}).observe(list,{childList:true});
+      }catch(e){}
+    });
+  }
+  if(document.readyState!=='loading')hook();else document.addEventListener('DOMContentLoaded',hook);
+})();
+
+/* ---- 2. Pre-generate validation ---- */
+function preGenChecks(){
+  var errors=[],warns=[],oks=[];
+  var desc=(document.getElementById('descInput')||{}).value||'';
+  var titleLine=(desc.split('\n')[0]||'').split('|')[0].trim();
+  if(!titleLine){errors.push('Title (description ki pehli line) khali hai');}
+  else if(titleLine.length>80){errors.push('Title '+titleLine.length+' chars — eBay limit 80 hai ('+(titleLine.length-80)+' zyada)');}
+  else{oks.push('Title '+titleLine.length+'/80 chars');}
+  var imgs=((document.getElementById('galleryInput')||{}).value||'').split('\n').map(function(s){return s.trim();}).filter(function(s){return s.length>0;});
+  if(imgs.length===0){warns.push('Gallery images 0 — template gallery skip karega');}
+  else if(imgs.length<5){warns.push('Gallery images '+imgs.length+'/5 — 5 best hoti hain');}
+  else if(imgs.length>5){warns.push('Gallery images '+imgs.length+' — sirf pehli 5 use hongi');}
+  else{oks.push('Gallery images 5/5');}
+  var badHttp=imgs.filter(function(u){return u.indexOf('http://')===0;});
+  if(badHttp.length){errors.push(badHttp.length+' image link http:// hain — eBay ko https chahiye');}
+  var cards=[];try{cards=getSelectedCards()||[];}catch(e){}
+  if(cards.length===0){warns.push('Product cards 0 — "More From Our Store" section skip hoga');}
+  else if(cards.length<4){warns.push('Product cards '+cards.length+'/4');}
+  else{oks.push('Product cards '+cards.length);}
+  var store=((document.getElementById('storeInput')||{}).value||'').trim();
+  if(!store){warns.push('Store link khali — store button skip hoga');}
+  else if(store.indexOf('ebay.')<0){warns.push('Store link mein "ebay." nahi mila — check karein');}
+  else{oks.push('Store link OK');}
+  return {errors:errors,warns:warns,oks:oks};
+}
+function renderValPanel(rep){
+  var p=document.getElementById('valPanel'); if(!p)return;
+  var h='';
+  rep.errors.forEach(function(t){h+='<div class="v-err">❌ '+escAttr(t)+'</div>';});
+  rep.warns.forEach(function(t){h+='<div class="v-warn">⚠️ '+escAttr(t)+'</div>';});
+  if(!rep.errors.length&&!rep.warns.length){h='<div class="v-ok">✅ Sab checks pass — listing clean hai</div>';}
+  else{rep.oks.forEach(function(t){h+='<div class="v-ok">✅ '+escAttr(t)+'</div>';});}
+  p.innerHTML=h;p.style.display='block';
+}
+function generate(){
+  var rep=preGenChecks();
+  renderValPanel(rep);
+  if(rep.errors.length){
+    uiConfirm('⚠️ '+rep.errors.length+' error mile (button ke neeche panel dekhein) — phir bhi generate karein?',function(){generateCore();});
+  }else{generateCore();}
+}
+
+/* ---- 3. Image Health Checker ---- */
+var ihcStop=false;
+function ihcCollect(){
+  var items=[];
+  try{
+    var by=getGalsByAccount();
+    Object.keys(by).forEach(function(acc){(by[acc]||[]).forEach(function(g){(g.images||[]).forEach(function(u,ix){if(u)items.push({src:'Gallery',acc:acc,name:g.title||'(no name)',ix:ix+1,url:u});});});});
+  }catch(e){}
+  try{
+    var cs=getCards();
+    Object.keys(cs).forEach(function(acc){(cs[acc]||[]).forEach(function(p2){if(p2&&p2.img)items.push({src:'Card',acc:acc,name:p2.title||'(no title)',ix:0,url:p2.img});});});
+  }catch(e){}
+  return items;
+}
+function ihcTest(url){
+  return new Promise(function(res){
+    var im=new Image(),done=false;
+    var to=setTimeout(function(){if(done)return;done=true;res(false);},12000);
+    im.onload=function(){if(done)return;done=true;clearTimeout(to);res(true);};
+    im.onerror=function(){if(done)return;done=true;clearTimeout(to);res(false);};
+    im.src=url;
+  });
+}
+function ihcRun(){
+  var items=ihcCollect();
+  var ov=document.getElementById('ihcOverlay'),resBox=document.getElementById('ihcResults'),
+      bar=document.getElementById('ihcBar'),ptxt=document.getElementById('ihcProgTxt');
+  ov.style.display='flex';ihcStop=false;
+  if(items.length===0){resBox.innerHTML='<div class="hint">Library mein koi image link nahi mila.</div>';ptxt.textContent='';bar.style.width='0%';return;}
+  resBox.innerHTML='<div class="hint">Checking '+items.length+' images…</div>';
+  var done=0,dead=[],qi=0,CONC=6;
+  function upd(){
+    var pc=Math.round(done/items.length*100);
+    bar.style.width=pc+'%';ptxt.textContent=done+'/'+items.length;
+    var h='';
+    if(done>=items.length){h+='<div class="ihc-sum">✅ '+(items.length-dead.length)+' OK · ❌ '+dead.length+' dead</div>';
+      if(dead.length===0)h+='<div class="v-ok" style="color:#4dd0b8;">Sab images zinda hain — koi masla nahi! 🎉</div>';}
+    dead.forEach(function(d){
+      h+='<div class="ihc-dead"><div class="t">❌ '+escAttr(d.src)+' · '+escAttr(d.acc)+' · '+escAttr(d.name)+(d.ix?(' · img #'+d.ix):'')+'</div><div class="u">'+escAttr(d.url)+'</div></div>';
+    });
+    if(h)resBox.innerHTML=h;
+  }
+  function next(){
+    if(ihcStop)return;
+    if(qi>=items.length)return;
+    var it=items[qi++];
+    ihcTest(it.url).then(function(ok){
+      if(!ok)dead.push(it);
+      done++;upd();next();
+    });
+  }
+  for(var k=0;k<CONC&&k<items.length;k++)next();
+}
+function ihcClose(){ihcStop=true;document.getElementById('ihcOverlay').style.display='none';}
+
+/* ---- 4. 7-Account A/B Title Generator ---- */
+var AB_ACCOUNTS=['Azhar Bhai (growmore786)','Saif Bhai','Amna Baji (TroviaCo)','Hafiza Baji','Sir Hasib','ABRT','Yasin'];
+function abFit(s){s=s.replace(/\s+/g,' ').trim();if(s.length<=80)return s;s=s.slice(0,80);return s.replace(/\s+\S*$/,'').trim();}
+function abGenerate(){
+  var desc=(document.getElementById('descInput')||{}).value||'';
+  var first=(desc.split('\n')[0]||'').split('|')[0].trim();
+  if(!first){flash('genMsg','err','❌ Pehle Step 1 mein description paste karein (pehli line = title).');return;}
+  var specM=desc.match(/\b\d+(?:\.\d+)?\s?(?:cm|mm|ml|kg|pcs|pack|pairs?|led|w|v)\b/i);
+  var spec=specM?specM[0].toUpperCase():'';
+  var pf='';
+  var pfIdx=desc.toUpperCase().indexOf('PERFECT FOR');
+  if(pfIdx>=0){
+    var after=desc.slice(pfIdx).split('\n').slice(1).map(function(l){return l.replace(/^[-•*\s]+/,'').trim();}).filter(function(l){return l;});
+    if(after.length)pf=after[0].split(/[,.]/)[0].trim();
+  }
+  var core=first.replace(/\s+/g,' ');
+  var variants=[
+    abFit(core),
+    abFit(core+' - Fast UK Delivery'),
+    abFit('Premium '+core),
+    abFit(pf?(core+' for '+pf):(core+' for Home')),
+    abFit(core+' High Quality Durable'),
+    abFit(spec?(core+' '+spec):(core+' UK Seller')),
+    abFit(core+' New UK Stock')
+  ];
+  var p=document.getElementById('abPanel');
+  var h='<div style="font-size:12px;color:#8fa3b8;margin-bottom:10px;">🎯 Har account ka alag angle — edit kar sakte hain, counter live hai. 30 din A/B test karein.</div>';
+  for(var i=0;i<7;i++){
+    h+='<div class="ab-row"><span class="ab-acc">'+escAttr(AB_ACCOUNTS[i])+'</span>'+
+       '<input id="abT'+i+'" value="'+escAttr(variants[i])+'" oninput="abCount('+i+')">'+
+       '<span class="ab-cnt" id="abC'+i+'"></span>'+
+       '<button class="btn btn2 btn-sm" onclick="abCopy('+i+',this)">📋</button></div>';
+  }
+  h+='<button class="btn btn2 btn-sm" style="margin-top:6px;" onclick="abCopyAll(this)">📋 Copy All (account list ke saath)</button>';
+  p.innerHTML=h;p.style.display='block';
+  for(var j=0;j<7;j++)abCount(j);
+}
+function abCount(i){
+  var v=(document.getElementById('abT'+i)||{}).value||'';
+  var c=document.getElementById('abC'+i); if(!c)return;
+  c.textContent=v.length+'/80';
+  c.className='ab-cnt'+(v.length>80?' over':'');
+}
+function abCopy(i,btn){
+  var v=(document.getElementById('abT'+i)||{}).value||'';
+  navigator.clipboard.writeText(v).then(function(){var o=btn.textContent;btn.textContent='✅';setTimeout(function(){btn.textContent=o;},1200);});
+}
+function abCopyAll(btn){
+  var out=[];
+  for(var i=0;i<7;i++){out.push(AB_ACCOUNTS[i]+': '+((document.getElementById('abT'+i)||{}).value||''));}
+  navigator.clipboard.writeText(out.join('\n')).then(function(){var o=btn.textContent;btn.textContent='✅ Copied!';setTimeout(function(){btn.textContent=o;},1400);});
+}
 function signOut(){
   if(!confirm('Sign out karna hai? Dobara aane ke liye Google se sign-in karna hoga.'))return;
   try{
