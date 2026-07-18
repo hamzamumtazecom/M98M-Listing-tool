@@ -174,32 +174,37 @@ body.role-member .adminOnly{display:none !important}
 .stat-chip{display:inline-block;background:#0d1620;border:1px solid #2c4060;border-radius:999px;padding:4px 11px;font-size:12px;color:#cfe0ee;margin:0 6px 6px 0;}
 .stat-chip b{color:#4dd0b8;}
 .stat-h{font-size:12px;color:#8fa3b8;font-weight:bold;margin:10px 0 6px;letter-spacing:.4px;}
-#pandaMove{pointer-events:none;display:none;transform:translate(-80px,292px);}
-#pandaSpin{transform-box:fill-box;transform-origin:50% 60%;}
+#pandaMove{pointer-events:none;display:none;transform:translate(-100px,296px);}
+#pandaShadow{opacity:0;transition:opacity .3s;}
+#pandaMove.panda-stand #pandaShadow,#pandaMove.panda-reach #pandaShadow{opacity:1;}
+#pandaSpin{transform-box:fill-box;transform-origin:50% 72%;}
 #pandaBody{transform-box:fill-box;transform-origin:50% 100%;}
-#pandaLegL,#pandaLegR{transform-box:fill-box;transform-origin:50% 50%;}
-#pandaArmR{transform-box:fill-box;transform-origin:50% 4%;}
-#pandaMove.panda-walk{display:block;animation:pandaWalk 1.15s linear forwards;}
-#pandaMove.panda-walk #pandaBody{animation:pandaWaddle .4s ease-in-out infinite;}
-#pandaMove.panda-walk #pandaLegL{animation:pandaStep .4s ease-in-out infinite;}
-#pandaMove.panda-walk #pandaLegR{animation:pandaStep .4s ease-in-out infinite .2s;}
-#pandaMove.panda-roll{display:block;animation:pandaRollGo .55s ease-in forwards;}
-#pandaMove.panda-roll #pandaSpin{animation:pandaSpinKf .55s linear forwards;}
-#pandaMove.panda-stand{display:block;transform:translate(176px,292px);}
-#pandaMove.panda-stand #pandaSpin{animation:pandaBreathe 2.8s ease-in-out infinite;}
-#pandaMove.panda-reach{display:block;transform:translate(176px,292px);}
-#pandaMove.panda-reach #pandaSpin{animation:pandaTiptoe .3s ease-out forwards;}
-#pandaMove.panda-reach #pandaArmR{animation:pandaArmUp .3s ease-out forwards;}
-#pandaMove.panda-pull #pandaArmR{animation:pandaArmPull .2s ease-in forwards;}
-@keyframes pandaWalk{from{transform:translate(-80px,292px)}to{transform:translate(58px,292px)}}
-@keyframes pandaWaddle{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
-@keyframes pandaStep{0%,50%,100%{transform:translateY(0)}25%{transform:translateY(-4px)}}
-@keyframes pandaRollGo{from{transform:translate(58px,292px)}to{transform:translate(176px,292px)}}
-@keyframes pandaSpinKf{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes pandaBreathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.035)}}
-@keyframes pandaTiptoe{from{transform:scaleY(1)}to{transform:scaleY(1.1)}}
-@keyframes pandaArmUp{from{transform:rotate(0deg)}to{transform:rotate(-172deg)}}
-@keyframes pandaArmPull{from{transform:rotate(-172deg)}to{transform:rotate(-118deg)}}
+#pandaLegL,#pandaLegR{transform-box:fill-box;transform-origin:50% 20%;}
+#pandaArmR{transform-box:fill-box;transform-origin:50% 0%;transition:transform .3s ease-out;}
+#pandaArmL{transform-box:fill-box;transform-origin:50% 0%;}
+#pandaHead{transform-box:fill-box;transform-origin:50% 100%;}
+#pandaMove.panda-walk{display:block;animation:pandaWalk 1.35s linear forwards;}
+#pandaMove.panda-walk #pandaBody{animation:pandaWaddle .42s ease-in-out infinite;}
+#pandaMove.panda-walk #pandaLegL{animation:pandaStep .42s ease-in-out infinite;}
+#pandaMove.panda-walk #pandaLegR{animation:pandaStep .42s ease-in-out infinite .21s;}
+#pandaMove.panda-walk #pandaArmL{animation:pandaSwing .42s ease-in-out infinite;}
+#pandaMove.panda-walk #pandaArmR{animation:pandaSwing .42s ease-in-out infinite .21s;}
+#pandaMove.panda-walk #pandaHead{animation:pandaBob .42s ease-in-out infinite;}
+#pandaMove.panda-roll{display:block;animation:pandaRollGo .62s cubic-bezier(.4,0,.7,1) forwards;}
+#pandaMove.panda-roll #pandaSpin{animation:pandaSpinKf .62s linear forwards;}
+#pandaMove.panda-stand{display:block;transform:translate(174px,296px);}
+#pandaMove.panda-stand #pandaSpin{animation:pandaBreathe 2.6s ease-in-out infinite;}
+#pandaMove.panda-reach{display:block;transform:translate(174px,296px);}
+#pandaMove.panda-squish #pandaBody{animation:pandaSquish .22s ease-out;}
+@keyframes pandaWalk{from{transform:translate(-100px,296px)}to{transform:translate(52px,296px)}}
+@keyframes pandaWaddle{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes pandaStep{0%,50%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-6px) rotate(-12deg)}}
+@keyframes pandaSwing{0%,100%{transform:rotate(14deg)}50%{transform:rotate(-14deg)}}
+@keyframes pandaBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes pandaRollGo{from{transform:translate(52px,296px)}to{transform:translate(174px,296px)}}
+@keyframes pandaSpinKf{from{transform:rotate(0deg)}to{transform:rotate(380deg)}}
+@keyframes pandaBreathe{0%,100%{transform:scaleY(1) translateY(0)}50%{transform:scaleY(1.04) translateY(-1px)}}
+@keyframes pandaSquish{0%{transform:scaleY(1)}45%{transform:scaleY(.9) translateY(4px)}100%{transform:scaleY(1)}}
 </style>
 <div id="ihcOverlay">
   <div id="ihcBox">
@@ -254,28 +259,44 @@ body.role-member .adminOnly{display:none !important}
           <circle id="magCordHit" class="mag-cord-hit" cx="197" cy="196" r="16" fill="rgba(0,0,0,0)"/>
         </g>
         <g id="pandaMove">
+          <ellipse id="pandaShadow" cx="0" cy="2" rx="30" ry="6" fill="#000" opacity="0.28"/>
           <g id="pandaSpin">
             <g id="pandaBody">
-              <ellipse id="pandaLegL" cx="-11" cy="-7" rx="8.5" ry="8" fill="#1c242e"/>
-              <ellipse id="pandaLegR" cx="11" cy="-7" rx="8.5" ry="8" fill="#1c242e"/>
-              <ellipse cx="0" cy="-36" rx="23" ry="28" fill="#f5f7fa" stroke="#22303f" stroke-width="1.8"/>
-              <ellipse cx="0" cy="-28" rx="14" ry="16" fill="#ffffff" opacity="0.6"/>
-              <ellipse cx="-21" cy="-42" rx="7" ry="13" fill="#1c242e" transform="rotate(16 -21 -42)"/>
-              <g id="pandaArmR" transform="translate(19,-50)">
-                <ellipse cx="0" cy="16" rx="6.5" ry="17" fill="#1c242e"/>
-                <circle cx="0" cy="31" r="5" fill="#2a333f"/>
+              <ellipse id="pandaLegL" cx="-15" cy="-9" rx="11" ry="10" fill="#161d26"/>
+              <ellipse id="pandaLegR" cx="15" cy="-9" rx="11" ry="10" fill="#161d26"/>
+              <ellipse cx="-15" cy="-3" rx="8" ry="4" fill="#0e141b"/>
+              <ellipse cx="15" cy="-3" rx="8" ry="4" fill="#0e141b"/>
+              <g id="pandaArmL" transform="translate(-25,-66)">
+                <ellipse cx="0" cy="20" rx="8" ry="21" fill="#161d26"/>
+                <circle cx="0" cy="39" r="6.5" fill="#1c242e"/>
               </g>
-              <circle cx="0" cy="-70" r="17" fill="#f5f7fa" stroke="#22303f" stroke-width="1.8"/>
-              <circle cx="-12.5" cy="-84" r="6.4" fill="#1c242e"/>
-              <circle cx="12.5" cy="-84" r="6.4" fill="#1c242e"/>
-              <ellipse cx="-6.4" cy="-72" rx="4.6" ry="6" fill="#1c242e" transform="rotate(-12 -6.4 -72)"/>
-              <ellipse cx="6.4" cy="-72" rx="4.6" ry="6" fill="#1c242e" transform="rotate(12 6.4 -72)"/>
-              <circle cx="-5.6" cy="-73" r="1.9" fill="#ffffff"/>
-              <circle cx="5.6" cy="-73" r="1.9" fill="#ffffff"/>
-              <circle cx="-5.3" cy="-72.7" r="1" fill="#0a0e14"/>
-              <circle cx="5.9" cy="-72.7" r="1" fill="#0a0e14"/>
-              <ellipse cx="0" cy="-64" rx="2.6" ry="2" fill="#1c242e"/>
-              <path d="M-3,-60 Q0,-57.5 3,-60" fill="none" stroke="#1c242e" stroke-width="1.3" stroke-linecap="round"/>
+              <ellipse cx="0" cy="-42" rx="29" ry="35" fill="#f7f9fb" stroke="#1e2a37" stroke-width="2"/>
+              <ellipse cx="0" cy="-33" rx="18" ry="21" fill="#ffffff" opacity="0.7"/>
+              <g id="pandaArmR" transform="translate(25,-66)">
+                <ellipse cx="0" cy="20" rx="8" ry="21" fill="#161d26"/>
+                <circle cx="0" cy="39" r="6.5" fill="#1c242e"/>
+                <ellipse cx="0" cy="41" rx="4" ry="2.5" fill="#2f3946"/>
+              </g>
+              <g id="pandaHead">
+                <ellipse cx="-17" cy="-98" rx="9" ry="10" fill="#161d26"/>
+                <ellipse cx="17" cy="-98" rx="9" ry="10" fill="#161d26"/>
+                <ellipse cx="-17" cy="-98" rx="4.5" ry="5.5" fill="#2a333f"/>
+                <ellipse cx="17" cy="-98" rx="4.5" ry="5.5" fill="#2a333f"/>
+                <circle cx="0" cy="-86" r="22" fill="#f7f9fb" stroke="#1e2a37" stroke-width="2"/>
+                <ellipse cx="-8.5" cy="-90" rx="7.5" ry="9.5" fill="#161d26" transform="rotate(-16 -8.5 -90)"/>
+                <ellipse cx="8.5" cy="-90" rx="7.5" ry="9.5" fill="#161d26" transform="rotate(16 8.5 -90)"/>
+                <circle cx="-7.6" cy="-89" r="3.6" fill="#fff"/>
+                <circle cx="7.6" cy="-89" r="3.6" fill="#fff"/>
+                <circle cx="-7" cy="-88.4" r="2.3" fill="#0a0e14"/>
+                <circle cx="8.2" cy="-88.4" r="2.3" fill="#0a0e14"/>
+                <circle cx="-6.2" cy="-89.4" r="0.8" fill="#fff"/>
+                <circle cx="9" cy="-89.4" r="0.8" fill="#fff"/>
+                <ellipse cx="0" cy="-78" rx="3.6" ry="2.6" fill="#161d26"/>
+                <path d="M0,-76 Q0,-72 -4,-72" fill="none" stroke="#161d26" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M0,-76 Q0,-72 4,-72" fill="none" stroke="#161d26" stroke-width="1.4" stroke-linecap="round"/>
+                <circle cx="-13" cy="-80" r="3.4" fill="#ffb3b3" opacity="0.55"/>
+                <circle cx="13" cy="-80" r="3.4" fill="#ffb3b3" opacity="0.55"/>
+              </g>
             </g>
           </g>
         </g>
@@ -305,7 +326,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v4.2 — 17 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v4.3 — 17 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
@@ -4065,14 +4086,15 @@ function gateCloseWithLamp(){
 }
 var __pandaHere=false,__pandaBusy=false,__cordDragT=0;
 function pandaEl(){return document.getElementById('pandaMove');}
-function pandaCls(){var p=pandaEl();if(p)p.classList.remove('panda-walk','panda-roll','panda-stand','panda-reach','panda-pull');return p;}
+function pandaCls(){var p=pandaEl();if(p)p.classList.remove('panda-walk','panda-roll','panda-stand','panda-reach','panda-squish');return p;}
 function pandaReset(){
   __pandaHere=false;
   var p=pandaCls(); if(!p)return;
   p.style.display='none';
   var a=document.getElementById('pandaArmR');
-  if(a)a.style.animation='';
+  if(a){a.style.transition='';a.style.transform='';}
 }
+function pandaCls2(){var p=pandaEl();if(p)p.classList.remove('panda-squish');return p;}
 /* walk (waddle) -> roll -> stand */
 function pandaEnter(cb){
   var p=pandaEl();
@@ -4091,53 +4113,55 @@ function pandaEnter(cb){
     },570);
   },1150);
 }
-/* haath utha kar rassi khenchna */
+/* haath utha kar rassi ko pakarna, phir haath+rassi ek saath neeche khenchna (lockstep) */
 function pandaReachPull(to,cb){
-  var p=pandaEl();
+  var p=pandaEl(),arm=document.getElementById('pandaArmR');
   if(!p){lampToggle(to);if(cb)cb();return;}
-  p.classList.remove('panda-stand');
-  p.classList.add('panda-reach');
+  p.classList.remove('panda-walk','panda-roll');
+  p.classList.add('panda-stand','panda-reach');
+  if(!arm){lampToggle(to);if(cb)cb();return;}
+  // 1) haath upar utha kar knob par le jao (CSS transition .3s)
+  arm.style.transition='transform .3s ease-out';
+  arm.style.transform='rotate(-178deg)';
   setTimeout(function(){
-    p.classList.add('panda-pull');
-    pandaCordPull(to,function(){
-      p.classList.remove('panda-reach','panda-pull');
-      p.classList.add('panda-stand');
-      if(cb)cb();
-    });
-  },320);
-}
-function pandaCordPull(to,done){
-  var knob=document.getElementById('magCordKnob'),
-      line=document.getElementById('magCordLine'),
-      hit=document.getElementById('magCordHit');
-  if(!knob){lampToggle(to);if(done)done();return;}
-  var restY=196,downY=232;
-  function setCY(y){
-    knob.setAttribute('cy',y);
-    if(line)line.setAttribute('y2',y-4);
-    if(hit)hit.setAttribute('cy',y);
-  }
-  var t0=null;
-  function down(ts){
-    if(t0===null)t0=ts;
-    var pr=Math.min(1,(ts-t0)/180);
-    setCY(restY+(downY-restY)*pr);
-    if(pr<1)requestAnimationFrame(down);
-    else{
-      lampToggle(to);
-      var t1=null;
-      function up(ts2){
-        if(t1===null)t1=ts2;
-        var pr2=Math.min(1,(ts2-t1)/260);
-        var e2=1-Math.pow(1-pr2,3);
-        setCY(downY+(restY-downY)*e2);
-        if(pr2<1)requestAnimationFrame(up);
-        else{setCY(restY);if(done)done();}
+    // 2) grab + pull: haath aur rassi dono ek saath neeche (rAF, no transition)
+    arm.style.transition='none';
+    p.classList.add('panda-squish');
+    var knob=document.getElementById('magCordKnob'),
+        line=document.getElementById('magCordLine'),
+        hit=document.getElementById('magCordHit'),
+        restY=196,pull=34,t0=null,lit=false;
+    function setCY(y){if(knob){knob.setAttribute('cy',y);}if(line){line.setAttribute('y2',y-4);}if(hit){hit.setAttribute('cy',y);}}
+    function down(ts){
+      if(t0===null)t0=ts;
+      var pr=Math.min(1,(ts-t0)/230),e=1-Math.pow(1-pr,2),d=pull*e;
+      arm.style.transform='translateY('+d+'px) rotate(-178deg)';
+      setCY(restY+d);
+      if(!lit&&pr>=1){lit=true;lampToggle(to);}
+      if(pr<1)requestAnimationFrame(down);
+      else{
+        // 3) chhoro -> rassi + haath spring back
+        var t1=null;
+        function up(ts2){
+          if(t1===null)t1=ts2;
+          var pr2=Math.min(1,(ts2-t1)/300),e2=1-Math.pow(1-pr2,3),d2=pull*(1-e2);
+          arm.style.transform='translateY('+d2+'px) rotate(-178deg)';
+          setCY(restY+d2);
+          if(pr2<1)requestAnimationFrame(up);
+          else{
+            setCY(restY);
+            // haath wapas neeche latka do
+            arm.style.transition='transform .3s ease-out';
+            arm.style.transform='';
+            p.classList.remove('panda-reach','panda-squish');
+            if(cb)cb();
+          }
+        }
+        requestAnimationFrame(up);
       }
-      requestAnimationFrame(up);
     }
-  }
-  requestAnimationFrame(down);
+    requestAnimationFrame(down);
+  },320);
 }
 /* kahin bhi click -> poora show: walk, roll, haath se pull */
 function pandaShow(){
