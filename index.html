@@ -226,14 +226,14 @@ body.role-member .adminOnly{display:none !important}
 </style>
 <div id="ihcOverlay">
   <div id="ihcBox">
-    <div id="ihcHead">🩺 Image Health Check <span class="sp"></span><span id="ihcProgTxt"></span><button class="btn btn2 btn-sm" onclick="ihcClose()">✖ Band karein</button></div>
+    <div id="ihcHead">🩺 Image Health Check <span class="sp"></span><span id="ihcProgTxt"></span><button class="btn btn2 btn-sm" onclick="ihcClose()">✖ Close</button></div>
     <div id="ihcBarWrap"><div id="ihcBar"></div></div>
     <div id="ihcResults"><div class="hint">Check chal raha hai…</div></div>
   </div>
 </div>
 <div id="trashOverlay">
   <div id="trashBox">
-    <div id="trashHead">🗑️ Recycle Bin <span style="font-weight:normal;font-size:12px;color:#7f93a8;">(7 din baad khud saaf)</span><span class="sp"></span><button class="btn btn-red btn-sm" onclick="trashEmpty()">Empty Trash</button><button class="btn btn2 btn-sm" onclick="trashClose()">✖ Band karein</button></div>
+    <div id="trashHead">🗑️ Recycle Bin <span style="font-weight:normal;font-size:12px;color:#7f93a8;">(7 din baad khud saaf)</span><span class="sp"></span><button class="btn btn-red btn-sm" onclick="trashEmpty()">Empty Trash</button><button class="btn btn2 btn-sm" onclick="trashClose()">✖ Close</button></div>
     <div id="trashList"></div>
   </div>
 </div>
@@ -277,35 +277,35 @@ body.role-member .adminOnly{display:none !important}
           <circle id="magCordHit" class="mag-cord-hit" cx="197" cy="196" r="16" fill="rgba(0,0,0,0)"/>
         </g>
       </svg>
-      <div class="magate-cap"><span class="cap-off">🪢 Rassi khench kar lamp on karein — ya seedha sign in 😉</span><span class="cap-lit">💡 Wah! Ab Google se sign in karein — tool khulega</span><span class="cap-on">💡 Welcome! Lamp on — kaam shuru</span></div>
+      <div class="magate-cap"><span class="cap-off">🪢 Pull the cord to switch the lamp on — or just sign in 😉</span><span class="cap-lit">💡 Nice! Now sign in with Google to enter</span><span class="cap-on">💡 Welcome! Lamp on — let us get to work</span></div>
     </div>
     <div class="magate-form">
       <div><span class="magate-brand">M98M LTD</span></div>
       <div class="magate-title">🛠️ eBay Listing Generator</div>
-      <div id="pwSub" class="magate-sub">Team tool mein khush aamdeed —<br>apne Google account se sign in karein</div>
+      <div id="pwSub" class="magate-sub">Welcome to the team tool —<br>sign in with your Google account</div>
       <div id="gsiBtn" style="display:flex;justify-content:center;margin-bottom:12px;"></div>
       <div id="authMsg" style="display:none;font-size:13px;line-height:1.6;margin-bottom:12px;"></div>
       <div id="signupWrap" style="margin-top:6px;">
-        <button class="btn btn2 btn-sm" onclick="signupToggle()">✍️ Sign up — naya member?</button>
+        <button class="btn btn2 btn-sm" onclick="signupToggle()">✍️ Sign up — new member?</button>
         <div id="signupForm" style="display:none;margin-top:12px;text-align:left;">
           <div style="display:flex;gap:8px;">
             <input class="magate-inp" id="suFirst" placeholder="First name">
             <input class="magate-inp" id="suLast" placeholder="Last name">
           </div>
-          <input class="magate-inp" id="suEmail" type="email" placeholder="Email (wohi jo Google mein hai)" style="margin-top:8px;">
+          <input class="magate-inp" id="suEmail" type="email" placeholder="Email (same as your Google account)" style="margin-top:8px;">
           <button class="btn" style="width:100%;margin-top:10px;" id="suBtn" onclick="signupSubmit()">🙋 Request Access</button>
           <div id="suMsg" style="display:none;font-size:12px;margin-top:8px;line-height:1.5;"></div>
         </div>
       </div>
-      <div class="magate-foot">🔒 Secure Google Sign-In · Naye members ko admin approval ke baad access milta hai</div>
+      <div class="magate-foot">🔒 Secure Google Sign-In · New members get access after admin approval</div>
     </div>
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v5.3 — 20 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v5.4 — 20 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
-  <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
+  <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Load in one click</a></div>
 <div class="appbar"><div class="appbar-inner"><div class="tabs">
     <div class="tab active" data-tab="0" onclick="showTab(0)">⚡ Generate</div>
     <div class="tab" data-tab="1" onclick="showTab(1)">🖼️ Galleries</div>
@@ -321,19 +321,19 @@ body.role-member .adminOnly{display:none !important}
 
     <datalist id="allAccountNames"></datalist>
     <div class="preset-box">
-      <label style="margin-top:0;">⭐ QUICK ACCOUNT PRESET <span class="sublbl">— aik account chunein, Gallery + Cards + Store + Theme sab auto-fill</span></label>
+      <label style="margin-top:0;">⭐ QUICK ACCOUNT PRESET <span class="sublbl">— pick an account; Gallery + Cards + Store + Theme all auto-fill</span></label>
       <select id="accountPreset" onchange="applyAccountPreset()">
-        <option value="">— Account preset chunein (optional) —</option>
+        <option value="">— Choose account preset (optional) —</option>
       </select>
       <div class="row" style="margin-top:8px;">
-        <button class="btn btn2 btn-sm" onclick="saveAccTheme()" type="button">💾 Is account ka current theme yaad rakho</button>
+        <button class="btn btn2 btn-sm" onclick="saveAccTheme()" type="button">💾 Remember this account current theme</button>
         <span class="tiny" id="presetInfo"></span>
       </div>
-      <div class="tiny" style="margin-top:6px;">💡 Account select karte hi: us ki gallery + cards + store link + saved theme — sab ek click mein load. Theme yaad rakhne ke liye theme chunein phir upar wala button daba dein.</div>
+      <div class="tiny" style="margin-top:6px;">💡 As soon as you select an account: its gallery + cards + store link + saved theme all load in one click. To remember a theme, choose it then click the button above.</div>
     </div>
 
     <label><span class="step">1</span> PRODUCT DESCRIPTION <span class="title-counter" id="titleCounter">title: 0/80</span> <button class="btn btn2 btn-sm" style="float:right;margin:0;" onclick="copyAIPrompt()">📋 Copy AI Prompt</button></label>
-    <div class="hint" style="margin-bottom:6px;">💡 Raw product data ho to upar wala button daba ke prompt copy karein → Claude/ChatGPT mein paste karein → output tool-ready milega → yahan paste karein. <a href="#" onclick="toggleFormatHint();return false;" style="color:#4dd0b8;">Format example dekho</a></div>
+    <div class="hint" style="margin-bottom:6px;">💡 If you have raw product data, click the button above to copy the prompt → paste it into Claude/ChatGPT → you will get tool-ready output → paste it here. <a href="#" onclick="toggleFormatHint();return false;" style="color:#4dd0b8;">See format example</a></div>
     <div id="formatHint" style="display:none;background:#0f1b2d;border:1px solid #2c4060;border-radius:6px;padding:10px;margin-bottom:8px;font-size:11.5px;color:#8fa3b8;font-family:Consolas,monospace;white-space:pre-line;">Product Title | Subtitle Words
 Compelling intro paragraph about the product.
 
@@ -360,30 +360,30 @@ PACKAGE INCLUDES:
 IMPORTANT NOTES:
 Safety note one
 Safety note two</div>
-    <textarea id="descInput" rows="9" placeholder="Pehli line title hogi (| ke sath subtitle). Phir intro, phir sections (KEY FEATURES:, SPECIFICATIONS:, PERFECT FOR:, HOW TO USE:, PACKAGE INCLUDES:, IMPORTANT NOTES: ...)"></textarea>
+    <textarea id="descInput" rows="9" placeholder="First line is the title (add a subtitle after |). Then an intro, then sections (KEY FEATURES:, SPECIFICATIONS:, PERFECT FOR:, HOW TO USE:, PACKAGE INCLUDES:, IMPORTANT NOTES: ...)"></textarea>
 
-    <label><span class="step">2</span> GALLERY IMAGES <span class="sublbl">— library se select karein ya manually paste</span></label>
+    <label><span class="step">2</span> GALLERY IMAGES <span class="sublbl">— select from library or paste manually</span></label>
     <div class="row">
       <select id="gallerySelect" onchange="onGalleryChange()" style="max-width:380px;">
-        <option value="">— Saved gallery chunein (optional) —</option>
+        <option value="">— Choose saved gallery (optional) —</option>
       </select>
       <button class="btn btn2 btn-sm" onclick="saveCurrentGallery()" type="button">💾 Save current as new gallery</button>
     </div>
     <div class="tiny" id="galleryFilterNote" style="margin-top:6px;display:none;"></div>
-    <textarea id="galleryInput" rows="5" placeholder="Library se select karein, ya manually paste karein:
+    <textarea id="galleryInput" rows="5" placeholder="Select from library, or paste manually:
 https://i.ebayimg.com/images/g/xxxx/s-l1600.jpg
 https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"></textarea>
-    <div class="hint">💡 Jitne URLs paste karenge utni images listing mein aayengi (max 20). Library mein save karne pe baad mein dusre listings pe reuse kar sakte hain.</div>
+    <div class="hint">💡 Every URL you paste becomes an image in the listing (max 20). Save to the library to reuse them in other listings later.</div>
 
-    <label style="margin-top:12px;"><span class="step">2b</span> VIDEO <span class="sublbl">— optional, khali chhor dein to skip ho jayega</span></label>
+    <label style="margin-top:12px;"><span class="step">2b</span> VIDEO <span class="sublbl">— optional; leave blank to skip</span></label>
     <input id="videoInput" type="text" placeholder="Video ka direct .mp4 link (optional) — e.g. https://.../product.mp4" oninput="saveDraft()" style="width:100%;box-sizing:border-box;">
     <input id="videoPosterInput" type="text" placeholder="Video thumbnail/poster image link (optional)" oninput="saveDraft()" style="width:100%;box-sizing:border-box;margin-top:6px;">
-    <div class="hint">🎬 Video ho to gallery mein pehle slide par ▶ ke saath aayega. <b>Note:</b> eBay live listing description se video aksar strip ho jati hai (eBay ka apna video-upload alag hota hai) — preview/apni site ke liye theek hai, images hamesha chalti hain.</div>
+    <div class="hint">🎬 If a video is added, it appears as the first gallery slide with a ▶ play button. <b>Note:</b> eBay live listing description se video aksar strip ho jati hai (eBay ka apna video-upload alag hota hai) — preview/apni site ke liye theek hai, images hamesha chalti hain.</div>
 
-    <label><span class="step">3</span> PRODUCT CARDS <span class="sublbl">— Cards Library se 4 promo products chunein</span></label>
+    <label><span class="step">3</span> PRODUCT CARDS <span class="sublbl">— Pick 4 promo products from the Cards Library</span></label>
     <div class="row">
       <select id="cardsAccSelect" onchange="onCardsAccChange()" style="max-width:320px;">
-        <option value="">— Cards set chunein (account naam) —</option>
+        <option value="">— Choose cards set (account name) —</option>
       </select>
       <span class="tiny" id="cardsAccInfo"></span>
     </div>
@@ -393,14 +393,14 @@ https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"
         <button class="btn btn2 btn-sm" onclick="clearPickedProducts()" type="button">✖️ Clear selection</button>
         <span class="tiny" id="pickedCountInfo"></span>
       </div>
-      <div class="tiny">📌 Order mein products click karein (1, 2, 3...) ya 🎲 se 4 random. Jitne click karenge utne cards listing mein aayenge (max 20). Dobara click se hat jayega.</div>
+      <div class="tiny">📌 Click products in order (1, 2, 3...) or use 🎲 for 4 random. Each click adds a card to the listing (max 20). Click again to remove.</div>
       <div class="product-multi-select" id="productPicker"></div>
     </div>
 
-    <label><span class="step">4</span> STORE LINK <span class="sublbl">— Accounts library se chunein ya manually likhein</span></label>
+    <label><span class="step">4</span> STORE LINK <span class="sublbl">— Choose from the Accounts library or type manually</span></label>
     <div class="row">
       <select id="storeAccSelect" onchange="onStoreAccChange()" style="max-width:320px;">
-        <option value="">— Account chunein —</option>
+        <option value="">— Choose account —</option>
       </select>
       <input type="text" id="storeInput" placeholder="https://www.ebay.co.uk/str/yourstorename" style="flex:1;min-width:200px;">
     </div>
@@ -490,8 +490,8 @@ https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"
         <span style="font-size:10px;background:#1f5a4f;color:#9adcd2;padding:2px 8px;border-radius:10px;font-weight:600;">NEW</span>
       </div>
       <div style="color:#8fa3b8;font-size:13px;line-height:1.6;margin-bottom:14px;">
-        Aik description likho (upar Step 1) → ye saare selected accounts ki <b>alag-alag HTML</b> ek saath bana dega.
-        Har account ka apna <b>product card + store link</b> automatically lag jayega. <b>Images wahi aayengi jo aap ne upar Step 2 (Gallery) mein select/paste ki</b> — same product, isliye sab accounts par same images.
+        Write one description (Step 1 above) → this builds <b>separate HTML for every selected account</b> at once.
+        Har account ka apna <b>product card + store link</b> is applied automatically. <b>Images wahi aayengi jo aap ne upar Step 2 (Gallery) mein select/paste ki</b> — same product, isliye sab accounts par same images.
       </div>
 
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
@@ -533,11 +533,11 @@ https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"
         <div style="display:flex;flex-direction:column;gap:6px;">
           <label style="margin:0;color:#cfe;font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;">
             <input type="radio" name="bulkTplMode" value="same" checked onchange="renderBulkTplUI()" style="width:15px;height:15px;cursor:pointer;">
-            <b>Sab accounts pe ek hi template</b> — niche dropdown se choose karein
+            <b>Sab accounts pe ek hi template</b> — niche dropdown se choose do
           </label>
           <label style="margin:0;color:#cfe;font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;">
             <input type="radio" name="bulkTplMode" value="per" onchange="renderBulkTplUI()" style="width:15px;height:15px;cursor:pointer;">
-            <b>Har account pe alag template</b> — har account ke saath alag choose karein 🎯
+            <b>A different template per account</b> — choose one for each account 🎯
           </label>
         </div>
         <div id="bulkTplSameWrap" style="margin-top:8px;">
@@ -573,7 +573,7 @@ https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"
 
   <!-- ============ GALLERY LIBRARY TAB ============ -->
   <div class="panel" id="panel1">
-    <div class="tiny">Yahan har account ke alag galleries save karein — Amna, Saif, etc. ke products ki galleries alag-alag visible rahein.</div>
+    <div class="tiny">Save separate galleries per account here — galleries for Amna, Saif, etc. stay separate.</div>
 
     <hr>
 
@@ -584,11 +584,11 @@ https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"
     <div id="galAccPills" style="margin-top:10px;"></div>
 
     <div class="rename-box">
-      <label style="margin-top:0;">✏️ RENAME ACCOUNT <span class="sublbl">— naam badal kar baqi tabs jaisa SAME karein</span></label>
+      <label style="margin-top:0;">✏️ RENAME ACCOUNT <span class="sublbl">— rename to match the other tabs exactly</span></label>
       <div class="row">
-        <select id="galRenameSelect" style="max-width:230px;"><option value="">— Account chunein —</option></select>
+        <select id="galRenameSelect" style="max-width:230px;"><option value="">— Choose account —</option></select>
         <span style="color:#7d93ab;font-weight:bold;">→</span>
-        <input type="text" id="galRenameNew" list="allAccountNames" placeholder="Naya naam (list se chunein)" style="max-width:230px;">
+        <input type="text" id="galRenameNew" list="allAccountNames" placeholder="New name (or pick from list)" style="max-width:230px;">
         <button class="btn btn-sm" onclick="renameGalleryAccount()">✏️ Rename</button>
       </div>
       <div class="tiny" style="margin-top:5px;">💡 Sab tabs mein bilkul SAME naam rakhein (e.g. har jagah "Hafiza Bajji") taake gallery + cards + store theek match hon. List mein doosre tabs ke naam dikhenge — wahi chun lein.</div>
@@ -598,7 +598,7 @@ https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"
 
     <label>📂 SELECT ACCOUNT TO MANAGE</label>
     <select id="galAccSelect" onchange="loadGalleryAccountEditor()">
-      <option value="">— Account chunein —</option>
+      <option value="">— Choose account —</option>
     </select>
 
     <div id="galAccEditor" style="display:none;">
@@ -622,7 +622,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
       <hr>
 
       <label>📋 GALLERIES in this account</label>
-      <div class="lib-toolbar"><input class="lib-search" id="galSearch" placeholder="🔍 Gallery search karein…" oninput="m98mFilterList('galSearch','galList')"><button class="btn btn2 btn-sm" onclick="ihcRun()" title="Poori library ke image links test karein">🩺 Check Images</button><button class="btn btn2 btn-sm" onclick="trashOpen()" title="Delete ki hui cheezein 7 din yahan rehti hain">🗑️ Trash</button></div>
+      <div class="lib-toolbar"><input class="lib-search" id="galSearch" placeholder="🔍 Search galleries…" oninput="m98mFilterList('galSearch','galList')"><button class="btn btn2 btn-sm" onclick="ihcRun()" title="Test all image links in the library">🩺 Check Images</button><button class="btn btn2 btn-sm" onclick="trashOpen()" title="Deleted items stay here for 7 days">🗑️ Trash</button></div>
       <div id="galBulkBar" class="bulkbar" style="display:none;"><span id="galBulkCnt"></span><button class="btn btn-red btn-sm" onclick="bulkDeleteGals()">🗑️ Delete selected</button><button class="btn btn2 btn-sm" onclick="bulkClear('galList','galBulkBar')">✖ Clear</button></div>
       <div id="galList"></div>
 
@@ -635,18 +635,18 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
 
   <!-- ============ PRODUCT CARDS LIBRARY TAB ============ -->
   <div class="panel" id="panel2">
-    <div class="tiny">Yahan har account ke promo products save karein — title + item link + card image. Generate tab pe is set ko select karke 4 products chun lein.</div>
+    <div class="tiny">Save each account promo products here — title + item link + card image. Select this set in the Generate tab and pick 4 products.</div>
 
     <!-- ===== EXTENSION PASTE BOX (always visible — paste products copied from extension) ===== -->
     <div id="extPasteBox" style="margin-top:16px;padding:16px;background:linear-gradient(135deg,#0d1f2c,#0f2a26);border:1px dashed #2c6a5f;border-radius:12px;">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
         <span style="font-size:18px;">📋</span>
-        <span style="font-weight:700;color:#4dd0b8;font-size:15px;">Extension se Paste karein</span>
+        <span style="font-weight:700;color:#4dd0b8;font-size:15px;">Paste from extension</span>
       </div>
       <div style="color:#8fa3b8;font-size:12px;line-height:1.6;margin-bottom:10px;">
-        Extension popup mein <b>"Copy All Products"</b> dabayein, phir yahan <b>paste</b> (Ctrl+V) karke <b>"Load Products"</b> dabayein. Saare products (20, 30+) ek saath inbox mein aa jayenge. <span style="color:#6b8aab;">(File access ke bagair bhi kaam karta hai.)</span>
+        Extension popup mein <b>"Copy All Products"</b> click, then <b>paste</b> here (Ctrl+V) and click <b>"Load Products"</b>. All products (20, 30+) appear in the inbox at once. <span style="color:#6b8aab;">(Works even without file access.)</span>
       </div>
-      <textarea id="extPasteInput" placeholder="Yahan extension se copy kiya data paste karein (Ctrl+V)..." style="width:100%;min-height:70px;background:#0a1119;border:1px solid #2c4060;color:#e6edf3;border-radius:8px;padding:10px;font-size:12px;font-family:monospace;resize:vertical;box-sizing:border-box;"></textarea>
+      <textarea id="extPasteInput" placeholder="Paste data copied from the extension here (Ctrl+V)..." style="width:100%;min-height:70px;background:#0a1119;border:1px solid #2c4060;color:#e6edf3;border-radius:8px;padding:10px;font-size:12px;font-family:monospace;resize:vertical;box-sizing:border-box;"></textarea>
       <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
         <button type="button" onclick="loadPastedProducts()" style="background:linear-gradient(135deg,#00a896,#0f7d5e);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;">📥 Load Products</button>
         <button type="button" onclick="document.getElementById('extPasteInput').value='';" style="background:#2a3a44;color:#9adcd2;border:none;border-radius:8px;padding:9px 14px;font-size:13px;cursor:pointer;">Clear box</button>
@@ -665,7 +665,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
         <button type="button" class="btn btn-red btn-sm" onclick="clearExtInbox()">🗑️ Clear Inbox</button>
       </div>
       <div style="color:#8fa3b8;font-size:12px;line-height:1.6;margin-bottom:12px;">
-        eBay se grab kiye products yahan aate hain. Har product ke liye <b>account chunein</b> aur <b>Add</b> dabayein — title, link, image automatically save ho jayenge.
+        Products grabbed from eBay appear here. For each product, <b>choose an account</b> and click <b>Add</b> — title, link and image are saved automatically.
       </div>
       <div id="extInboxList"></div>
     </div>
@@ -679,11 +679,11 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
     <div id="accPills" style="margin-top:10px;"></div>
 
     <div class="rename-box">
-      <label style="margin-top:0;">✏️ RENAME SET / ACCOUNT <span class="sublbl">— naam badal kar baqi tabs jaisa SAME karein</span></label>
+      <label style="margin-top:0;">✏️ RENAME SET / ACCOUNT <span class="sublbl">— rename to match the other tabs exactly</span></label>
       <div class="row">
-        <select id="cardRenameSelect" style="max-width:230px;"><option value="">— Set chunein —</option></select>
+        <select id="cardRenameSelect" style="max-width:230px;"><option value="">— Choose set —</option></select>
         <span style="color:#7d93ab;font-weight:bold;">→</span>
-        <input type="text" id="cardRenameNew" list="allAccountNames" placeholder="Naya naam (list se chunein)" style="max-width:230px;">
+        <input type="text" id="cardRenameNew" list="allAccountNames" placeholder="New name (or pick from list)" style="max-width:230px;">
         <button class="btn btn-sm" onclick="renameCardSet()">✏️ Rename</button>
       </div>
       <div class="tiny" style="margin-top:5px;">💡 Gallery aur Store tab jaisa bilkul SAME naam rakhein (e.g. har jagah "Hafiza Bajji"). List mein doosre tabs ke naam dikhenge.</div>
@@ -693,7 +693,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
 
     <label>📂 EDIT SET</label>
     <select id="editAccSelect" onchange="loadAccountEditor()">
-      <option value="">— Set chunein —</option>
+      <option value="">— Choose set —</option>
     </select>
 
     <div id="accEditor" style="display:none;">
@@ -716,7 +716,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
       <hr>
 
       <label>📦 SAVED PRODUCTS in this set</label>
-      <input class="lib-search" id="prodSearch" placeholder="🔍 Product card search karein…" oninput="m98mFilterList('prodSearch','prodList')">
+      <input class="lib-search" id="prodSearch" placeholder="🔍 Search product cards…" oninput="m98mFilterList('prodSearch','prodList')">
       <div id="prodBulkBar" class="bulkbar" style="display:none;"><span id="prodBulkCnt"></span><button class="btn btn-red btn-sm" onclick="bulkDeleteCards()">🗑️ Delete selected</button><button class="btn btn2 btn-sm" onclick="bulkClear('prodList','prodBulkBar')">✖ Clear</button></div>
       <div id="prodList"></div>
 
@@ -729,7 +729,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
 
   <!-- ============ ACCOUNTS / STORE LINKS TAB ============ -->
   <div class="panel" id="panel3">
-    <div class="tiny">Yahan har account ka eBay store link save karein. Generate tab pe account chunne pe link auto-fill ho jayega.</div>
+    <div class="tiny">Save each account eBay store link here. It auto-fills when you choose the account in the Generate tab.</div>
 
     <hr>
 
@@ -743,11 +743,11 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
     </div>
 
     <div class="rename-box">
-      <label style="margin-top:0;">✏️ RENAME ACCOUNT <span class="sublbl">— naam badal kar baqi tabs jaisa SAME karein</span></label>
+      <label style="margin-top:0;">✏️ RENAME ACCOUNT <span class="sublbl">— rename to match the other tabs exactly</span></label>
       <div class="row">
-        <select id="storeRenameSelect" style="max-width:230px;"><option value="">— Account chunein —</option></select>
+        <select id="storeRenameSelect" style="max-width:230px;"><option value="">— Choose account —</option></select>
         <span style="color:#7d93ab;font-weight:bold;">→</span>
-        <input type="text" id="storeRenameNew" list="allAccountNames" placeholder="Naya naam (list se chunein)" style="max-width:230px;">
+        <input type="text" id="storeRenameNew" list="allAccountNames" placeholder="New name (or pick from list)" style="max-width:230px;">
         <button class="btn btn-sm" onclick="renameStoreAccount()">✏️ Rename</button>
       </div>
       <div class="tiny" style="margin-top:5px;">💡 Gallery aur Cards tab jaisa bilkul SAME naam rakhein (e.g. har jagah "Hafiza Bajji"). List mein doosre tabs ke naam dikhenge.</div>
@@ -756,38 +756,38 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
     <hr>
 
     <label>📋 SAVED STORE LINKS</label>
-    <input class="lib-search" id="storeSearch" placeholder="🔍 Account/store search karein…" oninput="m98mFilterList('storeSearch','storeList')">
+    <input class="lib-search" id="storeSearch" placeholder="🔍 Search accounts/stores…" oninput="m98mFilterList('storeSearch','storeList')">
       <div id="storeList"></div>
     <div class="msg" id="storeMsg"></div>
   </div>
 
   <!-- ============ SHARE DATA TAB (Export/Import) ============ -->
   <div class="panel" id="panel4">
-    <div class="tiny">📤 Apni saari libraries (Gallery + Cards + Store Links) ko aik file mein export karein aur team ko WhatsApp/email se bhejein. Wo "Import" se load karenge — sab data milega.</div>
+    <div class="tiny">📤 Export all your libraries (Gallery + Cards + Store Links) into one file and send it to the team via WhatsApp/email. They load it with "Import" to get all the data.</div>
 
     <hr>
 
-    <label>📤 EXPORT (apna data file mein save karein)</label>
+    <label>📤 EXPORT (save your data to a file)</label>
     <div class="card">
       <div class="tiny" id="exportStats">Loading stats...</div>
       <button class="btn" onclick="exportData()" style="margin-top:14px;">💾 Download Data File (.json)</button>
-      <div class="hint" style="margin-top:8px;">File aap ke computer mein download hogi. Filename: <code>m98m-ebay-data-YYYY-MM-DD.json</code></div>
+      <div class="hint" style="margin-top:8px;">The file downloads to your computer. Filename: <code>m98m-ebay-data-YYYY-MM-DD.json</code></div>
     </div>
 
     <hr>
 
-    <label>📥 IMPORT (kisi ne bheji hui file load karein)</label>
+    <label>📥 IMPORT (load a file someone sent you)</label>
     <div class="card">
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
       <div style="margin-bottom:16px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <span style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">☁️ TEAM CLOUD <span class="sublbl">— LIVE sharing: sab ka kaam sab ko dikhe</span></span>
-          <span id="cloudStatus" style="font-size:12px;font-weight:bold;padding:4px 10px;border-radius:999px;background:#3a2c14;color:#f0b429;">OFF — cloud link set nahi hai</span>
+          <span style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">☁️ TEAM CLOUD <span class="sublbl">— LIVE sharing: everyone sees everyone work</span></span>
+          <span id="cloudStatus" style="font-size:12px;font-weight:bold;padding:4px 10px;border-radius:999px;background:#3a2c14;color:#f0b429;">OFF — cloud link not set</span>
           <span id="cloudLast" style="font-size:11px;color:#7f93a8;"></span>
         </div>
-        <div class="hint" style="margin-top:8px;line-height:1.7;">Ek baar cloud link lagao (Google Sheet wala — setup guide boss ke paas hai) → uske baad <b>har listing khud cloud mein jayegi</b> aur har 2 minute mein <b>sab ki listings sab ko</b> History mein [naam] tag ke saath milengi. Galleries/cards/stores bhi share hote hain.</div>
+        <div class="hint" style="margin-top:8px;line-height:1.7;">Set the cloud link once (the Google Sheet one — the boss has the setup guide) → after that <b>every listing goes to the cloud automatically</b> and every 2 minutes <b>everyone gets everyone listings</b> in History with a [name] tag. Galleries/cards/stores are shared too.</div>
         <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center;">
-          <input type="text" id="cloudUrlInput" placeholder="Cloud link yahan paste karo (https://script.google.com/macros/s/.../exec)" style="flex:1;min-width:240px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#cfe0f0;padding:8px 10px;font-size:12px;">
+          <input type="text" id="cloudUrlInput" placeholder="Paste the cloud link here (https://script.google.com/macros/s/.../exec)" style="flex:1;min-width:240px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#cfe0f0;padding:8px 10px;font-size:12px;">
           <button class="btn btn2 btn-sm" type="button" onclick="cloudSaveUrl()">💾 Save</button>
           <button class="btn btn-sm" type="button" onclick="cloudSync(false)">🔄 Sync now</button>
         </div>
@@ -796,7 +796,7 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
         <div id="membersBox" class="adminOnly" style="display:none;margin-top:10px;border-top:1px dashed #2c4060;padding-top:12px;"></div>
         <div id="activityBox" class="adminOnly" style="display:none;margin-top:10px;border-top:1px dashed #2c4060;padding-top:12px;"></div>
         <div class="adminOnly" style="margin-top:10px;border-top:1px dashed #2c4060;padding-top:10px;">
-          <div style="font-size:12px;color:#7f93a8;margin-bottom:6px;">👑 Admin: member manually add karo (email likho → seedha approve)</div>
+          <div style="font-size:12px;color:#7f93a8;margin-bottom:6px;">👑 Admin: add a member manually (enter email → approve directly)</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
             <input type="text" id="manualEmail" placeholder="member@gmail.com" style="flex:1;min-width:180px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#cfe0f0;padding:8px 10px;font-size:12.5px;">
             <input type="text" id="manualName" placeholder="Naam" style="width:120px;background:#0d1620;border:1px solid #2c4060;border-radius:8px;color:#cfe0f0;padding:8px 10px;font-size:12.5px;">
@@ -813,11 +813,11 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
       <div style="margin-bottom:16px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
         <div style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">👥 TEAM SYNC <span class="sublbl">— hosted site se master data ek click mein</span></div>
         <div class="hint" style="margin-top:8px;line-height:1.8;">
-          <b>Boss/Admin (data bhejne wala):</b> Export button se file download karo → uska naam badal ke <b style="color:#cfe0f0;">m98m-team-data.json</b> karo → Netlify pe <b>index.html ke saath</b> upload/deploy karo.<br>
-          <b>Team (data lene wale):</b> bas neeche wala button dabao — site se master data aa jayega. Naya data aane pe upar khud green banner bhi dikhega.
+          <b>Boss/Admin (sending the data):</b> Download the file with the Export button → rename it to <b style="color:#cfe0f0;">m98m-team-data.json</b> → on Netlify upload/deploy it <b>together with index.html</b>.<br>
+          <b>Team (receiving the data):</b> just click the button below — the master data loads from the site. When new data arrives, a green banner also appears at the top.
         </div>
         <div class="row" style="margin-top:10px;">
-          <button class="btn btn-sm" type="button" onclick="teamSyncLoad('merge')">🔄 Team data load karo (MERGE)</button>
+          <button class="btn btn-sm" type="button" onclick="teamSyncLoad('merge')">🔄 Load team data (MERGE)</button>
           <button class="btn btn2 btn-sm adminOnly" type="button" onclick="teamSyncLoad('replace')">♻️ Team data se REPLACE</button>
         </div>
         <div class="msg" id="teamSyncMsg"></div>
@@ -832,8 +832,8 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
           <button class="btn btn-red adminOnly" onclick="doImport('replace')">🔁 REPLACE (warning: existing data delete hoga)</button>
         </div>
         <div class="hint" style="margin-top:8px;">
-          <b>MERGE:</b> Aap ki existing libraries ke saath naya data add ho jayega (duplicates skip).<br>
-          <b>REPLACE:</b> Aap ka existing data delete ho kar nayi file ka data lag jayega.
+          <b>MERGE:</b> New data is added to your existing libraries (duplicates skipped).<br>
+          <b>REPLACE:</b> Your existing data is deleted and replaced with the new file data.
         </div>
       </div>
       <div class="msg" id="importMsg"></div>
@@ -841,34 +841,34 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
 
     <hr>
 
-    <label>👥 TEAM SHARING — kaise karein</label>
+    <label>👥 TEAM SHARING — how to</label>
     <div class="card" style="font-size:13px;line-height:1.8;">
       <b>Aap (Admin) ke liye:</b><br>
-      1. Yahan se data export karein → JSON file download hogi<br>
-      2. WhatsApp / email se team ko bhejein (saath mein tool ki HTML file bhi)<br>
-      3. Jab bhi libraries update karein, naya export bhej dein<br>
+      1. Export your data here → a JSON file downloads<br>
+      2. Send it to the team via WhatsApp / email (along with the tool HTML file)<br>
+      3. Whenever you update the libraries, send a fresh export<br>
       <br>
       <b>Team ke liye:</b><br>
       1. Aap se mili HTML file kholein browser mein<br>
-      2. "Share Data" tab pe aayein → file choose karein → Preview<br>
-      3. Pehli baar: <b>REPLACE</b> click karein (aap ka exact data mil jayega)<br>
-      4. Baad mein update aaye: <b>MERGE</b> click karein (sirf naye items add honge, jo aap ne add kiye wo safe rahenge)
+      2. "Share Data" tab pe aayein → file choose do → Preview<br>
+      3. Pehli baar: <b>REPLACE</b> click (you get your exact data)<br>
+      4. For later updates: click <b>MERGE</b> (only new items are added; what you added stays safe)
     </div>
   </div>
 
   <!-- ============ HISTORY TAB ============ -->
   <div class="panel" id="panel5">
-    <div class="tiny">🕘 Yahan aap ki generate ki hui pichli listings save hoti hain. <b>📥 Load desc + images</b> = us product ki description + wahi gallery images + cards + store + template sab wapas Step 1 mein aa jate hain — seedha GENERATE dabayein, ya account preset badal kar dusre account ke liye banayein (bohat fast!). <b>📋 Copy HTML</b> = seedha HTML. (Sirf is browser mein save hoti hain.)</div>
+    <div class="tiny">🕘 Yahan aap ki generate ki hui pichli listings save hoti hain. <b>📥 Load desc + images</b> = that product description + the same gallery images + cards + store + template all come back into Step 1 — just click GENERATE, or switch the account preset to build it for another account (very fast!). <b>📋 Copy HTML</b> = seedha HTML. (Sirf is browser mein save hoti hain.)</div>
 
     <div style="margin-top:12px;background:#0f1a26;border:1px solid #2c4060;border-radius:10px;padding:14px 16px;">
-      <div style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">👥 TEAM WORK <span class="sublbl">— team ka kaam boss tak pahunchane ka system</span></div>
+      <div style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">👥 TEAM WORK <span class="sublbl">— a way to get the team work to the boss</span></div>
       <div class="hint" style="margin-top:8px;line-height:1.8;">
-        <b>Team member:</b> "Apna kaam export karo" dabao → jo file download ho, boss ko WhatsApp/email kar do (pehli baar naam poocha jayega — wahi file pe tag hoga).<br>
-        <b>Boss/Admin:</b> "Team ka kaam import karo" se woh file kholo → sab listings aapki History mein <b>[member ke naam]</b> ke tag ke saath add ho jayengi (duplicate khud skip).
+        <b>Team member:</b> Click "Export my work" → send the downloaded file to the boss via WhatsApp/email (you will be asked your name the first time — it tags the file).<br>
+        <b>Boss/Admin:</b> Use "Import team work" to open that file → all listings appear in your History are added with the <b>[member name]</b> tag (duplicates are skipped automatically).
       </div>
       <div class="row" style="margin-top:10px;">
-        <button class="btn btn-sm" type="button" onclick="workExport()">📤 Apna kaam export karo</button>
-        <button class="btn btn2 btn-sm" type="button" onclick="document.getElementById('workImportFile').click()">📥 Team ka kaam import karo</button>
+        <button class="btn btn-sm" type="button" onclick="workExport()">📤 Export my work</button>
+        <button class="btn btn2 btn-sm" type="button" onclick="document.getElementById('workImportFile').click()">📥 Import team work</button>
         <input type="file" id="workImportFile" accept=".json,application/json" style="display:none;" onchange="workImportFile(this)">
       </div>
       <div class="msg" id="workMsg"></div>
@@ -892,10 +892,10 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
         <span style="font-weight:700;color:#4dd0b8;font-size:15px;">Find &amp; Replace (saari listings mein)</span>
       </div>
       <div style="color:#8fa3b8;font-size:12px;line-height:1.6;margin-bottom:10px;">
-        Koi word/text <b>saari saved listings mein ek saath</b> badlein. Jaise "MagSafe" → "Magnetic" har jagah. <span style="color:#e0a050;">Pehle "Preview" se dekhein kitni jagah milega.</span>
+        Change any word/text <b>across all saved listings at once</b>. For example "MagSafe" → "Magnetic" everywhere. <span style="color:#e0a050;">Use "Preview" first to see how much space you get.</span>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
-        <input type="text" id="findText" placeholder="Dhoondein (e.g. MagSafe)" style="flex:1;min-width:160px;background:#0a1119;border:1px solid #2c4060;color:#e6edf3;border-radius:8px;padding:9px;font-size:13px;">
+        <input type="text" id="findText" placeholder="Find (e.g. MagSafe)" style="flex:1;min-width:160px;background:#0a1119;border:1px solid #2c4060;color:#e6edf3;border-radius:8px;padding:9px;font-size:13px;">
         <span style="color:#6b8aab;font-size:18px;">→</span>
         <input type="text" id="replaceText" placeholder="Isse badlein (e.g. Magnetic)" style="flex:1;min-width:160px;background:#0a1119;border:1px solid #2c4060;color:#e6edf3;border-radius:8px;padding:9px;font-size:13px;">
       </div>
@@ -912,8 +912,8 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
 
     <hr>
     <div class="row">
-      <input type="text" id="historySearch" placeholder="🔍 Title se search karein..." oninput="renderHistory()" style="flex:1;min-width:170px;">
-      <input type="date" id="historyDateFilter" onchange="renderHistory()" title="Calendar se koi bhi date chunein — us din ki history dikhegi" style="min-width:150px;padding:8px 10px;border:1px solid #2c4060;border-radius:8px;background:#0d1620;color:#cfe;font-size:13px;">
+      <input type="text" id="historySearch" placeholder="🔍 Search by title..." oninput="renderHistory()" style="flex:1;min-width:170px;">
+      <input type="date" id="historyDateFilter" onchange="renderHistory()" title="Calendar se koi bhi date choose — us din ki history dikhegi" style="min-width:150px;padding:8px 10px;border:1px solid #2c4060;border-radius:8px;background:#0d1620;color:#cfe;font-size:13px;">
       <button class="btn btn2 btn-sm" onclick="clearHistoryDate()" title="Saari dates dikhao">📅 Saari dates</button>
       <button class="adminOnly btn btn-red btn-sm" onclick="clearHistory()">🗑️ Clear All</button>
     </div>
@@ -936,11 +936,11 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
     .tplib-actions{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap;}
   </style>
     <h2 style="color:#e6edf3;margin:0 0 4px;">🎨 Template Library</h2>
-    <div class="tiny" style="color:#9fb3c8;line-height:1.6;">Ready-made premium listing templates. <b>Full Preview</b> se poora design dekhein, phir <b>Copy HTML</b> dabakar eBay ke listing <b>HTML / description</b> box mein paste karein. Aage aur templates yahin add hote rahenge.</div>
+    <div class="tiny" style="color:#9fb3c8;line-height:1.6;">Ready-made premium listing templates. <b>Full Preview</b> se poora design dekhein, phir <b>Copy HTML</b> dabakar eBay ke listing <b>HTML / description</b> box. More templates will be added here over time.</div>
     <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
       <button class="btn" type="button" onclick="document.getElementById('tplibFileInput').click()" style="background:#1f7a5e;">➕ Add Template File</button>
       <input type="file" id="tplibFileInput" accept=".html,.htm" style="display:none;" onchange="tplibAddFile(this.files)">
-      <span class="tiny" style="color:#7f93a8;">Apni HTML template file add karein — preview, colour-grade & Copy HTML. (Product auto-fill chahiye to woh file mujhe bhej dein, main builder bana dunga.)</span>
+      <span class="tiny" style="color:#7f93a8;">Add your HTML template file — preview, colour-grade and Copy HTML. (If you want product auto-fill, send me the file and I will build the builder.)</span>
     </div>
     <div id="templateList" class="tplib-grid"></div>
   </div>
@@ -1113,7 +1113,7 @@ function refreshAllSelects(){
   const byAcc=getGalsByAccount();
   const galSel=document.getElementById('gallerySelect');
   const curG=galSel.value;
-  let galOpts='<option value="">— Saved gallery chunein (optional) —</option>';
+  let galOpts='<option value="">— Choose saved gallery (optional) —</option>';
   const galAccounts=Object.keys(byAcc);
   galAccounts.forEach(acc=>{
     if(galleryFilterAccount && acc!==galleryFilterAccount)return; // filter to selected account
@@ -1143,11 +1143,11 @@ function refreshAllSelects(){
   const galAccSel=document.getElementById('galAccSelect');
   if(galAccSel){
     const curGA=galAccSel.value;
-    galAccSel.innerHTML='<option value="">— Account chunein —</option>'+galAccounts.map(n=>`<option value="${escAttr(n)}">${n} (${(byAcc[n]||[]).length} galleries)</option>`).join('');
+    galAccSel.innerHTML='<option value="">— Choose account —</option>'+galAccounts.map(n=>`<option value="${escAttr(n)}">${n} (${(byAcc[n]||[]).length} galleries)</option>`).join('');
     if(galAccounts.includes(curGA))galAccSel.value=curGA;
     document.getElementById('galAccPills').innerHTML=galAccounts.length
       ?galAccounts.map(n=>`<span class="pillx">📂 ${n} <span class="tiny">(${(byAcc[n]||[]).length})</span></span>`).join('')
-      :'<span class="hint">Abhi koi gallery account nahi. Upar add karein.</span>';
+      :'<span class="hint">No gallery accounts yet. Add one above.</span>';
   }
 
   // Cards-set dropdown (Generate tab)
@@ -1155,24 +1155,24 @@ function refreshAllSelects(){
   const cardNames=Object.keys(cards);
   const cSel=document.getElementById('cardsAccSelect');
   const curC=cSel.value;
-  cSel.innerHTML='<option value="">— Cards set chunein —</option>'+cardNames.map(n=>`<option value="${n}">${n} (${(cards[n]||[]).length} products)</option>`).join('');
+  cSel.innerHTML='<option value="">— Choose cards set —</option>'+cardNames.map(n=>`<option value="${n}">${n} (${(cards[n]||[]).length} products)</option>`).join('');
   if(cardNames.includes(curC))cSel.value=curC;
 
   // Library: edit dropdown for cards sets
   const eSel=document.getElementById('editAccSelect');
   const curE=eSel.value;
-  eSel.innerHTML='<option value="">— Set chunein —</option>'+cardNames.map(n=>`<option value="${n}">${n} (${(cards[n]||[]).length})</option>`).join('');
+  eSel.innerHTML='<option value="">— Choose set —</option>'+cardNames.map(n=>`<option value="${n}">${n} (${(cards[n]||[]).length})</option>`).join('');
   if(cardNames.includes(curE))eSel.value=curE;
 
   // Cards pills
-  document.getElementById('accPills').innerHTML=cardNames.length?cardNames.map(n=>`<span class="pillx">📦 ${n} <span class="tiny">(${(cards[n]||[]).length})</span></span>`).join(''):'<span class="hint">Abhi koi set saved nahi.</span>';
+  document.getElementById('accPills').innerHTML=cardNames.length?cardNames.map(n=>`<span class="pillx">📦 ${n} <span class="tiny">(${(cards[n]||[]).length})</span></span>`).join(''):'<span class="hint">No sets saved yet.</span>';
 
   // Store-link dropdown (Generate tab)
   const stores=getStores();
   const storeNames=Object.keys(stores);
   const sSel=document.getElementById('storeAccSelect');
   const curS=sSel.value;
-  sSel.innerHTML='<option value="">— Account chunein —</option>'+storeNames.map(n=>`<option value="${n}">${n}</option>`).join('');
+  sSel.innerHTML='<option value="">— Choose account —</option>'+storeNames.map(n=>`<option value="${n}">${n}</option>`).join('');
   if(storeNames.includes(curS))sSel.value=curS;
 
   // Account Preset dropdown (union of card-account names + store-account names)
@@ -1180,7 +1180,7 @@ function refreshAllSelects(){
   if(presetSel){
     const allNames=Array.from(new Set([...cardNames,...storeNames])).sort();
     const curP=presetSel.value;
-    presetSel.innerHTML='<option value="">— Account preset chunein (optional) —</option>'+allNames.map(n=>{
+    presetSel.innerHTML='<option value="">— Choose account preset (optional) —</option>'+allNames.map(n=>{
       const hasC=cards[n]?('🛍️'+(cards[n]||[]).length):'';
       const hasS=stores[n]!==undefined?'👤':'';
       return `<option value="${escAttr(n)}">${escAttr(n)} ${hasC} ${hasS}</option>`;
@@ -1223,7 +1223,7 @@ function renderProdList(){
   if(!name)return;
   const products=getCards()[name]||[];
   const list=document.getElementById('prodList');
-  if(products.length===0){list.innerHTML='<div class="hint">Koi product saved nahi.</div>';return;}
+  if(products.length===0){list.innerHTML='<div class="hint">No products saved yet.</div>';return;}
   list.innerHTML=products.map((p,i)=>`<div class="prod-row">
     <span class="ix">${i+1}.</span>
     <span class="nm">${escAttr(p.title||'(no title)')}</span>
@@ -1239,7 +1239,7 @@ function saveProductCore(){
   const t=document.getElementById('newProdTitle').value.trim();
   const l=document.getElementById('newProdLink').value.trim();
   const i=document.getElementById('newProdImg').value.trim();
-  if(!t&&!l){flash('accMsg','err','❌ Title ya link to dena hai');return;}
+  if(!t&&!l){flash('accMsg','err','❌ Please provide a title or link');return;}
   const cards=getCards();
   if(!cards[name])cards[name]=[];
   const productData={title:t,link:normaliseUrl(l),img:normaliseUrl(i)};
@@ -1260,7 +1260,7 @@ function saveProductCore(){
     document.getElementById('newProdImg').value='';
     renderProdList();
     refreshAllSelects();
-    flash('accMsg','ok','✅ "'+t+'" save ho gaya');
+    flash('accMsg','ok','✅ "'+t+'" saved');
   }
 }
 
@@ -1274,7 +1274,7 @@ function editProduct(idx){
   document.getElementById('newProdLink').value=p.link||'';
   document.getElementById('newProdImg').value=p.img||'';
   editingProductIdx=idx;
-  document.getElementById('prodFormLabel').textContent='✏️ EDITING PRODUCT #'+(idx+1)+' — change karein aur Update karein';
+  document.getElementById('prodFormLabel').textContent='✏️ EDITING PRODUCT #'+(idx+1)+' — change do aur Update do';
   document.getElementById('prodSaveBtn').textContent='💾 Update Product';
   document.getElementById('prodCancelBtn').style.display='inline-block';
   // Scroll form into view
@@ -1295,7 +1295,7 @@ function cancelProductEdit(){
 function deleteProduct(idx){
   const name=document.getElementById('editAccSelect').value;
   const cards=getCards();const p=cards[name][idx];
-  uiConfirm('"'+(p.title||'this product')+'" delete karein? (7 din Trash mein rahega)',function(){
+  uiConfirm('"'+(p.title||'this product')+'" delete this? (kept in Trash for 7 days)',function(){
     trashAdd('card','🛍️ '+(p.title||'(card)')+' — '+name,{acc:name,card:p});
     cards[name].splice(idx,1);setCards(cards);
     renderProdList();refreshAllSelects();
@@ -1304,7 +1304,7 @@ function deleteProduct(idx){
 
 function deleteAccount(){
   const name=document.getElementById('editAccSelect').value;if(!name)return;
-  uiConfirm('"'+name+'" set aur uske sare products delete karein? (7 din Trash mein rahega)',function(){
+  uiConfirm('"'+name+'" set aur uske sare products delete this? (kept in Trash for 7 days)',function(){
     const cards=getCards();
     trashAdd('cardSet','🛍️ Poora set: '+name+' ('+((cards[name]||[]).length)+' cards)',{acc:name,cards:cards[name]||[]});
     delete cards[name];setCards(cards);
@@ -1339,11 +1339,11 @@ function loadGalleryAccountEditor(){
 }
 
 function saveGalleryCore(){
-  if(!currentGalAccount){flash('galMsg','err','❌ Pehle account chunein');return;}
+  if(!currentGalAccount){flash('galMsg','err','❌ Select an account first');return;}
   const t=document.getElementById('newGalTitle').value.trim();
   const imgs=document.getElementById('newGalImages').value.split('\n').map(s=>s.trim()).map(normImgUrl).filter(s=>s).slice(0,20);
-  if(!t){flash('galMsg','err','❌ Title to dein');return;}
-  if(imgs.length===0){flash('galMsg','err','❌ Kam se kam 1 image URL dein');return;}
+  if(!t){flash('galMsg','err','❌ Please enter a title');return;}
+  if(imgs.length===0){flash('galMsg','err','❌ Please enter at least 1 image URL');return;}
   const byAcc=getGalsByAccount();
   if(!byAcc[currentGalAccount])byAcc[currentGalAccount]=[];
   const galData={title:t,images:imgs};
@@ -1361,7 +1361,7 @@ function saveGalleryCore(){
     document.getElementById('newGalImages').value='';
     renderGalList();
     refreshAllSelects();
-    flash('galMsg','ok','✅ "'+t+'" save ho gaya ('+imgs.length+' images)');
+    flash('galMsg','ok','✅ "'+t+'" saved ('+imgs.length+' images)');
   }
 }
 
@@ -1375,7 +1375,7 @@ function editGallery(idx){
   document.getElementById('newGalTitle').value=g.title||'';
   document.getElementById('newGalImages').value=(g.images||[]).join('\n');
   editingGalleryIdx=idx;
-  document.getElementById('galFormLabel').textContent='✏️ EDITING GALLERY #'+(idx+1)+' — change karein aur Update karein';
+  document.getElementById('galFormLabel').textContent='✏️ EDITING GALLERY #'+(idx+1)+' — change do aur Update do';
   document.getElementById('galSaveBtn').textContent='💾 Update Gallery';
   document.getElementById('galCancelBtn').style.display='inline-block';
   document.getElementById('newGalTitle').focus();
@@ -1396,7 +1396,7 @@ function renderGalList(){
   const byAcc=getGalsByAccount();
   const gals=byAcc[currentGalAccount]||[];
   const list=document.getElementById('galList');
-  if(gals.length===0){list.innerHTML='<div class="hint">Is account mein abhi koi gallery saved nahi.</div>';return;}
+  if(gals.length===0){list.innerHTML='<div class="hint">No galleries saved in this account yet.</div>';return;}
   list.innerHTML=gals.map((g,i)=>`<div class="prod-row">
     <span class="ix">${i+1}.</span>
     <span class="nm">${escAttr(g.title)} <span class="tiny">🖼️${(g.images||[]).length}</span></span>
@@ -1410,7 +1410,7 @@ function deleteGallery(idx){
   const byAcc=getGalsByAccount();
   const gals=byAcc[currentGalAccount]||[];
   if(!gals[idx])return;
-  uiConfirm('"'+(gals[idx].title)+'" delete karein? (7 din Trash mein rahegi)',function(){
+  uiConfirm('"'+(gals[idx].title)+'" delete this? (kept in Trash for 7 days)',function(){
     trashAdd('gallery','🖼️ '+gals[idx].title+' — '+currentGalAccount,{acc:currentGalAccount,gal:gals[idx]});
     gals.splice(idx,1);
     byAcc[currentGalAccount]=gals;
@@ -1421,7 +1421,7 @@ function deleteGallery(idx){
 
 function deleteGalleryAccount(){
   if(!currentGalAccount)return;
-  uiConfirm('"'+currentGalAccount+'" aur uske saare galleries delete karein? (7 din Trash mein rahenge)',function(){
+  uiConfirm('"'+currentGalAccount+'" aur uske saare galleries delete this? (kept in Trash for 7 days)',function(){
     const byAcc=getGalsByAccount();
     trashAdd('galSet','🖼️ Poora account: '+currentGalAccount+' ('+((byAcc[currentGalAccount]||[]).length)+' galleries)',{acc:currentGalAccount,gals:byAcc[currentGalAccount]||[]});
     delete byAcc[currentGalAccount];
@@ -1434,7 +1434,7 @@ function deleteGalleryAccount(){
 
 function saveCurrentGallery(){
   const imgs=document.getElementById('galleryInput').value.split('\n').map(s=>s.trim()).map(normImgUrl).filter(s=>s).slice(0,20);
-  if(imgs.length===0){flash('genMsg','err','❌ Kam se kam 1 image URL paste karein pehle');return;}
+  if(imgs.length===0){flash('genMsg','err','❌ Please paste at least 1 image URL first');return;}
   const firstLine=(document.getElementById('descInput').value.split('\n').find(l=>l.trim().length>0)||'').replace(/^(📝\s*)?DESCRIPTION:?\s*/i,'').trim();
   const defTitle=firstLine.split('|')[0].trim().substring(0,60);
   const t=prompt('Gallery title:',defTitle);if(!t)return;
@@ -1443,7 +1443,7 @@ function saveCurrentGallery(){
   const accounts=Object.keys(byAcc);
   let acc=DEFAULT_ACCOUNT;
   if(accounts.length>1){
-    const accChoice=prompt('Konse account mein save karein? ('+accounts.join(', ')+')',accounts[0]);
+    const accChoice=prompt('Konse account mein save do? ('+accounts.join(', ')+')',accounts[0]);
     if(!accChoice)return;
     acc=accChoice.trim();
   }else if(accounts.length===1){
@@ -1518,18 +1518,18 @@ function onGalleryManualEdit(){
 function addStoreLinkCore(){
   const n=document.getElementById('newStoreName').value.trim();
   const l=document.getElementById('newStoreLink').value.trim();
-  if(!n||!l){flash('storeMsg','err','❌ Naam aur link dono dein');return;}
+  if(!n||!l){flash('storeMsg','err','❌ Please enter both name and link');return;}
   const stores=getStores();stores[n]=normaliseUrl(l);setStores(stores);
   document.getElementById('newStoreName').value='';
   document.getElementById('newStoreLink').value='';
-  refreshAllSelects();flash('storeMsg','ok','✅ "'+n+'" save ho gaya');
+  refreshAllSelects();flash('storeMsg','ok','✅ "'+n+'" saved');
 }
 
 function renderStoreList(){
   const stores=getStores();
   const names=Object.keys(stores);
   const list=document.getElementById('storeList');
-  if(names.length===0){list.innerHTML='<div class="hint">Abhi koi store link saved nahi.</div>';return;}
+  if(names.length===0){list.innerHTML='<div class="hint">No store links saved yet.</div>';return;}
   list.innerHTML=names.map(n=>`<div class="prod-row">
     <span class="nm"><b>${escAttr(n)}</b><br><span class="tiny">${escAttr(stores[n])}</span></span>
     <button class="btn btn2 btn-sm" onclick="editStoreLink('${escAttr(n)}')">✏️</button>
@@ -1544,7 +1544,7 @@ function editStoreLink(name){
 }
 
 function deleteStoreLink(name){
-  uiConfirm('"'+name+'" delete karein? (7 din Trash mein rahega)',function(){
+  uiConfirm('"'+name+'" delete this? (kept in Trash for 7 days)',function(){
     const stores=getStores();
     trashAdd('store','👤 Store: '+name,{name:name,url:stores[name]||''});
     delete stores[name];setStores(stores);refreshAllSelects();
@@ -1575,7 +1575,7 @@ function onCardsAccChange(){
   info.textContent=products.length+' products available';
   if(products.length===0){
     wrap.style.display='block';
-    document.getElementById('productPicker').innerHTML='<div class="hint">Is set mein abhi koi product nahi. "Product Cards Library" tab pe ja kar add karein.</div>';
+    document.getElementById('productPicker').innerHTML='<div class="hint">No products in this set yet. Go to the "Product Cards Library" tab to add some.</div>';
     return;
   }
   wrap.style.display='block';
@@ -1603,7 +1603,7 @@ function renderProductPicker(){
 function toggleProduct(idx){
   const pos=pickedProducts.indexOf(idx);
   if(pos>-1){pickedProducts.splice(pos,1);}
-  else{if(pickedProducts.length>=20){alert('Max 20 products. Pehle koi remove karein.');return;}pickedProducts.push(idx);}
+  else{if(pickedProducts.length>=20){alert('Max 20 products. Please remove one first.');return;}pickedProducts.push(idx);}
   renderProductPicker();
   saveDraft();
 }
@@ -2305,13 +2305,13 @@ Here is my raw product data:
 
 [PASTE YOUR RAW PRODUCT DATA HERE]`;
   navigator.clipboard.writeText(prompt).then(()=>{
-    flash('genMsg','ok','📋 AI prompt copy ho gaya. Claude/ChatGPT mein paste karein → aakhir mein raw data add karein.');
+    flash('genMsg','ok','📋 AI prompt copied. Paste into Claude/ChatGPT → then add your raw data at the end.');
   }).catch(()=>{
     // Fallback: show in textarea so user can manually copy
     const ta=document.createElement('textarea');
     ta.value=prompt;document.body.appendChild(ta);ta.select();
-    try{document.execCommand('copy');flash('genMsg','ok','📋 AI prompt copy ho gaya.');}
-    catch(e){flash('genMsg','err','❌ Auto-copy fail. Manually copy karein.');}
+    try{document.execCommand('copy');flash('genMsg','ok','📋 AI prompt copy done.');}
+    catch(e){flash('genMsg','err','❌ Auto-copy failed. Please copy manually.');}
     document.body.removeChild(ta);
   });
 }
@@ -2922,7 +2922,7 @@ function renderBulkTplUI(){
   if(mode==='per'){
     sameW.style.display='none'; perW.style.display='flex';
     var accs=Array.from(document.querySelectorAll('.bulk-acc-chk:checked')).map(function(c){return c.value;});
-    if(!accs.length){perW.innerHTML='<div style="color:#f0a0a0;font-size:12px;">Pehle upar accounts select karein.</div>';return;}
+    if(!accs.length){perW.innerHTML='<div style="color:#f0a0a0;font-size:12px;">Select accounts above first.</div>';return;}
     perW.innerHTML=accs.map(function(n){
       var chosen=bulkPerTplChoices[n]||'flagship';
       return '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#0d1620;border:1px solid #24344a;padding:8px 10px;border-radius:8px;"><span style="min-width:130px;color:#cfe;font-size:13px;font-weight:700;">'+esc(n)+'</span>'+
@@ -3013,7 +3013,7 @@ function generateCore(){
   saveDraft();
   const msg=document.getElementById('genMsg');
   const desc=document.getElementById('descInput').value;
-  if(!desc.trim()){msg.className='msg err';msg.textContent='❌ Step 1: pehle product description paste karein.';return;}
+  if(!desc.trim()){msg.className='msg err';msg.textContent='❌ Step 1: paste a product description first.';return;}
   const imgs=document.getElementById('galleryInput').value.split('\n').map(s=>s.trim()).map(normImgUrl).filter(s=>s.length>0);
   const cards=getSelectedCards();
   const store=normaliseUrl(document.getElementById('storeInput').value.trim());
@@ -3037,7 +3037,7 @@ function generateCore(){
   if(res.cardCount===0)warn.push('product cards skip');
   if(!res.hasStore)warn.push('store button skip');
   if(warn.length)info+='⚠️ '+warn.join(' • ')+' — ';
-  info+='Copy karein. (🕘 History tab mein save ho gayi)';
+  info+='Copy do. (🕘 History tab mein save ho gayi)';
   msg.className='msg ok';msg.textContent=info;
 }
 
@@ -3050,7 +3050,7 @@ function populateBulkAccountChecks(){
   if(!box)return;
   const all=getAllAccountNames();
   if(all.length===0){
-    box.innerHTML='<div style="color:#f0a0a0;font-size:13px;">⚠️ Abhi koi account nahi mila. Pehle Gallery/Cards/Store tabs mein accounts add karein.</div>';
+    box.innerHTML='<div style="color:#f0a0a0;font-size:13px;">⚠️ No accounts found yet. Add accounts in the Gallery/Cards/Store tabs first.</div>';
     return;
   }
   box.style.flexDirection='row';
@@ -3075,14 +3075,14 @@ function generateAllAccounts(){
   const msg=document.getElementById('bulkMsg');
   try{
   const desc=document.getElementById('descInput').value;
-  if(!desc.trim()){msg.className='msg err';msg.textContent='❌ Pehle Step 1 mein product description paste karein.';return;}
+  if(!desc.trim()){msg.className='msg err';msg.textContent='❌ Paste a product description in Step 1 first.';return;}
 
   // Pehle description parse test karo (agar title galat hai to foran bata do)
   const testParse=parseDescription(desc);
   if(!testParse||!testParse.title){msg.className='msg err';msg.textContent='❌ Description parse nahi hui — pehli line product title honi chahiye.';return;}
 
   const selected=Array.from(document.querySelectorAll('.bulk-acc-chk:checked')).map(c=>c.value);
-  if(selected.length===0){msg.className='msg err';msg.textContent='❌ Kam se kam aik account select karein.';return;}
+  if(selected.length===0){msg.className='msg err';msg.textContent='❌ Kam se kam aik account select do.';return;}
 
   const useRandomCards=document.getElementById('bulkRandomCards').checked;
   const themeModeEl=document.querySelector('input[name="bulkThemeMode"]:checked');
@@ -3246,7 +3246,7 @@ function copyBulkOne(i){
   const ta=document.createElement('textarea');
   ta.value=b.html;document.body.appendChild(ta);ta.select();
   try{document.execCommand('copy');flash('bulkMsg','ok','📋 "'+b.account+'" ki HTML copy ho gayi!');}
-  catch(e){flash('bulkMsg','err','Copy fail — manually select karein.');}
+  catch(e){flash('bulkMsg','err','Copy failed — please select manually.');}
   document.body.removeChild(ta);
   // Note: History mein ye already generate karte waqt save ho chuki hai (duplicate avoid)
 }
@@ -3265,7 +3265,7 @@ function previewBulkOne(i){
 
 function downloadAllListings(){
   const ok=bulkGenerated.filter(b=>!b.error);
-  if(ok.length===0){flash('bulkMsg','err','Koi HTML nahi banI download ke liye.');return;}
+  if(ok.length===0){flash('bulkMsg','err','No HTML was generated to download.');return;}
   const desc=document.getElementById('descInput').value;
   const title=(parseDescription(desc)||{}).title||'listing';
   let out='═══════════════════════════════════════════════════════\n';
@@ -3290,7 +3290,7 @@ function downloadAllListings(){
   a.download='M98M-ALL-ACCOUNTS-'+safeTitle+'.txt';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
   URL.revokeObjectURL(a.href);
-  flash('bulkMsg','ok','📥 Download ho gaya! '+ok.length+' accounts ki HTML ek file mein.');
+  flash('bulkMsg','ok','📥 Download done! '+ok.length+' accounts of HTML in one file.');
 }
 
 /* ============ ACCOUNT PRESETS (enhanced: gallery + cards + store + theme) ============ */
@@ -3298,7 +3298,7 @@ function getAccTheme(){try{return JSON.parse(localStorage.getItem(KEY_ACCTHEME))
 function setAccTheme(o){try{localStorage.setItem(KEY_ACCTHEME,JSON.stringify(o));}catch(e){console.warn(e);}}
 function saveAccTheme(){
   const name=document.getElementById('accountPreset').value;
-  if(!name){flash('genMsg','err','⚠️ Pehle upar se aik account preset chunein, phir theme yaad rakho.');return;}
+  if(!name){flash('genMsg','err','⚠️ Select an account preset above first, then save the theme.');return;}
   const theme=document.getElementById('themeSelect').value;
   const o=getAccTheme();o[name]=theme;setAccTheme(o);
   flash('genMsg','ok','💾 "'+name+'" ke liye theme yaad rakh liya: '+(THEME_NAMES[theme]||theme));
@@ -3380,18 +3380,18 @@ function applyAccountPreset(){
 
   saveDraft();
   let note='';
-  if(missing.length)note='⚠️ Is account ki '+missing.join(' + ')+' nahi mili (clear kar di). In tabs mein same naam "'+name+'" se add/rename karein.';
+  if(missing.length)note='⚠️ Is account ki '+missing.join(' + ')+' nahi mili (clear kar di). In tabs mein same naam "'+name+'" se add/rename do.';
   else if(cardAcc!==name||storeAcc!==name||galAcc!==name)note='ℹ️ Kuch data thode different naam se mila. Behtar: sab tabs mein bilkul same naam rakhein.';
   if(info)info.textContent=note;
-  flash('genMsg','ok','⭐ "'+name+'" → '+(done.length?done.join('  '):'koi data nahi mila'));
+  flash('genMsg','ok','⭐ "'+name+'" → '+(done.length?done.join('  '):'koi data not found'));
 }
 
 /* Helpers for random product selection + gallery filter */
 function pickRandomProducts(count){
   const name=document.getElementById('cardsAccSelect').value;
-  if(!name){flash('genMsg','err','⚠️ Pehle account preset ya Step 3 se cards set chunein.');return;}
+  if(!name){flash('genMsg','err','⚠️ Select an account preset or a cards set from Step 3 first.');return;}
   const products=getCards()[name]||[];
-  if(products.length===0){flash('genMsg','err','⚠️ Is account ke koi product cards nahi.');return;}
+  if(products.length===0){flash('genMsg','err','⚠️ This account has no product cards.');return;}
   const n=Math.min(count,products.length);
   const idxs=products.map((_,i)=>i);
   for(let i=idxs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const tmp=idxs[i];idxs[i]=idxs[j];idxs[j]=tmp;}
@@ -3435,9 +3435,9 @@ function setExtInbox(arr){
 // and load all products into the inbox at once.
 function loadPastedProducts(){
   const raw=(document.getElementById('extPasteInput').value||'').trim();
-  if(!raw){flash('extPasteMsg','err','❌ Pehle extension se copy karke yahan paste karein');return;}
+  if(!raw){flash('extPasteMsg','err','❌ Copy from the extension first, then paste here');return;}
   if(raw.indexOf('M98M_INBOX_START')===-1){
-    flash('extPasteMsg','err','❌ Ye sahi data nahi lagta. Extension popup mein "Copy All Products" dabayein, phir yahan paste karein.');
+    flash('extPasteMsg','err','❌ This does not look like valid data. Click "Copy All Products" in the extension popup, then paste here.');
     return;
   }
   // Parse blocks: TITLE: / LINK: / IMAGE: separated by ---
@@ -3455,7 +3455,7 @@ function loadPastedProducts(){
     });
     if(title||link||image){products.push({title:title,link:link,image:image,grabbedAt:Date.now()});}
   });
-  if(products.length===0){flash('extPasteMsg','err','❌ Koi product nahi mila data mein');return;}
+  if(products.length===0){flash('extPasteMsg','err','❌ Koi product not found data mein');return;}
   // Merge into existing inbox (dedupe by link)
   const inbox=getExtInbox();
   let added=0;
@@ -3470,7 +3470,7 @@ function loadPastedProducts(){
   // Scroll to inbox
   const box=document.getElementById('extInboxBox');
   if(box)box.scrollIntoView({behavior:'smooth',block:'start'});
-  flash('extPasteMsg','ok','✅ '+added+' products load ho gaye! Neeche inbox mein account chunein aur Add karein.');
+  flash('extPasteMsg','ok','✅ '+added+' products loaded! Choose an account in the inbox below and click Add.');
 }
 
 function renderExtInbox(){
@@ -3486,7 +3486,7 @@ function renderExtInbox(){
   const accounts=getAllAccountNames();
   const accOptions=accounts.length
     ? accounts.map(n=>`<option value="${escAttr(n)}">${escAttr(n)}</option>`).join('')
-    : '<option value="">(pehle account banayein)</option>';
+    : '<option value="">(create an account first)</option>';
 
   list.innerHTML=inbox.map((p,i)=>{
     const safeTitle=esc(p.title||'(no title)');
@@ -3498,7 +3498,7 @@ function renderExtInbox(){
       <div style="flex:1;min-width:180px;">
         <div style="color:#e6edf3;font-size:13px;font-weight:600;line-height:1.4;">${safeTitle}</div>
         <div style="color:#6b8aab;font-size:11px;margin-top:3px;word-break:break-all;">${esc(p.link||'')}</div>
-        ${p.image?'':'<div style="color:#e0a050;font-size:11px;margin-top:3px;">⚠️ image grab nahi hui — manually add kar sakte hain</div>'}
+        ${p.image?'':'<div style="color:#e0a050;font-size:11px;margin-top:3px;">⚠️ image could not be grabbed — you can add it manually</div>'}
       </div>
       <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
         <select id="extAcc_${i}" style="background:#0a1119;border:1px solid #2c4060;color:#e6edf3;padding:6px 8px;border-radius:6px;font-size:12px;max-width:150px;">${accOptions}</select>
@@ -3515,7 +3515,7 @@ function addInboxProduct(i){
   if(!p)return;
   const sel=document.getElementById('extAcc_'+i);
   const acc=sel?sel.value:'';
-  if(!acc){flash('accMsg','err','❌ Pehle account chunein (ya banayein)');return;}
+  if(!acc){flash('accMsg','err','❌ Select an account first (ya create)');return;}
   const cards=getCards();
   if(!cards[acc])cards[acc]=[];
   cards[acc].push({title:(p.title||'').trim(), link:normaliseUrl(p.link||''), img:normaliseUrl(p.image||'')});
@@ -3524,7 +3524,7 @@ function addInboxProduct(i){
   removeInboxItem(i, true);
   refreshAllSelects();
   if(document.getElementById('editAccSelect')){document.getElementById('editAccSelect').value=acc;loadAccountEditor();}
-  flash('accMsg','ok','✅ "'+(p.title||'product').slice(0,40)+'" → '+acc+' mein add ho gaya');
+  flash('accMsg','ok','✅ "'+(p.title||'product').slice(0,40)+'" → '+acc+' mein add done');
 }
 
 function removeInboxItem(i, silent){
@@ -3546,7 +3546,7 @@ function clearExtInbox(){
   try{localStorage.setItem(EXT_INBOX_KEY,'[]');}catch(e){}
   lastInboxJSON='[]';
   renderExtInbox();
-  flash('accMsg','ok','🗑️ Inbox clear ho gaya');
+  flash('accMsg','ok','🗑️ Inbox clear done');
 }
 
 // Poll the bridge key every 1.5s; re-render only when it changes
@@ -3560,7 +3560,7 @@ function populateAccountNameUI(){
   const all=getAllAccountNames();
   const dl=document.getElementById('allAccountNames');
   if(dl)dl.innerHTML=all.map(n=>`<option value="${escAttr(n)}">`).join('');
-  const fill=(id,keys)=>{const el=document.getElementById(id);if(!el)return;const cur=el.value;el.innerHTML='<option value="">— chunein —</option>'+keys.filter(n=>n).sort().map(n=>`<option value="${escAttr(n)}">${escAttr(n)}</option>`).join('');if(keys.includes(cur))el.value=cur;};
+  const fill=(id,keys)=>{const el=document.getElementById(id);if(!el)return;const cur=el.value;el.innerHTML='<option value="">— choose —</option>'+keys.filter(n=>n).sort().map(n=>`<option value="${escAttr(n)}">${escAttr(n)}</option>`).join('');if(keys.includes(cur))el.value=cur;};
   fill('galRenameSelect',Object.keys(getGalsByAccount()));
   fill('cardRenameSelect',Object.keys(getCards()));
   fill('storeRenameSelect',Object.keys(getStores()));
@@ -3568,13 +3568,13 @@ function populateAccountNameUI(){
 function renameGalleryAccount(){
   const oldN=document.getElementById('galRenameSelect').value;
   const newN=document.getElementById('galRenameNew').value.trim();
-  if(!oldN){flash('galMsg','err','❌ Pehle account chunein jise rename karna hai.');return;}
-  if(!newN){flash('galMsg','err','❌ Naya naam likhein (ya list se chunein).');return;}
-  if(oldN===newN){flash('galMsg','err','⚠️ Naam pehle se same hai.');return;}
+  if(!oldN){flash('galMsg','err','❌ Select an account first jise rename karna hai.');return;}
+  if(!newN){flash('galMsg','err','❌ Enter a new name (or pick from the list).');return;}
+  if(oldN===newN){flash('galMsg','err','⚠️ That name is already the same.');return;}
   const byAcc=getGalsByAccount();
-  if(!byAcc[oldN]){flash('galMsg','err','❌ Account nahi mila.');return;}
+  if(!byAcc[oldN]){flash('galMsg','err','❌ Account not found.');return;}
   if(byAcc[newN]){
-    if(!confirm('"'+newN+'" pehle se mojud hai. Dono ki galleries merge kar dein?'))return;
+    if(!confirm('"'+newN+'" already exists. Merge both galleries?'))return;
     byAcc[newN]=byAcc[newN].concat(byAcc[oldN]);
   }else{byAcc[newN]=byAcc[oldN];}
   delete byAcc[oldN];
@@ -3583,36 +3583,36 @@ function renameGalleryAccount(){
   if(currentGalAccount===oldN)currentGalAccount=newN;
   renderGalList();
   refreshAllSelects();
-  flash('galMsg','ok','✅ Gallery account "'+oldN+'" → "'+newN+'" rename ho gaya');
+  flash('galMsg','ok','✅ Gallery account "'+oldN+'" → "'+newN+'" rename done');
 }
 function renameCardSet(){
   const oldN=document.getElementById('cardRenameSelect').value;
   const newN=document.getElementById('cardRenameNew').value.trim();
-  if(!oldN){flash('accMsg','err','❌ Pehle set chunein jise rename karna hai.');return;}
-  if(!newN){flash('accMsg','err','❌ Naya naam likhein (ya list se chunein).');return;}
-  if(oldN===newN){flash('accMsg','err','⚠️ Naam pehle se same hai.');return;}
+  if(!oldN){flash('accMsg','err','❌ Select a set first jise rename karna hai.');return;}
+  if(!newN){flash('accMsg','err','❌ Enter a new name (or pick from the list).');return;}
+  if(oldN===newN){flash('accMsg','err','⚠️ That name is already the same.');return;}
   const cards=getCards();
-  if(!cards[oldN]){flash('accMsg','err','❌ Set nahi mila.');return;}
+  if(!cards[oldN]){flash('accMsg','err','❌ Set not found.');return;}
   if(cards[newN]){
-    if(!confirm('"'+newN+'" pehle se mojud hai. Dono ke products merge kar dein?'))return;
+    if(!confirm('"'+newN+'" already exists. Merge both product sets?'))return;
     cards[newN]=cards[newN].concat(cards[oldN]);
   }else{cards[newN]=cards[oldN];}
   delete cards[oldN];
   setCards(cards);
   document.getElementById('cardRenameNew').value='';
   refreshAllSelects();
-  flash('accMsg','ok','✅ Cards set "'+oldN+'" → "'+newN+'" rename ho gaya');
+  flash('accMsg','ok','✅ Cards set "'+oldN+'" → "'+newN+'" rename done');
 }
 function renameStoreAccount(){
   const oldN=document.getElementById('storeRenameSelect').value;
   const newN=document.getElementById('storeRenameNew').value.trim();
-  if(!oldN){flash('storeMsg','err','❌ Pehle account chunein jise rename karna hai.');return;}
-  if(!newN){flash('storeMsg','err','❌ Naya naam likhein (ya list se chunein).');return;}
-  if(oldN===newN){flash('storeMsg','err','⚠️ Naam pehle se same hai.');return;}
+  if(!oldN){flash('storeMsg','err','❌ Select an account first jise rename karna hai.');return;}
+  if(!newN){flash('storeMsg','err','❌ Enter a new name (or pick from the list).');return;}
+  if(oldN===newN){flash('storeMsg','err','⚠️ That name is already the same.');return;}
   const stores=getStores();
-  if(stores[oldN]===undefined){flash('storeMsg','err','❌ Account nahi mila.');return;}
+  if(stores[oldN]===undefined){flash('storeMsg','err','❌ Account not found.');return;}
   if(stores[newN]!==undefined){
-    if(!confirm('"'+newN+'" pehle se mojud hai. Uska store link "'+oldN+'" wale se replace ho jayega. Theek hai?'))return;
+    if(!confirm('"'+newN+'"already exists. Its store link will be replaced with the one from "'+oldN+'". Okay?'))return;
   }
   stores[newN]=stores[oldN];
   delete stores[oldN];
@@ -3620,7 +3620,7 @@ function renameStoreAccount(){
   document.getElementById('storeRenameNew').value='';
   renderStoreList();
   refreshAllSelects();
-  flash('storeMsg','ok','✅ Store account "'+oldN+'" → "'+newN+'" rename ho gaya');
+  flash('storeMsg','ok','✅ Store account "'+oldN+'" → "'+newN+'" rename done');
 }
 
 /* eBay title nikalo — "DESCRIPTION:" header line skip karke asli title line lo (| se pehle wala hissa) */
@@ -3742,7 +3742,7 @@ function renderStatsCore(){
 
   // Per-account breakdown + top theme
   if(total===0){
-    breakdown.innerHTML='<div style="color:#6b8aab;font-size:12px;text-align:center;padding:8px;">Abhi koi listing nahi. Generate karke dekhein.</div>';
+    breakdown.innerHTML='<div style="color:#6b8aab;font-size:12px;text-align:center;padding:8px;">No listings yet. Try generating one.</div>';
     return;
   }
 
@@ -3770,7 +3770,7 @@ function renderStatsCore(){
 function previewFindReplace(){
   const find=document.getElementById('findText').value;
   const caseSensitive=document.getElementById('findCaseSensitive').checked;
-  if(!find){flash('findReplaceMsg','err','❌ Pehle "Dhoondein" box mein kuch likhein');return;}
+  if(!find){flash('findReplaceMsg','err','❌ Type something in the "Find" box first');return;}
   const arr=getHistory();
   let totalMatches=0, listingsAffected=0;
   arr.forEach(h=>{
@@ -3784,7 +3784,7 @@ function previewFindReplace(){
     if(count>0){totalMatches+=count;listingsAffected++;}
   });
   if(totalMatches===0){
-    flash('findReplaceMsg','err','🔍 "'+find+'" kisi listing mein nahi mila');
+    flash('findReplaceMsg','err','🔍 "'+find+'" kisi listing mein not found');
   }else{
     flash('findReplaceMsg','ok','🔍 "'+find+'" → '+totalMatches+' jagah mila ('+listingsAffected+' listings mein). "Replace All" se badlein.');
   }
@@ -3794,7 +3794,7 @@ function applyFindReplace(){
   const find=document.getElementById('findText').value;
   const replace=document.getElementById('replaceText').value;
   const caseSensitive=document.getElementById('findCaseSensitive').checked;
-  if(!find){flash('findReplaceMsg','err','❌ Pehle "Dhoondein" box mein kuch likhein');return;}
+  if(!find){flash('findReplaceMsg','err','❌ Type something in the "Find" box first');return;}
 
   const arr=getHistory();
   // Count first
@@ -3804,10 +3804,10 @@ function applyFindReplace(){
     const count=caseSensitive?(hay.split(find).length-1):(hay.toLowerCase().split(find.toLowerCase()).length-1);
     if(count>0){totalMatches+=count;listingsAffected++;}
   });
-  if(totalMatches===0){flash('findReplaceMsg','err','🔍 "'+find+'" kisi listing mein nahi mila — kuch badla nahi');return;}
+  if(totalMatches===0){flash('findReplaceMsg','err','🔍 "'+find+'" kisi listing mein not found — kuch badla nahi');return;}
 
   // Confirm (destructive)
-  if(!confirm('"'+find+'" ko "'+replace+'" se badla jayega — '+totalMatches+' jagah ('+listingsAffected+' listings). Ye permanent hai. Confirm karein?')){
+  if(!confirm('"'+find+'"→ replace "'+replace+'" with "'+totalMatches+' — ('+listingsAffected+' listings) affected. This is permanent. Confirm?')){
     flash('findReplaceMsg','err','Cancel kar diya');
     return;
   }
@@ -3875,7 +3875,7 @@ function renderHistory(){
     cnt.innerHTML=arr.length+'/'+HISTORY_LIMIT+' saved listings'+((q||dateFilter)?(' • '+filtered.length+' shown'):'')+storageNote;
   }
   if(!list)return;
-  if(arr.length===0){list.innerHTML='<div class="hint">Abhi koi listing generate nahi hui. Generate tab pe listing banayein — yahan automatically save hogi.</div>';return;}
+  if(arr.length===0){list.innerHTML='<div class="hint">No listings generated yet. Create one in the Generate tab — it will be saved here automatically.</div>';return;}
   if(filtered.length===0){var _fm=histMemberFilter?('👤 '+escAttr(histMemberFilter)+' ki koi listing is filter mein nahi mili.'):dateFilter?('📅 '+dateFilter.split('-').reverse().join('/')+' ko koi listing nahi mili (us din koi listing nahi bani).'):('"'+escAttr(q)+'" se koi listing match nahi hui.');list.innerHTML='<div class="hint">'+_fm+'</div>';return;}
   var todayKey=new Date().toLocaleDateString('en-GB');
   var yKey=new Date(Date.now()-86400000).toLocaleDateString('en-GB');
@@ -3892,7 +3892,7 @@ function renderHistory(){
     var themeName=h.theme?(THEME_NAMES[h.theme]||h.theme):'';
     var hasDesc=!!h.desc;
     var nImg=(h.imgs&&h.imgs.length)||0;
-    var descTag=hasDesc?('<span style="color:#5dcaa5;"> • 📝 description ready'+(nImg?(' • 🖼️ '+nImg+' images'):'')+'</span>'):'<span style="color:#e0a050;"> • ⚠️ purani (description nahi)</span>';
+    var descTag=hasDesc?('<span style="color:#5dcaa5;"> • 📝 description ready'+(nImg?(' • 🖼️ '+nImg+' images'):'')+'</span>'):'<span style="color:#e0a050;"> • ⚠️ old (no description)</span>';
     var loadBtn=hasDesc?('<button class="btn btn-sm" onclick="loadFromHistory('+i+')">📥 Load '+(nImg?('desc + images'):'description')+'</button>'):('<button class="btn btn2 btn-sm" onclick="loadFromHistory('+i+')" style="opacity:.6;">📥 Load (purani)</button>');
     return '<div class="hist-item"><div class="ht">'+escAttr(h.title)+'</div>'+
       '<div class="hd">🕘 '+escAttr(h.date)+' • '+h.html.length+' chars'+(themeName?(' • 🎨 '+escAttr(themeName)):'')+descTag+'</div>'+
@@ -3917,7 +3917,7 @@ function renderHistory(){
   renderStats();
 }
 function deleteHistoryDay(dk){
-  uiConfirm(dk+' — is din ki SAARI listings delete kar dein? Sirf isi din ki jayengi (baqi din safe rahenge).',function(){
+  uiConfirm(dk+'— delete ALL listings from this day? Only this day will be affected (other days stay safe).',function(){
     var all=getHistory();
     var gone=all.filter(function(h){var ts=h.ts||parseGBDate(h.date);return new Date(ts).toLocaleDateString('en-GB')===dk;}).map(function(h){return h.id;});
     var arr=all.filter(function(h){var ts=h.ts||parseGBDate(h.date);return new Date(ts).toLocaleDateString('en-GB')!==dk;});
@@ -3930,7 +3930,7 @@ function previewHistory(i){
   const arr=getHistory();const h=arr[i];if(!h)return;
   const box=document.getElementById('histPv'+i);if(!box)return;
   if(box.style.display==='none'){
-    box.innerHTML='<div style="font-size:11px;color:#8fa3b8;margin-bottom:6px;">👇 Preview neeche scroll karein — gallery images upar, product cards aur "Why Choose Us" neeche hain.</div><iframe style="width:100%;height:750px;border:1px solid #2c4060;border-radius:8px;background:#fff;"></iframe>';
+    box.innerHTML='<div style="font-size:11px;color:#8fa3b8;margin-bottom:6px;">👇 Scroll down to preview — gallery images at the top, product cards and "Why Choose Us" below.</div><iframe style="width:100%;height:750px;border:1px solid #2c4060;border-radius:8px;background:#fff;"></iframe>';
     box.querySelector('iframe').srcdoc=h.html;box.style.display='block';
   }else{box.style.display='none';box.innerHTML='';}
 }
@@ -3982,11 +3982,11 @@ function loadFromHistory(i){
     }
     const m=document.getElementById('genMsg');m.className='msg ok';
     m.textContent = back.length
-      ? '📥 Sab wapas load ho gaya: 📝 description + '+back.join(' + ')+' — ab seedha GENERATE dabayein. (Ya account preset badal kar dusre account ke liye banayein.)'
-      : '📥 Description Step 1 mein load ho gayi! (Ye purani entry hai — us waqt images save nahi hoti thin.) Ab account preset chunein aur GENERATE dabayein.';
+      ? '📥 Sab wapas load done: 📝 description + '+back.join(' + ')+' — ab seedha GENERATE click. (Ya account preset badal kar dusre account ke liye create.)'
+      : '📥 Description loaded into Step 1! (This is an old entry — images were not saved back then.) Now choose an account preset and click GENERATE.';
     window.scrollTo(0,0);
   }else{
-    const m=document.getElementById('genMsg');m.className='msg err';m.textContent='⚠️ Ye PURANI listing hai (description save hone wale feature se pehle ki). Iski description recover nahi ho sakti. Bas ek nayi listing GENERATE karein — ab har nayi listing ki description save hoti hai aur Load par Step 1 mein wapas aa jati hai. Purani entries delete kar sakte hain.';
+    const m=document.getElementById('genMsg');m.className='msg err';m.textContent='⚠️ This is an OLD listing (from before descriptions were saved). Its description cannot be recovered. Just GENERATE a new listing — from now on every new listing has its description saved and comes back into Step 1 on Load. You can delete old entries.';
     window.scrollTo(0,0);
   }
 }
@@ -3996,15 +3996,15 @@ function copyFromHistory(i){
   // Method 1: modern clipboard API
   if(navigator.clipboard&&navigator.clipboard.writeText){
     navigator.clipboard.writeText(h.html).then(()=>{
-      showMsg('📋 Copy ho gaya!');
+      showMsg('📋 Copy done!');
     }).catch(()=>{
       // Method 2: fallback for file:// pages where clipboard API is blocked
-      if(fallbackCopy(h.html))showMsg('📋 Copy ho gaya!');
-      else showMsg('❌ Copy fail — manually select karein');
+      if(fallbackCopy(h.html))showMsg('📋 Copy done!');
+      else showMsg('❌ Copy fail — manually select do');
     });
   }else{
-    if(fallbackCopy(h.html))showMsg('📋 Copy ho gaya!');
-    else showMsg('❌ Copy fail — manually select karein');
+    if(fallbackCopy(h.html))showMsg('📋 Copy done!');
+    else showMsg('❌ Copy fail — manually select do');
   }
 }
 
@@ -4028,14 +4028,14 @@ function fallbackCopy(text){
 function deleteFromHistory(i){
   const arr=getHistory();
   var h=arr[i];
-  if(h&&typeof isAdmin==='function'&&!isAdmin()&&memberOf(h)!==(myName()||'Main')){alert('Ye '+memberOf(h)+' ki listing hai — sirf admin ya woh khud delete kar sakte hain.');return;}
+  if(h&&typeof isAdmin==='function'&&!isAdmin()&&memberOf(h)!==(myName()||'Main')){alert('Ye '+memberOf(h)+'this listing — only an admin or its owner can delete it.');return;}
   var _id=arr[i]&&arr[i].id;
   arr.splice(i,1);setHistory(arr);
   if(_id){addDelIds([_id]);cloudPushDel([_id]);}
   renderHistory();
 }
 function clearHistory(){
-  uiConfirm('Saari history delete kar dein? Ye wapas nahi aayegi.',function(){
+  uiConfirm('Delete all history? This cannot be undone.',function(){
     var gone=getHistory().map(function(h){return h.id;});
     setHistory([]);
     if(gone.length){addDelIds(gone);cloudPushDel(gone);}
@@ -4050,7 +4050,7 @@ function copyOut(){
   if(!out.value)return;
   out.select();out.setSelectionRange(0,999999);
   navigator.clipboard.writeText(out.value).then(()=>{
-    const m=document.getElementById('genMsg');m.className='msg ok';m.textContent='📋 Code copy ho gaya!';
+    const m=document.getElementById('genMsg');m.className='msg ok';m.textContent='📋 Code copy done!';
   }).catch(()=>{document.execCommand('copy');});
 }
 
@@ -4201,7 +4201,7 @@ function preGenChecks(){
   else{oks.push('Product cards '+cards.length);}
   var store=((document.getElementById('storeInput')||{}).value||'').trim();
   if(!store){warns.push('Store link khali — store button skip hoga');}
-  else if(store.indexOf('ebay.')<0){warns.push('Store link mein "ebay." nahi mila — check karein');}
+  else if(store.indexOf('ebay.')<0){warns.push('Store link mein "ebay." not found — check do');}
   else{oks.push('Store link OK');}
   return {errors:errors,warns:warns,oks:oks};
 }
@@ -4218,7 +4218,7 @@ function generate(){
   var rep=preGenChecks();
   renderValPanel(rep);
   if(rep.errors.length){
-    uiConfirm('⚠️ '+rep.errors.length+' error mile (button ke neeche panel dekhein) — phir bhi generate karein?',function(){generateCore();});
+    uiConfirm('⚠️ '+rep.errors.length+' error(s) found (see the panel below the button) — generate anyway?',function(){generateCore();});
   }else{generateCore();}
 }
 
@@ -4250,7 +4250,7 @@ function ihcRun(){
   var ov=document.getElementById('ihcOverlay'),resBox=document.getElementById('ihcResults'),
       bar=document.getElementById('ihcBar'),ptxt=document.getElementById('ihcProgTxt');
   ov.style.display='flex';ihcStop=false;
-  if(items.length===0){resBox.innerHTML='<div class="hint">Library mein koi image link nahi mila.</div>';ptxt.textContent='';bar.style.width='0%';return;}
+  if(items.length===0){resBox.innerHTML='<div class="hint">Library mein koi image link not found.</div>';ptxt.textContent='';bar.style.width='0%';return;}
   resBox.innerHTML='<div class="hint">Checking '+items.length+' images…</div>';
   var done=0,dead=[],qi=0,CONC=6;
   function upd(){
@@ -4258,7 +4258,7 @@ function ihcRun(){
     bar.style.width=pc+'%';ptxt.textContent=done+'/'+items.length;
     var h='';
     if(done>=items.length){h+='<div class="ihc-sum">✅ '+(items.length-dead.length)+' OK · ❌ '+dead.length+' dead</div>';
-      if(dead.length===0)h+='<div class="v-ok" style="color:#4dd0b8;">Sab images zinda hain — koi masla nahi! 🎉</div>';}
+      if(dead.length===0)h+='<div class="v-ok" style="color:#4dd0b8;">All images are live — no problems! 🎉</div>';}
     dead.forEach(function(d){
       h+='<div class="ihc-dead"><div class="t">❌ '+escAttr(d.src)+' · '+escAttr(d.acc)+' · '+escAttr(d.name)+(d.ix?(' · img #'+d.ix):'')+'</div><div class="u">'+escAttr(d.url)+'</div></div>';
     });
@@ -4283,7 +4283,7 @@ function abFit(s){s=s.replace(/\s+/g,' ').trim();if(s.length<=80)return s;s=s.sl
 function abGenerate(){
   var desc=(document.getElementById('descInput')||{}).value||'';
   var first=(desc.split('\n')[0]||'').split('|')[0].trim();
-  if(!first){flash('genMsg','err','❌ Pehle Step 1 mein description paste karein (pehli line = title).');return;}
+  if(!first){flash('genMsg','err','❌ Paste a description in Step 1 first (first line = title).');return;}
   var specM=desc.match(/\b\d+(?:\.\d+)?\s?(?:cm|mm|ml|kg|pcs|pack|pairs?|led|w|v)\b/i);
   var spec=specM?specM[0].toUpperCase():'';
   var pf='';
@@ -4303,7 +4303,7 @@ function abGenerate(){
     abFit(core+' New UK Stock')
   ];
   var p=document.getElementById('abPanel');
-  var h='<div style="font-size:12px;color:#8fa3b8;margin-bottom:10px;">🎯 Har account ka alag angle — edit kar sakte hain, counter live hai. 30 din A/B test karein.</div>';
+  var h='<div style="font-size:12px;color:#8fa3b8;margin-bottom:10px;">🎯 A different angle per account — editable, with a live counter. Run a 30-day A/B test.</div>';
   for(var i=0;i<7;i++){
     h+='<div class="ab-row"><span class="ab-acc">'+escAttr(AB_ACCOUNTS[i])+'</span>'+
        '<input id="abT'+i+'" value="'+escAttr(variants[i])+'" oninput="abCount('+i+')">'+
@@ -4343,26 +4343,26 @@ function signupSubmit(){
   var fn=((document.getElementById('suFirst')||{}).value||'').trim();
   var ln=((document.getElementById('suLast')||{}).value||'').trim();
   var em=((document.getElementById('suEmail')||{}).value||'').trim().toLowerCase();
-  if(!fn||!ln){suShow('#ff8f8f','❌ First aur Last name dono likhein.');return;}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){suShow('#ff8f8f','❌ Email sahi format mein likhein.');return;}
+  if(!fn||!ln){suShow('#ff8f8f','❌ Please enter both first and last name.');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){suShow('#ff8f8f','❌ Please enter a valid email address.');return;}
   try{
     var lm=getMembers();
-    if(lm[em]&&!lm[em].denied&&!lm[em].removed){suShow('#4dd0b8','✅ Aap pehle se member hain — bas upar "Sign in with Google" karein.');return;}
+    if(lm[em]&&!lm[em].denied&&!lm[em].removed){suShow('#4dd0b8','✅ You are already a member — just click "Sign in with Google" above.');return;}
   }catch(e){}
   var reqKey='m98m_req_sent_'+em, already='';
   try{already=localStorage.getItem(reqKey)||'';}catch(e){}
-  if(already){suShow('#f0b429','🙋 Is email ki request pehle hi bheji ja chuki hai — admin approval ka intezar karein, phir isi email se Google sign-in karein.');return;}
+  if(already){suShow('#f0b429','🙋 A request for this email has already been sent — please wait for admin approval, then sign in with Google using this email.');return;}
   var u=cloudUrl();
-  if(!u){suShow('#ff8f8f','❌ Cloud set nahi hai — admin se raabta karein.');return;}
+  if(!u){suShow('#ff8f8f','❌ Cloud is not set up — please contact an admin.');return;}
   var btn=document.getElementById('suBtn');
-  if(btn){btn.disabled=true;btn.textContent='⏳ Bhej rahe hain…';}
+  if(btn){btn.disabled=true;btn.textContent='⏳ Sending…';}
   var item={id:'req_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), req:em, name:(fn+' '+ln), ts:Date.now()};
   fetch(u,{method:'POST',body:JSON.stringify({op:'log',item:item})}).then(function(){
     try{localStorage.setItem(reqKey,'1');}catch(e){}
-    suShow('#4dd0b8','🙋 <b>Request bhej di gayi!</b><br>Admin approve karenge, phir isi email ('+escAttr(em)+') se "Sign in with Google" dabana — andar aa jaoge.');
-    if(btn){btn.textContent='✅ Request gayi';}
+    suShow('#4dd0b8','🙋 <b>Request bhej di gayi!</b><br>An admin will approve it, then use this same email ('+escAttr(em)+') to "Sign in with Google" and you will be in.');
+    if(btn){btn.textContent='✅ Request sent';}
   }).catch(function(){
-    suShow('#ff8f8f','❌ Cloud se connect nahi hua — internet check kar ke dobara try karein.');
+    suShow('#ff8f8f','❌ Could not connect to the cloud — check your internet and try again.');
     if(btn){btn.disabled=false;btn.textContent='🙋 Request Access';}
   });
 }
@@ -4395,7 +4395,7 @@ function trashClose(){document.getElementById('trashOverlay').style.display='non
 function trashRender(){
   var a=getTrash(),box=document.getElementById('trashList');
   if(!box)return;
-  if(a.length===0){box.innerHTML='<div class="hint">Trash khali hai — koi deleted cheez nahi. 🎉</div>';return;}
+  if(a.length===0){box.innerHTML='<div class="hint">Trash is empty — nothing deleted. 🎉</div>';return;}
   box.innerHTML=a.map(function(t,i){
     return '<div class="trash-row"><div class="tn">'+t.label+'<div class="tt">'+trashAgo(t.ts||0)+'</div></div>'+
       '<button class="btn btn2 btn-sm" onclick="trashRestore('+i+')">↩️ Restore</button>'+
@@ -4404,12 +4404,12 @@ function trashRender(){
 }
 function trashKill(i){
   var a=getTrash();
-  uiConfirm('Ye item hamesha ke liye delete ho jayega — pakka?',function(){
+  uiConfirm('This item will be deleted permanently — are you sure?',function(){
     a.splice(i,1);setTrash(a);trashRender();
   });
 }
 function trashEmpty(){
-  uiConfirm('Poora Trash hamesha ke liye khali karein?',function(){
+  uiConfirm('Empty the entire Trash permanently?',function(){
     setTrash([]);trashRender();
   });
 }
@@ -4446,7 +4446,7 @@ function saveGallery(){
       var t=(document.getElementById('newGalTitle').value||'').trim().toLowerCase();
       var gals=(getGalsByAccount()[currentGalAccount])||[];
       if(t&&gals.some(function(g){return (g.title||'').trim().toLowerCase()===t;})){
-        uiConfirm('⚠️ "'+document.getElementById('newGalTitle').value.trim()+'" naam ki gallery is account mein pehle se hai — phir bhi save karein?',function(){saveGalleryCore();});
+        uiConfirm('⚠️ "'+document.getElementById('newGalTitle').value.trim()+'" a gallery with this name already exists in this account — save anyway?',function(){saveGalleryCore();});
         return;
       }
     }
@@ -4460,7 +4460,7 @@ function saveProduct(){
       var t=(document.getElementById('newProdTitle').value||'').trim().toLowerCase();
       var cards=(getCards()[acc])||[];
       if(t&&cards.some(function(p){return (p.title||'').trim().toLowerCase()===t;})){
-        uiConfirm('⚠️ "'+document.getElementById('newProdTitle').value.trim()+'" naam ka card is set mein pehle se hai — phir bhi save karein?',function(){saveProductCore();});
+        uiConfirm('⚠️ "'+document.getElementById('newProdTitle').value.trim()+'" a card with this name already exists in this set — save anyway?',function(){saveProductCore();});
         return;
       }
     }
@@ -4471,7 +4471,7 @@ function addStoreLink(){
   try{
     var n=(document.getElementById('newStoreName').value||'').trim();
     if(n&&getStores()[n]){
-      uiConfirm('⚠️ "'+n+'" pehle se saved hai — purana link overwrite ho jayega. Karein?',function(){addStoreLinkCore();});
+      uiConfirm('⚠️ "'+n+'" is already saved — the old link will be overwritten. Continue?',function(){addStoreLinkCore();});
       return;
     }
   }catch(e){}
@@ -4511,7 +4511,7 @@ function renderStatsExtra(){
   var acc=topChips(accOf);
   if(mem)h+='<div class="stat-h">👤 MEMBER WISE</div>'+mem;
   if(acc)h+='<div class="stat-h">🏪 ACCOUNT WISE</div>'+acc;
-  if(src.length===0)h+='<div class="hint">Abhi koi listing nahi.</div>';
+  if(src.length===0)h+='<div class="hint">No listings yet.</div>';
   box.innerHTML=h;
 }
 
@@ -4550,7 +4550,7 @@ function bulkSelectedIdxs(listId){
 function bulkDeleteGals(){
   if(!currentGalAccount)return;
   var idxs=bulkSelectedIdxs('galList');if(idxs.length===0)return;
-  uiConfirm(idxs.length+' galleries delete karein? (7 din Trash mein rahengi)',function(){
+  uiConfirm(idxs.length+' galleries delete this? (7 din Trash mein rahengi)',function(){
     var by=getGalsByAccount(),gals=by[currentGalAccount]||[];
     idxs.forEach(function(i){
       if(gals[i]){trashAdd('gallery','🖼️ '+(gals[i].title||'(gallery)')+' — '+currentGalAccount,{acc:currentGalAccount,gal:gals[i]});gals.splice(i,1);}
@@ -4563,7 +4563,7 @@ function bulkDeleteGals(){
 function bulkDeleteCards(){
   var acc=document.getElementById('editAccSelect').value;if(!acc)return;
   var idxs=bulkSelectedIdxs('prodList');if(idxs.length===0)return;
-  uiConfirm(idxs.length+' cards delete karein? (7 din Trash mein rahenge)',function(){
+  uiConfirm(idxs.length+' cards delete this? (kept in Trash for 7 days)',function(){
     var cards=getCards(),arr=cards[acc]||[];
     idxs.forEach(function(i){
       if(arr[i]){trashAdd('card','🛍️ '+(arr[i].title||'(card)')+' — '+acc,{acc:acc,card:arr[i]});arr.splice(i,1);}
@@ -4665,7 +4665,7 @@ function authHandleIdentity(email,name){
   var u=cloudUrl();
   var localM=getMembers();
   if(localM[email]&&!localM[email].denied&&!localM[email].removed){authGrant(localM[email].role==='admin'?'admin':'member',email,(localM[email].name||name||email.split('@')[0]));return;}
-  if(!u){if(msg){msg.style.display='block';msg.style.color='#ff8f8f';msg.textContent='Cloud set nahi hai — admin se raabta karein.';}return;}
+  if(!u){if(msg){msg.style.display='block';msg.style.color='#ff8f8f';msg.textContent='Cloud is not set up — please contact an admin.';}return;}
   if(msg){msg.style.display='block';msg.style.color='#8fa3b8';msg.textContent='⏳ Access check ho raha hai...';}
   fetch(u+'?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
     var mem=(d.lib&&d.lib.members)||{};
@@ -4686,9 +4686,9 @@ function authHandleIdentity(email,name){
       try{localStorage.setItem(reqKey,'1');}catch(e){}
     }
     if(msg){msg.style.display='block';msg.style.color='#f0b429';
-      msg.innerHTML='🙋 <b>Approval request bhej di gayi!</b><br>Admin (boss) jab approve kar denge, dobara "Sign in with Google" dabana — andar aa jaoge.';}
+      msg.innerHTML='🙋 <b>Access request sent!</b><br>Once an admin approves it, click "Sign in with Google" again to enter.';}
   }).catch(function(){
-    if(msg){msg.style.display='block';msg.style.color='#ff8f8f';msg.textContent='❌ Cloud se connect nahi hua — internet check karke dobara sign in karo.';}
+    if(msg){msg.style.display='block';msg.style.color='#ff8f8f';msg.textContent='❌ Could not connect to the cloud — check your internet and sign in again.';}
   });
 }
 function onGoogleCred(resp){
@@ -4697,7 +4697,7 @@ function onGoogleCred(resp){
     authHandleIdentity(payload.email, payload.name||payload.given_name||'');
   }catch(e){
     var msg=document.getElementById('authMsg');
-    if(msg){msg.style.display='block';msg.style.color='#ff8f8f';msg.textContent='Sign-in read nahi hua — dobara try karo.';}
+    if(msg){msg.style.display='block';msg.style.color='#ff8f8f';msg.textContent='Sign-in read nahi hua — try again.';}
   }
 }
 /* Emergency key ab source mein nahi — sirf SHA-256 hash (v3.9 security) */
@@ -4718,7 +4718,7 @@ var __gisTry=0;
 function loadGis(){
   __gisTry++;
   var msg=document.getElementById('authMsg');
-  if(msg){msg.style.display='block';msg.style.color='#8fa3b8';msg.textContent='⏳ Google sign-in load ho raha hai... (try '+__gisTry+')';}
+  if(msg){msg.style.display='block';msg.style.color='#8fa3b8';msg.textContent='⏳ Loading Google sign-in... (attempt '+__gisTry+')';}
   var s=document.createElement('script');
   s.src='https://accounts.google.com/gsi/client'; s.async=true;
   s.onload=function(){
@@ -4733,7 +4733,7 @@ function loadGis(){
     if(msg){msg.style.display='block';msg.style.color='#f0b429';
       msg.innerHTML='⚠️ Google sign-in load nahi ho raha (network/extension block).<br>'
       +'1) Ad-blocker/privacy extension is site ke liye OFF karo, phir<br>'
-      +'2) <a href="#" onclick="__gisTry=0;loadGis();return false;" style="color:#4dd0b8;">🔄 Dobara try karo</a>';}
+      +'2) <a href="#" onclick="__gisTry=0;loadGis();return false;" style="color:#4dd0b8;">🔄 Try again</a>';}
   };
   document.head.appendChild(s);
 }
@@ -4791,7 +4791,7 @@ function manualAddMember(){
   var rsel=document.getElementById('manualRole');
   var role=rsel?rsel.value:'member';
   var m=document.getElementById('manualMsg');
-  if(!e||e.indexOf('@')<1){m.className='msg err';m.textContent='Sahi email likho.';return;}
+  if(!e||e.indexOf('@')<1){m.className='msg err';m.textContent='Enter a valid email.';return;}
   if(role==='admin'&&!isSuperAdmin()){m.className='msg err';m.textContent='\u26D4 Sirf Main Admin kisi ko Admin bana sakta hai.';return;}
   approveMember(e,n||e.split('@')[0]);
   if(role==='admin'){
@@ -4827,14 +4827,14 @@ function removeMember(email){
   email=(email||'').toLowerCase();
   var _m=getMembers()[email];
   if(_m&&_m.role==='admin'&&!isSuperAdmin()){alert('Admin ko sirf Main Admin (Hamza) remove kar sakta hai.');return;}
-  if(!confirm(email+' ko remove karna hai? Wo dobara sign-in karega to phir approval maangega.'))return;
+  if(!confirm(email+' — remove this member? If they sign in again they will need approval once more.'))return;
   var m=getMembers(); delete m[email]; setMembers(m);
   // cloud ko remove marker
   var u=cloudUrl();
   if(u){try{fetch(u,{method:'POST',body:JSON.stringify({op:'log',item:{id:'rem_'+Date.now().toString(36)+Math.random().toString(36).slice(2,5), remove:email, ts:Date.now()}})}).catch(function(){});}catch(e){}}
   // uske req-sent guard bhi clear (taake dobara request bhej sake)
   try{localStorage.removeItem('m98m_req_sent_'+email);}catch(e){}
-  var box=document.getElementById('membersBox'); if(box){var d=document.createElement('div');d.className='msg';d.textContent='\uD83D\uDEAB '+email+' remove ho gaya.';box.insertBefore(d,box.firstChild);}
+  var box=document.getElementById('membersBox'); if(box){var d=document.createElement('div');d.className='msg';d.textContent='\uD83D\uDEAB '+email+' remove done.';box.insertBefore(d,box.firstChild);}
   setTimeout(function(){cloudSync(true);},700);
 }
 function fmtWhen(ts){
@@ -4866,9 +4866,9 @@ function renderMembers(logItems){
   admins.forEach(function(ae){
     h+='<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:#0d1f19;border:1px solid #2a7a5f;border-radius:8px;margin-bottom:6px;flex-wrap:wrap;">'
       +'<span style="font-size:13px;color:#cfe0f0;flex:1;min-width:200px;">\uD83D\uDC51 <b>'+esc(ae)+'</b> <span style="color:#4dd0b8;">(Main Admin \u2014 permanent)</span></span>'
-      +'<span style="font-size:11.5px;color:#7f93a8;">Ye account hamesha admin rahega</span></div>';
+      +'<span style="font-size:11.5px;color:#7f93a8;">This account will always be an admin</span></div>';
   });
-  if(!active.length){h+='<div class="hint" style="padding:10px;background:#0d1620;border:1px dashed #2c4060;border-radius:8px;">Abhi koi member nahi dikh raha. Agar aapko yaqeen hai koi approved hai to \uD83D\uDD04 Refresh list dabayein.</div>';}
+  if(!active.length){h+='<div class="hint" style="padding:10px;background:#0d1620;border:1px dashed #2c4060;border-radius:8px;">No members showing yet. If you are sure someone is approved, click \uD83D\uDD04 Refresh list.</div>';}
   active.forEach(function(m){
     var isAdm=(m.role==='admin');
     var canTouch = sup || !isAdm; // admins ko sirf MAIN admin chhed sakta hai
@@ -4908,24 +4908,24 @@ function showActivity(email,name){
     rows.sort(function(a,b){return b.ts-a.ts;});
     var hh='<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">'
       +'<span style="font-weight:bold;color:#4dd0b8;font-size:13.5px;">\uD83D\uDCDC '+esc(name||email)+' ki Activity ('+rows.length+')</span>'
-      +'<button class="btn btn2 btn-sm" type="button" onclick="document.getElementById(\'activityBox\').style.display=\'none\'">\u2716 Band karo</button></div>';
-    if(!rows.length)hh+='<div class="hint">Koi activity record nahi mili.</div>';
+      +'<button class="btn btn2 btn-sm" type="button" onclick="document.getElementById(\'activityBox\').style.display=\'none\'">\u2716 Close</button></div>';
+    if(!rows.length)hh+='<div class="hint">No activity records found.</div>';
     rows.slice(0,60).forEach(function(r){
       var d2=new Date(r.ts);
       hh+='<div style="display:flex;gap:10px;align-items:baseline;padding:7px 10px;background:#0d1620;border:1px solid #23344a;border-radius:7px;margin-bottom:4px;font-size:12.5px;color:#cfe0f0;">'
         +'<span>'+r.i+'</span><span style="flex:1;min-width:150px;">'+esc(r.x)+'</span>'
         +'<span style="color:#7f93a8;font-size:11.5px;white-space:nowrap;">'+fmtWhen(r.ts)+' \u00b7 '+d2.toLocaleString('en-GB')+'</span></div>';
     });
-    if(rows.length>60)hh+='<div class="hint">(sirf aakhri 60 dikhaye gaye)</div>';
+    if(rows.length>60)hh+='<div class="hint">(showing the last 60 only)</div>';
     box.innerHTML=hh;
-  }).catch(function(){box.innerHTML='<div class="msg err">\u274C Activity nahi aayi \u2014 dobara try karo.</div>';});
+  }).catch(function(){box.innerHTML='<div class="msg err">\u274C No activity loaded \u2014 try again.</div>';});
 }
 function approveMember(email,name){
   email=email.toLowerCase();
   var m=getMembers();m[email]={name:name||email.split('@')[0],at:Date.now()};setMembers(m);
   cloudPushApproval('app',email,name);
   cloudPushLib();
-  var box=document.getElementById('pendingBox');if(box)box.innerHTML='<div class="msg ok">✅ '+esc(email)+' approve ho gaya — usse bolo dobara Sign in kare.</div>';
+  var box=document.getElementById('pendingBox');if(box)box.innerHTML='<div class="msg ok">✅ '+esc(email)+' approved — ask them to Sign in again.</div>';
   setTimeout(function(){cloudSync(true);},800);
 }
 function denyMember(email){
@@ -4962,7 +4962,7 @@ function membersFullRefresh(silent){
     try{renderMembers(log);}catch(e){}
     try{renderPending(log);}catch(e){}
   }).catch(function(){
-    if(box&&!silent)box.innerHTML='<div class="msg err">\u274C Cloud se members nahi aaye \u2014 dobara try karo.</div>';
+    if(box&&!silent)box.innerHTML='<div class="msg err">\u274C Could not load members from the cloud \u2014 try again.</div>';
   });
 }
 function membersFromLog(log){
@@ -4993,7 +4993,7 @@ function cloudSaveUrl(){
   cloudSetSince(0);
   cloudStatusRefresh();
   var m=document.getElementById('cloudMsg');m.className='msg ok';
-  m.textContent=v?'\u2705 Cloud link save ho gaya. Ab "Sync now" dabao.':'Cloud link hata diya.';
+  m.textContent=v?'\u2705 Cloud link saved. Ab "Sync now" click.':'Cloud link hata diya.';
 }
 function cloudStatusRefresh(){
   var st=document.getElementById('cloudStatus'); if(!st)return;
@@ -5098,7 +5098,7 @@ function cloudMergeLog(items){
 function cloudSync(silent){
   var u=cloudUrl();
   var m=document.getElementById('cloudMsg');
-  if(!u){if(!silent&&m){m.className='msg err';m.textContent='\u274C Pehle cloud link paste karke save karo.';}return;}
+  if(!u){if(!silent&&m){m.className='msg err';m.textContent='\u274C Paste and save a cloud link first.';}return;}
   if(!silent&&m){m.className='msg';m.textContent='\u23F3 Cloud se sync ho raha hai...';}
   var __since=cloudSince();
   fetch(u+'?what=all&since='+__since+'&t='+Date.now()).then(function(r){return r.json();}).then(function(d){
@@ -5150,7 +5150,7 @@ function workExport(){
   a.href=url;a.download='m98m-work-'+data.member.replace(/[^\w-]+/g,'_')+'-'+new Date().toISOString().substring(0,10)+'.json';
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
   msg.className='msg ok';
-  msg.textContent='\u2705 '+arr.length+' listings ki work file download ho gayi ('+data.member+'). Ye file boss ko WhatsApp/email kar do.';
+  msg.textContent='\u2705 '+arr.length+' listings downloaded as a work file ('+data.member+'). Send this file to the boss via WhatsApp/email.';
 }
 function workImportData(data){
   if(!data||data.type!=='m98m_work_v1'||!Array.isArray(data.items))return {err:'file format ghalat (m98m work file nahi hai)'};
@@ -5182,7 +5182,7 @@ function workImportFile(inp){
     var data=null;try{data=JSON.parse(e.target.result);}catch(err){msg.className='msg err';msg.textContent='\u274C File parhne mein masla (valid JSON nahi).';inp.value='';return;}
     var r=workImportData(data);
     if(r.err){msg.className='msg err';msg.textContent='\u274C '+r.err;}
-    else{msg.className='msg ok';msg.textContent='\u2705 '+r.member+' ka kaam import: '+r.added+' nayi listings add'+(r.skipped?(' ('+r.skipped+' pehle se thin)'):'')+'. Neeche list mein ['+r.member+'] tag ke saath dikhengi.';}
+    else{msg.className='msg ok';msg.textContent='\u2705 '+r.member+' work imported: '+r.added+' new listings added'+(r.skipped?(' ('+r.skipped+' already there)'):'')+'. Neeche list mein ['+r.member+'] tag ke saath dikhengi.';}
     inp.value='';
   };
   rd.readAsText(f);
@@ -5206,10 +5206,10 @@ function teamSyncLoad(mode){
     try{localStorage.setItem(TEAM_STAMP_KEY,data.exportedAt||'');}catch(e){}
     var b=document.getElementById('teamSyncBanner'); if(b)b.style.display='none';
     msg.className='msg ok';
-    msg.textContent='\u2705 Team data load ho gaya ('+(mode==='replace'?'REPLACE':'MERGE')+'). Neeche import result dekho.';
+    msg.textContent='\u2705 Team data load done ('+(mode==='replace'?'REPLACE':'MERGE')+'). Neeche import result dekho.';
   }).catch(function(e){
     msg.className='msg err';
-    msg.textContent='\u274C Team data nahi mila: '+e.message+'\n\u2192 Check: site pe "'+TEAM_FILE+'" naam ki file index.html ke SAATH upload hai?';
+    msg.textContent='\u274C Team data not found: '+e.message+'\n\u2192 Check: site pe "'+TEAM_FILE+'" naam ki file index.html ke SAATH upload hai?';
     msg.style.whiteSpace='pre-line';
   });
 }
@@ -5268,7 +5268,7 @@ function previewImport(){
   const previewBox=document.getElementById('importPreview');
   const actions=document.getElementById('importActions');
   if(!fileInput.files||fileInput.files.length===0){
-    msg.className='msg err';msg.textContent='❌ Pehle file choose karein.';
+    msg.className='msg err';msg.textContent='❌ Pehle file choose do.';
     previewBox.style.display='none';actions.style.display='none';return;
   }
   const file=fileInput.files[0];
@@ -5289,7 +5289,7 @@ function previewImport(){
         👤 Store Links: <b>${stores}</b>${exportedAt}`;
       previewBox.style.display='block';
       actions.style.display='block';
-      msg.className='msg ok';msg.textContent='✅ File theek hai. Neeche MERGE ya REPLACE chunein.';
+      msg.className='msg ok';msg.textContent='✅ File theek hai. Neeche MERGE ya REPLACE choose.';
     }catch(err){
       pendingImport=null;
       previewBox.style.display='none';actions.style.display='none';
@@ -5304,9 +5304,9 @@ function previewImport(){
 
 function doImport(mode){
   const msg=document.getElementById('importMsg');
-  if(!pendingImport){msg.className='msg err';msg.textContent='❌ Pehle file Preview karein.';return;}
+  if(!pendingImport){msg.className='msg err';msg.textContent='❌ Pehle file Preview do.';return;}
   if(mode==='replace'){
-    if(!window.confirm('WARNING: Aap ka existing data delete ho kar nayi file ka data lag jayega. Continue?'))return;
+    if(!window.confirm('WARNING: Your existing data will be deleted and replaced with the new file data. Continue?'))return;
   }
   try{
     const newGals=pendingImport.galleries||[];
@@ -5351,7 +5351,7 @@ function doImport(mode){
     document.getElementById('importActions').style.display='none';
     const action=mode==='replace'?'replaced':'merged';
     msg.className='msg ok';
-    msg.textContent='✅ Data '+action+' ho gaya! '+(mode==='replace'?'Total: ':'Added: ')+stats.gals+' galleries, '+stats.sets+' new sets, '+stats.products+' new products, '+stats.stores+' store links.';
+    msg.textContent='✅ Data '+action+' done! '+(mode==='replace'?'Total: ':'Added: ')+stats.gals+' galleries, '+stats.sets+' new sets, '+stats.products+' new products, '+stats.stores+' store links.';
   }catch(e){
     msg.className='msg err';msg.textContent='❌ Import fail: '+e.message;
   }
@@ -5412,7 +5412,7 @@ function clearAll(){
 
   // Show confirmation message
   const m=document.getElementById('genMsg');
-  if(m){m.className='msg ok';m.textContent='🗑️ Sab clear ho gaya (single + all accounts). Libraries (Gallery, Cards, Stores) safe hain.';setTimeout(()=>{m.className='msg';m.textContent='';},2500);}
+  if(m){m.className='msg ok';m.textContent='🗑️ Sab clear done (single + all accounts). Libraries (Gallery, Cards, Stores) safe hain.';setTimeout(()=>{m.className='msg';m.textContent='';},2500);}
 
   // Focus first field for fresh start
   if(descEl){descEl.focus();}
@@ -5465,7 +5465,7 @@ function loadDraft(){
 document.getElementById('descInput').addEventListener('input',updateTitleCounter);
 
 /* LIVE THEME/TEMPLATE SWITCH: agar listing already generate ho chuki hai to
-   COLOUR THEME ya TEMPLATE dropdown badalte hi turant dobara generate + preview refresh. */
+   Changing the COLOUR THEME or TEMPLATE dropdown instantly regenerates and refreshes the preview. */
 function m98LiveReGen(){
   var out=document.getElementById('output');
   var desc=document.getElementById('descInput');
@@ -5575,8 +5575,8 @@ renderExtInbox();
   window.tplibColorHex=function(key,inp){var hx=tplibNormHex(inp.value);if(hx){curVals[key]=hx;var sw=el('tpc_'+safeId(key));if(sw)sw.value=hx;inp.style.borderColor='#2c4060';applyModal();}else{inp.style.borderColor=(inp.value.trim()===''?'#2c4060':'#c0512a');}};
   window.tplibHexBlur=function(key,inp){var hx=tplibNormHex(inp.value);if(hx){inp.value=hx;inp.style.borderColor='#2c4060';}else{inp.value=curVals[key];inp.style.borderColor='#2c4060';}};
   window.tplibReset=function(){var t=curTpl;t.colors.forEach(function(c){curVals[c.key]=c.value;var inp=el('tpc_'+safeId(c.key));if(inp)inp.value=c.value;var tx=el('tpx_'+safeId(c.key));if(tx){tx.value=c.value;tx.style.borderColor='#2c4060';}});applyModal();};
-  window.tplibCopyModal=function(){var html=curHtml||'';var ta=document.createElement('textarea');ta.value=html;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand('copy');}catch(e){}if(navigator.clipboard){navigator.clipboard.writeText(html).then(function(){toast('\u2705 HTML copied! eBay ke description HTML box mein paste karein.');}).catch(function(){toast(ok?'\u2705 Copied!':'Copy failed');});}else toast(ok?'\u2705 Copied!':'Copy failed');try{document.body.removeChild(ta);}catch(e){}};
-  window.tplibUse=function(i){if(TEMPLATES[i].gen){if(typeof showTab==='function')showTab(0);var sel=el('templateSelect');if(sel)sel.value=TEMPLATES[i].id;try{window.scrollTo(0,0);}catch(e){}toast('\u2705 '+TEMPLATES[i].name+' selected! Ab Step 1-4 bhar ke GENERATE dabayein.');}else{openModal(i);toast('Ye library template hai \u2014 preview mein colour-grade karke Copy HTML se paste karein.');}};
+  window.tplibCopyModal=function(){var html=curHtml||'';var ta=document.createElement('textarea');ta.value=html;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand('copy');}catch(e){}if(navigator.clipboard){navigator.clipboard.writeText(html).then(function(){toast('\u2705 HTML copied! paste it into the eBay description HTML box.');}).catch(function(){toast(ok?'\u2705 Copied!':'Copy failed');});}else toast(ok?'\u2705 Copied!':'Copy failed');try{document.body.removeChild(ta);}catch(e){}};
+  window.tplibUse=function(i){if(TEMPLATES[i].gen){if(typeof showTab==='function')showTab(0);var sel=el('templateSelect');if(sel)sel.value=TEMPLATES[i].id;try{window.scrollTo(0,0);}catch(e){}toast('\u2705 '+TEMPLATES[i].name+' selected! Ab Step 1-4 bhar ke GENERATE click.');}else{openModal(i);toast('Ye library template hai \u2014 preview mecolour-grade it, then use Copy HTML to paste.');}};
 
   function fitFrame(f){var wrap=f.parentElement;var scale=wrap.clientWidth/1180;f.style.width='1180px';f.style.height=(wrap.clientHeight/scale)+'px';f.style.transform='scale('+scale+')';}
   function tplibRender(){
@@ -5635,13 +5635,13 @@ renderExtInbox();
       var u={id:'utpl_'+Date.now(),name:(f.name||'Template').replace(/\.(html?|htm)$/i,''),html:html,colors:slots};
       var a=getUserTpls();a.push(u);
       try{localStorage.setItem('m98m_user_templates_v1',JSON.stringify(a));}catch(e){toast('\u26A0\uFE0F Storage full \u2014 file save nahi hui.');return;}
-      tplibRender();toast('\u2705 Template "'+u.name+'" add ho gaya! Preview \u2192 colour-grade \u2192 Copy HTML.');
+      tplibRender();toast('\u2705 Template "'+u.name+'" add done! Preview \u2192 colour-grade \u2192 Copy HTML.');
     };
     rd.readAsText(f);
     var fi=el('tplibFileInput');if(fi)fi.value='';
   };
   window.tplibPreviewUser=function(ui){var a=getUserTpls();if(!a[ui])return;openModalTpl(mkUserTpl(a[ui]));};
-  window.tplibDeleteUser=function(ui){var a=getUserTpls();a.splice(ui,1);try{localStorage.setItem('m98m_user_templates_v1',JSON.stringify(a));}catch(e){}tplibRender();toast('🗑️ Template delete ho gaya.');};
+  window.tplibDeleteUser=function(ui){var a=getUserTpls();a.splice(ui,1);try{localStorage.setItem('m98m_user_templates_v1',JSON.stringify(a));}catch(e){}tplibRender();toast('🗑️ Template delete done.');};
   function curValsFor(k){var v={};TEMPLATES[k].colors.forEach(function(c){v[c.key]=c.value;});return v;}
   function curValsFor2(u){var v={};(u.colors||[]).forEach(function(c){v[c.key]=c.value;});return v;}
   function baseIdxOf(id){for(var i=0;i<TEMPLATES.length;i++)if(TEMPLATES[i].id===id)return i;return 0;}
@@ -5652,7 +5652,7 @@ renderExtInbox();
     d.style.cssText='position:fixed;inset:0;z-index:100005;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;';
     d.innerHTML='<div style="background:#0d1622;border:1px solid #2c4060;border-radius:12px;padding:22px;width:340px;max-width:90%;box-shadow:0 20px 60px rgba(0,0,0,.6);">'+
       '<div style="color:#e6edf3;font-weight:bold;font-size:15px;margin-bottom:6px;">💾 Save colour preset</div>'+
-      '<div style="color:#8fa3b8;font-size:12px;margin-bottom:12px;">Ye preset Generate tab ke Template dropdown mein aa jayega.</div>'+
+      '<div style="color:#8fa3b8;font-size:12px;margin-bottom:12px;">This preset will appear in the Template dropdown on the Generate tab.</div>'+
       '<input id="tplibPresetName" type="text" value="'+def.replace(/"/g,'&quot;')+'" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #2c4060;border-radius:8px;background:#0a1119;color:#e6edf3;font-size:14px;margin-bottom:14px;">'+
       '<div style="display:flex;gap:8px;justify-content:flex-end;">'+
       '<button id="tplibSaveCancel" style="background:#2c4060;color:#cfe0f0;border:none;border-radius:8px;padding:8px 14px;font-weight:bold;font-size:13px;cursor:pointer;">Cancel</button>'+
@@ -5670,12 +5670,12 @@ renderExtInbox();
       if(typeof saveTplPreset==='function')saveTplPreset(pr);
       if(typeof refreshTemplateSelect==='function')refreshTemplateSelect();
       tplibRender();
-      close(); toast('\u2705 Preset "'+name+'" saved! Generate tab \u2192 Template dropdown mein mil jayega.');
+      close(); toast('\u2705 Preset "'+name+'" saved! Generate tab \u2192; find it in the Template dropdown.');
     };
     inp.addEventListener('keydown',function(e){if(e.key==='Enter')d.querySelector('#tplibSaveOk').click();});
   };
-  window.tplibUsePreset=function(id){if(typeof showTab==='function')showTab(0);var sel=el('templateSelect');if(sel){sel.value=id;}try{window.scrollTo(0,0);}catch(e){}toast('\u2705 Preset selected! Step 1-4 bhar ke GENERATE dabayein.');};
-  window.tplibDeletePreset=function(id){if(typeof deleteTplPreset==='function')deleteTplPreset(id);if(typeof refreshTemplateSelect==='function')refreshTemplateSelect();tplibRender();toast('🗑️ Preset delete ho gaya.');};
+  window.tplibUsePreset=function(id){if(typeof showTab==='function')showTab(0);var sel=el('templateSelect');if(sel){sel.value=id;}try{window.scrollTo(0,0);}catch(e){}toast('\u2705 Preset selected! Step 1-4 bhar ke GENERATE click.');};
+  window.tplibDeletePreset=function(id){if(typeof deleteTplPreset==='function')deleteTplPreset(id);if(typeof refreshTemplateSelect==='function')refreshTemplateSelect();tplibRender();toast('🗑️ Preset delete done.');};
   window.tplibPreviewPreset=function(base,id){var bi=baseIdxOf(base);var pr=null;try{var a=JSON.parse(localStorage.getItem('m98m_tpl_presets_v1')||'[]');for(var i=0;i<a.length;i++)if(a[i].id===id){pr=a[i];break;}}catch(e){}curTpl=TEMPLATES[bi];curVals={};TEMPLATES[bi].colors.forEach(function(c){curVals[c.key]=(pr&&pr.colors[c.key])||c.value;});curDevice='desktop';if(!el('tplibModal'))buildModal();renderControls();applyModal();el('tplibModal').style.display='flex';};
 
   if(document.readyState!=='loading')tplibRender();else document.addEventListener('DOMContentLoaded',tplibRender);
