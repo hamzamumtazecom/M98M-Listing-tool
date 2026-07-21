@@ -136,7 +136,8 @@ body.role-member .adminOnly{display:none !important}
 <style id="magateCss">
 #pwGate{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(1100px 640px at 50% 36%,#0f1826 0%,#070b12 68%);transition:opacity .55s ease;padding:18px;}
 #pwGate.gate-hide{opacity:0;pointer-events:none;}
-.magate-card{display:flex;width:100%;max-width:760px;min-height:400px;background:#131c28;border:1px solid #2c4060;border-radius:20px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.65),0 0 0 1px rgba(0,168,150,.06);}
+.magate-card{display:flex;width:100%;max-width:920px;min-height:480px;background:#131c28;border:1px solid #2c4060;border-radius:20px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.65),0 0 0 1px rgba(0,168,150,.06);}
+@media(min-width:1500px){.magate-card{max-width:1040px;min-height:540px;}}
 .magate-scene{position:relative;flex:0 0 46%;background:linear-gradient(180deg,#0c1420 0%,#0a0f18 100%);border-right:1px solid #223349;display:flex;flex-direction:column;}
 .magate-warmth{position:absolute;inset:0;background:radial-gradient(circle at 62% 50%,rgba(255,190,110,.16),rgba(255,190,110,0) 62%);opacity:0;transition:opacity .9s ease .35s;pointer-events:none;}
 #pwGate.lamp-on .magate-warmth{opacity:1;}
@@ -156,15 +157,24 @@ body.role-member .adminOnly{display:none !important}
 #pwGate.lamp-on .mag-glow.g2{animation-delay:.12s;}
 #pwGate.lamp-on .mag-glow.g3{animation-delay:.2s;}
 @keyframes magFlick{0%{opacity:0}38%{opacity:0}44%{opacity:.7}50%{opacity:.06}58%{opacity:.85}65%{opacity:.3}74%{opacity:1}100%{opacity:1}}
-.magate-form{flex:1;padding:38px 34px 30px;display:flex;flex-direction:column;justify-content:center;text-align:center;}
-.magate-brand{display:inline-block;margin:0 auto 14px;font-size:10px;font-weight:bold;letter-spacing:2.5px;color:#4dd0b8;background:rgba(0,168,150,.1);border:1px solid rgba(0,168,150,.35);padding:4px 12px;border-radius:999px;}
-.magate-title{color:#e6edf3;font-size:21px;font-weight:bold;margin-bottom:7px;}
-.magate-sub{color:#8fa3b8;font-size:13px;margin-bottom:22px;line-height:1.5;}
-.magate-foot{margin-top:22px;font-size:11px;color:#5f7186;line-height:1.6;}
+.magate-form{flex:1;padding:44px 44px 36px;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+.magate-brand{display:inline-block;margin:0 auto 16px;font-size:11px;font-weight:bold;letter-spacing:2.5px;color:#4dd0b8;background:rgba(0,168,150,.1);border:1px solid rgba(0,168,150,.35);padding:5px 14px;border-radius:999px;}
+.magate-title{color:#e6edf3;font-size:25px;font-weight:bold;margin-bottom:8px;}
+.magate-sub{color:#8fa3b8;font-size:14px;margin-bottom:24px;line-height:1.55;}
+.magate-foot{margin-top:24px;font-size:11.5px;color:#5f7186;line-height:1.6;}
+@media(min-width:1500px){.magate-title{font-size:28px;}.magate-sub{font-size:15px;}.magate-form{padding:54px 54px 44px;}}
 @media (max-width:680px){
-  .magate-card{flex-direction:column;max-width:400px;min-height:0;}
-  .magate-scene{flex:0 0 auto;height:230px;border-right:none;border-bottom:1px solid #223349;}
+  #pwGate{padding:12px;}
+  .magate-card{flex-direction:column;max-width:440px;min-height:0;}
+  .magate-scene{flex:0 0 auto;height:210px;border-right:none;border-bottom:1px solid #223349;}
   .magate-form{padding:26px 22px 26px;}
+  .magate-title{font-size:21px;}
+  .magate-sub{font-size:13px;margin-bottom:18px;}
+}
+@media (max-width:420px){
+  .magate-scene{height:180px;}
+  .magate-form{padding:22px 18px 22px;}
+  .magate-title{font-size:19px;}
 }
 </style>
 <style id="m98mProCss">
@@ -290,7 +300,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v5.1 — 20 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v5.2 — 20 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Ek click mein load karo</a></div>
