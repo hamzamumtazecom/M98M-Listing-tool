@@ -302,7 +302,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v5.5 — 27 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v5.6 — 27 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Load in one click</a></div>
@@ -381,10 +381,9 @@ https://i.ebayimg.com/images/g/xxxx/s-l1600.jpg
 https://i.ebayimg.com/images/g/yyyy/s-l1600.jpg" oninput="onGalleryManualEdit()"></textarea>
     <div class="hint">💡 Every URL you paste becomes an image in the listing (max 20). Give it a title, pick an account, then Save to library to reuse it in other listings.</div>
 
-    <label style="margin-top:12px;"><span class="step">2b</span> VIDEO <span class="sublbl">— optional; leave blank to skip</span></label>
-    <input id="videoInput" type="text" placeholder="Video ka direct .mp4 link (optional) — e.g. https://.../product.mp4" oninput="saveDraft()" style="width:100%;box-sizing:border-box;">
-    <input id="videoPosterInput" type="text" placeholder="Video thumbnail/poster image link (optional)" oninput="saveDraft()" style="width:100%;box-sizing:border-box;margin-top:6px;">
-    <div class="hint">🎬 If a video is added, it appears as the first gallery slide with a ▶ play button. <b>Note:</b> eBay live listing description se video aksar strip ho jati hai (eBay ka apna video-upload alag hota hai) — preview/apni site ke liye theek hai, images hamesha chalti hain.</div>
+    <!-- v5.6: VIDEO (2b) section removed from the UI. The gallery video engine in
+         buildGallery() is left intact and simply receives an empty video URL, so
+         nothing breaks and the section can be restored later if needed. -->
 
     <label><span class="step">3</span> PRODUCT CARDS <span class="sublbl">— Pick 4 promo products from the Cards Library</span></label>
     <div class="row">
