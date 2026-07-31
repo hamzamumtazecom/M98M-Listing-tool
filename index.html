@@ -42,6 +42,46 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#00a896;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+/* ===== v5.7 TARGET CELEBRATION ===== */
+#celebrateOverlay{display:none;position:fixed;inset:0;z-index:100050;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 45%,rgba(0,168,150,.28),rgba(4,10,18,.93) 62%);}
+#celebrateCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+#celebrateCard{position:relative;z-index:2;text-align:center;padding:34px 30px 28px;margin:20px;max-width:430px;
+  background:linear-gradient(160deg,#12303a,#0d1a26);border:1px solid #1f7a6c;border-radius:20px;
+  box-shadow:0 0 0 1px rgba(0,168,150,.25),0 30px 80px -24px rgba(0,168,150,.65);
+  animation:celPop .55s cubic-bezier(.2,1.3,.4,1) both;}
+@keyframes celPop{0%{transform:scale(.6) translateY(28px);opacity:0;}100%{transform:scale(1) translateY(0);opacity:1;}}
+#celebrateCard .cel-emo{font-size:56px;line-height:1;margin-bottom:10px;display:block;animation:celShake 1.5s ease-in-out infinite;}
+@keyframes celShake{0%,100%{transform:rotate(-9deg) scale(1);}50%{transform:rotate(9deg) scale(1.12);}}
+#celebrateCard .cel-kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#d9a441;font-weight:700;margin-bottom:8px;}
+#celebrateCard .cel-title{font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px;}
+#celebrateCard .cel-count{font-size:52px;font-weight:800;color:#4dd0b8;line-height:1;margin:4px 0 6px;
+  text-shadow:0 0 26px rgba(77,208,184,.55);}
+#celebrateCard .cel-sub{font-size:14px;color:#a9c4d4;line-height:1.6;margin-bottom:18px;}
+#celebrateCard .cel-sub b{color:#8ee6d8;}
+#celebrateCard .cel-btn{background:#00a896;color:#04231f;border:0;border-radius:9px;padding:11px 26px;
+  font-size:13px;font-weight:800;letter-spacing:.05em;cursor:pointer;}
+#celebrateCard .cel-btn:hover{background:#4dd0b8;}
+.cel-pop{position:absolute;font-size:42px;pointer-events:none;z-index:1;animation:celFloat 2.6s ease-out forwards;}
+@keyframes celFloat{0%{transform:translateY(0) scale(.5) rotate(0);opacity:0;}
+  18%{opacity:1;transform:translateY(-40px) scale(1.2) rotate(-14deg);}
+  100%{transform:translateY(-190px) scale(.85) rotate(16deg);opacity:0;}}
+#targetRow{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:12px;padding:9px 12px;
+  background:rgba(0,0,0,.22);border:1px solid #1f5a4f;border-radius:9px;font-size:13px;color:#a9c4d4;}
+#targetRow input{width:66px;flex:0 0 auto;padding:6px 8px;font-size:13px;text-align:center;}
+#targetRow .t-bar{flex:1 1 130px;min-width:110px;height:8px;background:#0c1a20;border-radius:99px;overflow:hidden;border:1px solid #1f5a4f;}
+#targetRow .t-fill{height:100%;background:linear-gradient(90deg,#00a896,#4dd0b8);border-radius:99px;transition:width .5s ease;}
+#targetRow .t-num{color:#4dd0b8;font-weight:700;white-space:nowrap;}
+#targetRow .t-done{color:#d9a441;font-weight:700;}
+@media (max-width:560px){
+  #celebrateCard{padding:26px 20px 22px;}
+  #celebrateCard .cel-title{font-size:21px;}
+  #celebrateCard .cel-count{font-size:42px;}
+  #celebrateCard .cel-emo{font-size:46px;}
+}
+@media (prefers-reduced-motion:reduce){
+  #celebrateCard,#celebrateCard .cel-emo,.cel-pop{animation:none!important;}
+}
 .msg{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;display:none;}
 .msg.ok{display:block;background:#11402f;border:1px solid #1d7a52;color:#7fe0b0;}
 .msg.err{display:block;background:#401414;border:1px solid #7a2c1d;color:#f0a08a;}
@@ -302,7 +342,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v5.6 — 27 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v5.7 — 27 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Load in one click</a></div>
@@ -885,6 +925,13 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
         <span style="font-size:18px;">📊</span>
         <span style="font-weight:700;color:#4dd0b8;font-size:16px;">Quick Stats</span>
       </div>
+      <div id="targetRow">
+        <span>🎯 Daily target</span>
+        <input type="number" id="targetInput" min="1" max="500" value="10" onchange="setDailyTarget(this.value)" title="Listings per day per member">
+        <span class="t-num" id="targetProgress">0 / 10</span>
+        <span class="t-bar"><span class="t-fill" id="targetFill" style="width:0%;"></span></span>
+        <button class="btn btn2 btn-sm" type="button" onclick="celebrateTest()" style="margin-top:0;" title="Preview the celebration">🎉 Test</button>
+      </div>
       <div id="statsContent" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;"></div>
       <div id="statsBreakdown" style="margin-top:12px;"></div>
       <div id="statsExtra" style="margin-top:12px;"></div>
@@ -963,6 +1010,19 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
   </div>
 </div>
 
+<!-- ===== v5.7 TARGET CELEBRATION OVERLAY ===== -->
+<div id="celebrateOverlay" onclick="celebrateClose()">
+  <canvas id="celebrateCanvas"></canvas>
+  <div id="celebrateCard" onclick="event.stopPropagation();">
+    <span class="cel-emo" id="celEmo">🎉</span>
+    <div class="cel-kicker" id="celKicker">Target Complete</div>
+    <div class="cel-title" id="celTitle">Shabaash!</div>
+    <div class="cel-count" id="celCount">10</div>
+    <div class="cel-sub" id="celSub">listings today</div>
+    <button class="cel-btn" type="button" onclick="celebrateClose()">Keep going 🚀</button>
+  </div>
+</div>
+
 <script>
 /* ==================== PASSWORD PROTECTION ==================== */
 /* Auth: Google Sign-In (initAuth) gate sambhalta hai */
@@ -978,6 +1038,12 @@ function uiConfirmYes(){
   const cb=_uiConfirmCb;_uiConfirmCb=null;
   if(typeof cb==='function')cb();
 }
+try{document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    var ov=document.getElementById('celebrateOverlay');
+    if(ov&&ov.style.display==='flex'){ celebrateClose(); }
+  }
+});}catch(e){}
 function uiConfirmCancel(){
   document.getElementById('uiConfirmOverlay').style.display='none';
   _uiConfirmCb=null;
@@ -3751,6 +3817,186 @@ function saveToHistory(title, html, theme, desc, durationMs, extra){
   if(arr.length>HISTORY_LIMIT)arr.length=HISTORY_LIMIT;
   setHistory(arr);
   try{if(typeof cloudPushLog==='function')cloudPushLog(arr[0]);}catch(e){}
+  try{ celebrateCheck(); }catch(e){}
+}
+
+/* ================= v5.7 DAILY TARGET + CELEBRATION ================= */
+var KEY_TARGET='m98m_target_v1';
+var KEY_CEL_MARK='m98m_cel_mark_v1';
+var _celStop=null, _celTimer=null;
+
+function getDailyTarget(){
+  var n=10;
+  try{ n=parseInt(localStorage.getItem(KEY_TARGET)||'10',10); }catch(e){}
+  if(!n||n<1||n>500)n=10;
+  return n;
+}
+function setDailyTarget(v){
+  var n=parseInt(v,10);
+  if(!n||n<1)n=1; if(n>500)n=500;
+  try{ localStorage.setItem(KEY_TARGET,String(n)); }catch(e){}
+  var el=document.getElementById('targetInput'); if(el)el.value=n;
+  renderTargetRow();
+}
+function celDayKey(ts){
+  var d=new Date(ts||Date.now());
+  return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+}
+function celMyName(){
+  var me=''; try{ me=localStorage.getItem('m98m_member_name_v1')||''; }catch(e){}
+  return me||'Main';
+}
+function todayListingCount(){
+  var today=celDayKey(), me=celMyName(), n=0;
+  var arr=[]; try{ arr=getHistory()||[]; }catch(e){ arr=[]; }
+  for(var i=0;i<arr.length;i++){
+    var h=arr[i];
+    var ts=h.ts||(typeof parseGBDate==='function'?parseGBDate(h.date):0);
+    if(!ts)continue;
+    if(celDayKey(ts)!==today)continue;
+    var who=(h.member||me)||'Main';
+    if(who!==me)continue;
+    n++;
+  }
+  return n;
+}
+function renderTargetRow(){
+  var row=document.getElementById('targetRow'); if(!row)return;
+  var t=getDailyTarget(), c=todayListingCount();
+  var inp=document.getElementById('targetInput'); if(inp&&inp.value!=String(t))inp.value=t;
+  var p=document.getElementById('targetProgress');
+  var f=document.getElementById('targetFill');
+  var pct=Math.min(100,Math.round((c/t)*100));
+  if(f)f.style.width=pct+'%';
+  if(p){
+    p.textContent=c+' / '+t;
+    p.className=(c>=t)?'t-done':'t-num';
+    if(c>=t)p.textContent=c+' / '+t+'  ✅';
+  }
+}
+
+/* fires after every saved listing; celebrates on each multiple of the target */
+function celebrateCheck(){
+  var t=getDailyTarget();
+  var c=todayListingCount();
+  renderTargetRow();
+  if(c<t)return;
+  var mult=Math.floor(c/t);
+  if(c%t!==0)return;
+  var mark='';
+  try{ mark=localStorage.getItem(KEY_CEL_MARK)||''; }catch(e){}
+  var stamp=celDayKey()+':'+celMyName()+':'+c;
+  if(mark===stamp)return;            /* already celebrated this exact milestone */
+  try{ localStorage.setItem(KEY_CEL_MARK,stamp); }catch(e){}
+  celebrateShow(c,t,mult);
+}
+
+function celebrateTest(){ celebrateShow(getDailyTarget(),getDailyTarget(),1,true); }
+
+function celebrateShow(count,target,mult,isTest){
+  var ov=document.getElementById('celebrateOverlay'); if(!ov)return;
+  var name=celMyName();
+  var kicker, title, emo;
+  if(mult>=5){ kicker='Legend Mode'; title='Unstoppable, '+name+'!'; emo='🏆'; }
+  else if(mult>=3){ kicker=mult+'x Target'; title='Triple threat!'; emo='🔥'; }
+  else if(mult>=2){ kicker='Double Target'; title='Double kar diya!'; emo='💥'; }
+  else { kicker='Target Complete'; title='Shabaash, '+name+'!'; emo='🎉'; }
+
+  var e1=document.getElementById('celEmo'); if(e1)e1.textContent=emo;
+  var e2=document.getElementById('celKicker'); if(e2)e2.textContent=(isTest?'Preview — ':'')+kicker;
+  var e3=document.getElementById('celTitle'); if(e3)e3.textContent=title;
+  var e4=document.getElementById('celCount'); if(e4)e4.textContent=count;
+  var e5=document.getElementById('celSub');
+  if(e5)e5.innerHTML=(count===1?'listing':'listings')+' aaj complete — target tha <b>'+target+'</b>';
+
+  ov.style.display='flex';
+  celPoppers(ov);
+  var reduce=false;
+  try{ reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  if(!reduce){
+    var cv=document.getElementById('celebrateCanvas');
+    if(cv){ try{ _celStop=m98mConfetti(cv); }catch(e){} }
+  }
+  if(_celTimer)clearTimeout(_celTimer);
+  _celTimer=setTimeout(celebrateClose, mult>=2?9000:8000);
+}
+
+function celebrateClose(){
+  var ov=document.getElementById('celebrateOverlay'); if(!ov)return;
+  ov.style.display='none';
+  if(_celTimer){clearTimeout(_celTimer);_celTimer=null;}
+  if(_celStop){try{_celStop();}catch(e){} _celStop=null;}
+  var old=ov.querySelectorAll('.cel-pop');
+  for(var i=0;i<old.length;i++)old[i].remove();
+}
+
+/* floating party-popper emojis around the card */
+function celPoppers(ov){
+  var set=['🎉','🎊','🥳','✨','🎈','🎆'];
+  for(var i=0;i<10;i++){
+    (function(i){
+      setTimeout(function(){
+        if(ov.style.display==='none')return;
+        var el=document.createElement('span');
+        el.className='cel-pop';
+        el.textContent=set[(Math.random()*set.length)|0];
+        el.style.left=(6+Math.random()*88)+'%';
+        el.style.bottom=(2+Math.random()*22)+'%';
+        el.style.fontSize=(28+Math.random()*26)+'px';
+        ov.appendChild(el);
+        setTimeout(function(){ if(el&&el.remove)el.remove(); },2700);
+      }, i*230);
+    })(i);
+  }
+}
+
+/* self-contained confetti - no libraries, no network */
+function m98mConfetti(canvas){
+  var ctx=canvas.getContext('2d');
+  var dpr=Math.min(window.devicePixelRatio||1,2);
+  var W=canvas.width=canvas.offsetWidth*dpr;
+  var H=canvas.height=canvas.offsetHeight*dpr;
+  var COLORS=['#00a896','#4dd0b8','#8ee6d8','#d9a441','#ffd166','#ff6b8b','#5aa9e6','#ffffff'];
+  var parts=[];
+  function burst(x,y,count,a0,a1,power){
+    for(var i=0;i<count;i++){
+      var a=a0+Math.random()*(a1-a0);
+      var v=power*(0.5+Math.random()*0.8);
+      parts.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,
+        w:(5+Math.random()*7)*dpr,h:(8+Math.random()*10)*dpr,
+        rot:Math.random()*6.28,vr:(Math.random()-0.5)*0.4,
+        c:COLORS[(Math.random()*COLORS.length)|0],
+        drag:0.984+Math.random()*0.012,tilt:Math.random()*3.14});
+    }
+  }
+  var PI=Math.PI;
+  burst(0,H,95,-PI*0.55,-PI*0.16,27*dpr);
+  burst(W,H,95,-PI*0.84,-PI*0.45,27*dpr);
+  setTimeout(function(){ burst(W*0.5,H*0.16,85,0,PI*2,13*dpr); },420);
+  setTimeout(function(){ burst(W*0.16,H*0.92,65,-PI*0.62,-PI*0.24,23*dpr);
+                         burst(W*0.84,H*0.92,65,-PI*0.76,-PI*0.38,23*dpr); },880);
+  var g=0.40*dpr, raf=null, stopped=false;
+  function tick(){
+    if(stopped)return;
+    ctx.clearRect(0,0,W,H);
+    for(var i=parts.length-1;i>=0;i--){
+      var p=parts[i];
+      p.vy+=g; p.vx*=p.drag; p.vy*=p.drag;
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.tilt+=0.09;
+      if(p.y>H+80||p.x<-120||p.x>W+120){parts.splice(i,1);continue;}
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle=p.c;
+      var sc=Math.max(0.22,Math.abs(Math.cos(p.tilt)));
+      ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h*sc);
+      ctx.restore();
+    }
+    if(parts.length)raf=requestAnimationFrame(tick);
+  }
+  tick();
+  return function(){ stopped=true; if(raf)cancelAnimationFrame(raf); parts.length=0;
+                     try{ctx.clearRect(0,0,W,H);}catch(e){} };
 }
 function getHistoryStorageInfo(){
   try{
@@ -4552,6 +4798,7 @@ function addStoreLink(){
 function renderStats(){
   try{renderStatsCore();}catch(e){}
   try{renderStatsExtra();}catch(e){}
+  try{renderTargetRow();}catch(e){}
 }
 function renderStatsExtra(){
   var box=document.getElementById('statsExtra');if(!box)return;
