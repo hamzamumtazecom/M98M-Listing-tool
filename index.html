@@ -42,23 +42,6 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#00a896;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-/* ===== v6.1 TRACK RUNNER ===== */
-#rnWrap{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-top:14px;}
-#rnStage{position:relative;flex:1 1 340px;min-width:280px;max-width:560px;}
-#rnCanvas{display:block;width:100%;border-radius:14px;background:#08111a;
-  border:1px solid #24405c;box-shadow:0 18px 50px -26px rgba(0,168,150,.8);touch-action:none;}
-#rnMsg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:22px;background:rgba(6,14,22,.9);border-radius:14px;}
-#rnSide{flex:0 1 210px;min-width:180px;display:flex;flex-direction:column;gap:8px;}
-.rn-pad{display:flex;gap:6px;}
-.rn-k{flex:1;background:#111b26;color:#4dd0b8;border:1px solid #24405c;border-radius:9px;
-  padding:11px 0;font-size:15px;cursor:pointer;font-weight:700;}
-.rn-k:hover{background:#12303a;border-color:#1f7a6c;}
-.rn-k:active{background:#1a4a44;}
-@media (max-width:700px){
-  #rnSide{flex:1 1 100%;flex-direction:row;flex-wrap:wrap;}
-  .rn-pad{flex:1 1 100%;}
-}
 /* ===== v6.0 HIGHWAY RACER ===== */
 #rcWrap{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-top:14px;}
 #rcStage{position:relative;flex:1 1 320px;min-width:260px;max-width:460px;}
@@ -422,7 +405,7 @@ body.role-member .adminOnly{display:none !important}
   </div>
 </div>
 <div class="wrap">
-  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v6.1 — 27 Jul 2026</span></h1>
+  <h1>🛠️ eBay Listing Generator <span style="background:#00a896;color:#fff;font-size:14px;padding:3px 10px;border-radius:6px;margin-left:6px;">Premium 1.0</span> <span id="userChip" style="display:none;background:#123a2c;color:#4dd0b8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;"></span> <button id="signOutBtn" onclick="signOut()" style="display:none;background:#3a1a1a;color:#ff9f9f;border:1px solid #5a2c2c;font-size:12px;padding:4px 12px;border-radius:6px;margin-left:4px;cursor:pointer;font-weight:600;">⏻ Sign out</button> <span id="toolVersion" style="background:#1d3a5f;color:#9fc0e8;font-size:12px;padding:3px 10px;border-radius:6px;margin-left:4px;font-weight:normal;">v6.2 — 27 Jul 2026</span></h1>
   <div class="sub">Professional eBay listings in one click — Description + Gallery + Cards + Store.</div>
 
   <div id="teamSyncBanner" style="display:none;margin:10px 0;padding:10px 14px;background:#123a2c;border:1px solid #2a7a5f;border-radius:8px;color:#4dd0b8;font-size:13px;">🔄 <b>Team master data update hua hai!</b> <a href="#" onclick="showTab(4);teamSyncLoad('merge');return false;" style="color:#9ff0dd;">Load in one click</a></div>
@@ -1079,7 +1062,6 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
   </div>
 
   <!-- ============ BREAK / GAME TAB (v5.8) ============ -->
-  <!-- pages-rebuild-marker v6.1 -->
   <div class="panel" id="panel7">
     <div class="tiny">Thak gaye? Do minute ka break le lein. Score aap ke member naam se save hota hai — team ka leaderboard neeche hai.</div>
 
@@ -1087,7 +1069,6 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
       <button type="button" class="gs-btn active" id="gsBk" onclick="gameSwitch('bk')">🧱 Brick Breaker</button>
       <button type="button" class="gs-btn" id="gsSn" onclick="gameSwitch('sn')">🐍 Snake</button>
       <button type="button" class="gs-btn" id="gsRc" onclick="gameSwitch('rc')">🏎️ Highway Racer</button>
-      <button type="button" class="gs-btn" id="gsRn" onclick="gameSwitch('rn')">🏃 Track Runner</button>
     </div>
 
     <div id="bkWrap">
@@ -1166,39 +1147,6 @@ https://i.ebayimg.com/images/g/zzzz/s-l1600.jpg
         <div class="bk-hint">Space = start / pause &nbsp;·&nbsp; Esc = pause</div>
         <div class="bk-lb-h">🏆 TEAM LEADERBOARD</div>
         <div id="rcBoard" class="bk-lb"></div>
-      </div>
-    </div>
-
-    <div id="rnWrap" style="display:none;">
-      <div id="rnStage">
-        <canvas id="rnCanvas"></canvas>
-        <div id="rnMsg">
-          <div class="bk-emo">🏃</div>
-          <div class="bk-h">TRACK RUNNER</div>
-          <div class="bk-p" id="rnMsgP">← → lane badlein · ↑ jump · ↓ roll<br>Phone par swipe karein. Trains se bachein, coins uthayein.</div>
-          <button class="bk-btn" type="button" onclick="rnStart()">▶ Start</button>
-        </div>
-      </div>
-
-      <div id="rnSide">
-        <div class="bk-stat"><span>SCORE</span><b id="rnScore">0</b></div>
-        <div class="bk-stat"><span>DISTANCE</span><b id="rnDist">0 m</b></div>
-        <div class="bk-stat"><span>SPEED</span><b id="rnSpeed">1</b></div>
-        <div class="bk-stat"><span>COINS</span><b id="rnCoins">0</b></div>
-        <div class="bk-stat"><span>YOUR BEST</span><b id="rnBest">0</b></div>
-        <div class="rn-pad">
-          <button type="button" class="rn-k" onclick="rnAct('left')">◀</button>
-          <button type="button" class="rn-k" onclick="rnAct('jump')">▲</button>
-          <button type="button" class="rn-k" onclick="rnAct('roll')">▼</button>
-          <button type="button" class="rn-k" onclick="rnAct('right')">▶</button>
-        </div>
-        <div class="bk-ctrls">
-          <button class="btn btn2 btn-sm" type="button" onclick="rnPauseToggle()" style="margin-top:0;">⏸ Pause</button>
-          <button class="btn btn2 btn-sm" type="button" onclick="rnReset(true)" style="margin-top:0;">↺ Restart</button>
-        </div>
-        <div class="bk-hint">Space = start / pause &nbsp;·&nbsp; Esc = pause</div>
-        <div class="bk-lb-h">🏆 TEAM LEADERBOARD</div>
-        <div id="rnBoard" class="bk-lb"></div>
       </div>
     </div>
   </div>
@@ -4034,8 +3982,8 @@ function gameSwitch(g){
   if(g===CURGAME){ gameEnter(); return; }
   gameLeave();
   CURGAME=g;
-  var wraps={bk:'bkWrap',sn:'snWrap',rc:'rcWrap',rn:'rnWrap'};
-  var btns={bk:'gsBk',sn:'gsSn',rc:'gsRc',rn:'gsRn'};
+  var wraps={bk:'bkWrap',sn:'snWrap',rc:'rcWrap'};
+  var btns={bk:'gsBk',sn:'gsSn',rc:'gsRc'};
   for(var k in wraps){
     var w=document.getElementById(wraps[k]); if(w)w.style.display=(k===g)?'flex':'none';
     var b=document.getElementById(btns[k]); if(b)b.classList.toggle('active',k===g);
@@ -4045,461 +3993,12 @@ function gameSwitch(g){
 function gameEnter(){
   if(CURGAME==='sn'){ snEnter(); }
   else if(CURGAME==='rc'){ rcEnter(); }
-  else if(CURGAME==='rn'){ rnEnter(); }
   else { bkEnter(); }
 }
 function gameLeave(){
   try{bkLeave();}catch(e){}
   try{snLeave();}catch(e){}
   try{rcLeave();}catch(e){}
-  try{rnLeave();}catch(e){}
-}
-
-/* ================= v6.1 TRACK RUNNER (subway-style endless runner) ================= */
-var KEY_RUN_HS='m98m_game_hs_run_v1';
-var RN={cv:null,ctx:null,W:420,H:560,dpr:1,state:'idle',raf:null,last:0,bound:false,
-        FOCAL:6, ZFAR:26, horizon:0, lanePx:0, groundY:0,
-        lane:0, laneX:0, jumpY:0, jumpV:0, rollT:0, phase:0,
-        obs:[], coins:[], ties:[], poles:[],
-        dist:0, coinN:0, score:0, spawnZ:0, bestRun:0, touch:null, hitFx:0};
-
-function rnScores(){
-  var o={}; try{ o=JSON.parse(localStorage.getItem(KEY_RUN_HS)||'{}')||{}; }catch(e){ o={}; }
-  return o;
-}
-function rnMyBest(){ var o=rnScores(); return o[celMyName()]||0; }
-function rnSaveBest(sc){
-  var o=rnScores(), me=celMyName();
-  if(sc>(o[me]||0)){ o[me]=sc; try{ localStorage.setItem(KEY_RUN_HS,JSON.stringify(o)); }catch(e){} }
-  rnRenderBoard();
-}
-function rnRenderBoard(){
-  var box=document.getElementById('rnBoard'); if(!box)return;
-  var o=rnScores(), me=celMyName();
-  var rows=Object.keys(o).map(function(n){return {n:n,s:o[n]||0};})
-                         .sort(function(a,b){return b.s-a.s;}).slice(0,8);
-  if(!rows.length){ box.innerHTML='<div class="bk-empty">Abhi koi score nahi. Pehle aap khelein!</div>'; }
-  else{
-    box.innerHTML=rows.map(function(r,i){
-      var medal=i===0?'🥇':(i===1?'🥈':(i===2?'🥉':(i+1)+'.'));
-      return '<div class="bk-row'+(r.n===me?' me':'')+'"><i>'+medal+'</i><span>'+escAttr(r.n)+'</span><b>'+r.s+'</b></div>';
-    }).join('');
-  }
-  var b=document.getElementById('rnBest'); if(b)b.textContent=rnMyBest();
-}
-
-function rnEnter(){
-  var cv=document.getElementById('rnCanvas'); if(!cv)return;
-  RN.cv=cv; RN.ctx=cv.getContext('2d');
-  if(!RN.bound){ rnBind(); RN.bound=true; }
-  rnFit();
-  rnRenderBoard();
-  if(RN.state==='idle'&&!RN.ties.length){ rnReset(false); }
-  rnDraw();
-}
-function rnLeave(){
-  if(RN.state==='running'){
-    RN.state='paused';
-    rnShowMsg('⏸','PAUSED','Doosre tab par chale gaye. Resume karein.','▶ Resume');
-  }
-  rnStopLoop();
-}
-function rnStopLoop(){ if(RN.raf){ cancelAnimationFrame(RN.raf); RN.raf=null; } }
-
-function rnFit(){
-  var cv=RN.cv; if(!cv||!cv.parentNode)return;
-  var cssW=Math.max(240,Math.min(cv.parentNode.clientWidth||420,560));
-  var cssH=Math.round(cssW*1.15);
-  RN.dpr=Math.min(window.devicePixelRatio||1,2);
-  cv.style.height=cssH+'px';
-  cv.width=Math.round(cssW*RN.dpr);
-  cv.height=Math.round(cssH*RN.dpr);
-  RN.W=cssW; RN.H=cssH;
-  RN.ctx.setTransform(RN.dpr,0,0,RN.dpr,0,0);
-  RN.horizon=cssH*0.30;
-  RN.groundY=cssH*0.90;
-  RN.lanePx=cssW*0.235;
-}
-
-/* --- perspective helpers --- */
-function rnSc(z){ return RN.FOCAL/(RN.FOCAL+Math.max(0,z)); }
-function rnY(z){ var sc=rnSc(z); return RN.horizon+(RN.groundY-RN.horizon)*sc; }
-function rnX(lane,sc){ return RN.W/2 + lane*RN.lanePx*sc; }
-function rnSpeed(){ return 7.2+Math.min(9,RN.dist/300)*0.95; }   /* world units per second */
-function rnLevel(){ return Math.min(10,1+Math.floor(RN.dist/300)); }
-
-function rnReset(hard){
-  RN.obs=[]; RN.coins=[]; RN.ties=[]; RN.poles=[];
-  RN.lane=0; RN.laneX=0; RN.jumpY=0; RN.jumpV=0; RN.rollT=0; RN.phase=0;
-  RN.dist=0; RN.coinN=0; RN.score=0; RN.spawnZ=10; RN.hitFx=0;
-  for(var i=0;i<26;i++)RN.ties.push(i*(RN.ZFAR/26));
-  for(var p=0;p<10;p++)RN.poles.push(p*(RN.ZFAR/10));
-  RN.state='idle';
-  rnStopLoop();
-  rnSyncHud();
-  if(hard){ rnShowMsg('🏃','TRACK RUNNER','← → lane badlein · ↑ jump · ↓ roll<br>Phone par swipe karein. Trains se bachein, coins uthayein.','▶ Start'); }
-  rnDraw();
-}
-function rnShowMsg(emo,head,para,btn){
-  var m=document.getElementById('rnMsg'); if(!m)return;
-  m.style.display='flex';
-  m.querySelector('.bk-emo').textContent=emo;
-  m.querySelector('.bk-h').textContent=head;
-  m.querySelector('.bk-p').innerHTML=para;
-  m.querySelector('.bk-btn').textContent=btn;
-}
-function rnHideMsg(){ var m=document.getElementById('rnMsg'); if(m)m.style.display='none'; }
-
-function rnStart(){
-  rnHideMsg();
-  if(RN.state==='over'){ rnReset(true); rnHideMsg(); }
-  RN.state='running'; RN.last=0;
-  rnStopLoop();
-  RN.raf=requestAnimationFrame(rnLoop);
-}
-function rnPauseToggle(){
-  if(RN.state==='running'){
-    RN.state='paused'; rnStopLoop();
-    rnShowMsg('⏸','PAUSED','Break ka break!','▶ Resume');
-  } else if(RN.state==='paused'||RN.state==='idle'){ rnStart(); }
-}
-function rnSyncHud(){
-  var a=document.getElementById('rnScore'); if(a)a.textContent=RN.score;
-  var b=document.getElementById('rnDist'); if(b)b.textContent=Math.floor(RN.dist)+' m';
-  var c=document.getElementById('rnSpeed'); if(c)c.textContent=rnLevel();
-  var d=document.getElementById('rnCoins'); if(d)d.textContent=RN.coinN;
-  var e=document.getElementById('rnBest'); if(e)e.textContent=Math.max(rnMyBest(),RN.score);
-}
-
-/* --- input --- */
-function rnAct(a){
-  if(RN.state==='idle'||RN.state==='paused'){ rnStart(); if(a==='jump')return; }
-  if(RN.state!=='running')return;
-  if(a==='left'  && RN.lane>-1){ RN.lane--; }
-  else if(a==='right' && RN.lane< 1){ RN.lane++; }
-  else if(a==='jump'){ if(RN.jumpY<=0.01){ RN.jumpV=1.62; RN.rollT=0; } }
-  else if(a==='roll'){ if(RN.jumpY>0.01){ RN.jumpV=-2.6; } RN.rollT=0.62; }
-}
-
-/* --- wave patterns: every wave always leaves at least one survivable option --- */
-function rnSpawnWave(z){
-  var L=rnLevel();
-  var lanes=[-1,0,1];
-  var pick=Math.random();
-  var free=lanes[(Math.random()*3)|0];
-
-  if(pick<0.20){
-    /* full-width low bar - must ROLL */
-    for(var i=0;i<3;i++)RN.obs.push({z:z,lane:lanes[i],t:'low'});
-  }else if(pick<0.38){
-    /* full-width hurdle - must JUMP */
-    for(var j=0;j<3;j++)RN.obs.push({z:z,lane:lanes[j],t:'hurdle'});
-  }else if(pick<0.62){
-    /* one train blocking a lane */
-    var tl=lanes[(Math.random()*3)|0];
-    RN.obs.push({z:z,lane:tl,t:'train'});
-    rnSpawnCoins(z+1.6, tl===-1?0:(tl===1?0:1), 5, Math.random()<0.35);
-  }else if(pick<0.82 && L>=2){
-    /* two lanes blocked, one free */
-    for(var k=0;k<3;k++){
-      if(lanes[k]===free)continue;
-      RN.obs.push({z:z,lane:lanes[k],t:(Math.random()<0.5?'train':'hurdle')});
-    }
-    rnSpawnCoins(z+1.8, free, 5, false);
-  }else{
-    /* mixed: hurdle + low bar, one lane clear */
-    var order=[free];
-    for(var m=0;m<3;m++)if(lanes[m]!==free)order.push(lanes[m]);
-    RN.obs.push({z:z,lane:order[1],t:'hurdle'});
-    RN.obs.push({z:z,lane:order[2],t:'low'});
-    rnSpawnCoins(z+1.6, free, 4, Math.random()<0.4);
-  }
-}
-function rnSpawnCoins(z,lane,n,air){
-  for(var i=0;i<n;i++){
-    RN.coins.push({z:z+i*0.85, lane:lane, air:!!air});
-  }
-}
-
-function rnLoop(ts){
-  if(RN.state!=='running'){ RN.raf=null; return; }
-  if(!RN.last)RN.last=ts;
-  var dt=Math.min((ts-RN.last)/1000,0.05);
-  RN.last=ts;
-  rnStep(dt);
-  rnDraw();
-  RN.raf=requestAnimationFrame(rnLoop);
-}
-
-function rnStep(dt){
-  var v=rnSpeed();
-  RN.dist+=v*dt*1.6;
-  RN.phase+=dt*(8+v*0.5);
-  if(RN.hitFx>0)RN.hitFx-=dt;
-
-  /* smooth lane slide */
-  var target=RN.lane;
-  RN.laneX+=(target-RN.laneX)*Math.min(1,dt*13);
-  if(Math.abs(target-RN.laneX)<0.005)RN.laneX=target;
-
-  /* jump physics (world units) */
-  if(RN.jumpV!==0||RN.jumpY>0){
-    RN.jumpV-=5.4*dt;
-    RN.jumpY+=RN.jumpV*dt*1.9;
-    if(RN.jumpY<=0){ RN.jumpY=0; RN.jumpV=0; }
-  }
-  if(RN.rollT>0)RN.rollT-=dt;
-
-  /* scenery scroll */
-  var i;
-  for(i=0;i<RN.ties.length;i++){ RN.ties[i]-=v*dt; if(RN.ties[i]<0)RN.ties[i]+=RN.ZFAR; }
-  for(i=0;i<RN.poles.length;i++){ RN.poles[i]-=v*dt; if(RN.poles[i]<0)RN.poles[i]+=RN.ZFAR; }
-
-  /* spawn waves */
-  RN.spawnZ-=v*dt;
-  if(RN.spawnZ<=0){
-    rnSpawnWave(RN.ZFAR);
-    /* gap is time-based, not distance-based: ~2.0s between waves at level 1,
-       tightening to ~1.15s at level 10 - always leaves room to read and react */
-    RN.spawnZ=rnSpeed()*(2.0-Math.min(0.85,(rnLevel()-1)*0.095));
-  }
-
-  /* move obstacles + collide */
-  var isRolling=RN.rollT>0, isAir=RN.jumpY>0.28;
-  for(i=RN.obs.length-1;i>=0;i--){
-    var o=RN.obs[i];
-    o.z-=v*dt;
-    if(o.z<-1.4){ RN.obs.splice(i,1); continue; }
-    if(o.z<0.55 && o.z>-0.55 && !o.done){
-      if(Math.abs(o.lane-RN.laneX)<0.55){
-        var safe=false;
-        if(o.t==='hurdle')safe=isAir;
-        else if(o.t==='low')safe=isRolling;
-        else safe=false;                     /* train: lane change only */
-        if(!safe){ rnGameOver(o.t); return; }
-        o.done=true; RN.score+=20;
-      }
-    }
-  }
-
-  /* coins */
-  for(i=RN.coins.length-1;i>=0;i--){
-    var c=RN.coins[i];
-    c.z-=v*dt;
-    if(c.z<-1.2){ RN.coins.splice(i,1); continue; }
-    if(c.z<0.5 && c.z>-0.5 && Math.abs(c.lane-RN.laneX)<0.5){
-      var reach = c.air ? (RN.jumpY>0.3) : (RN.jumpY<0.75);
-      if(reach){ RN.coins.splice(i,1); RN.coinN++; RN.score+=10; continue; }
-    }
-  }
-
-  var base=Math.floor(RN.dist)+RN.coinN*10;
-  if(base>RN.score)RN.score=base;
-  rnSyncHud();
-}
-
-function rnGameOver(kind){
-  RN.state='over'; rnStopLoop();
-  var best=rnMyBest();
-  rnSaveBest(RN.score);
-  rnSyncHud();
-  var why = kind==='train' ? 'Train se takra gaye!' : (kind==='low' ? 'Bar ke neeche roll karna tha (↓)' : 'Hurdle par jump karna tha (↑)');
-  var line=(RN.score>best)?'🏆 Naya personal best!':'Best: '+best;
-  rnShowMsg('💥','GAME OVER',why+'<br>Score: <b style="color:#4dd0b8;">'+RN.score+'</b> · '+Math.floor(RN.dist)+' m · '+RN.coinN+' coins<br>'+line,'↺ Play again');
-  rnDraw();
-}
-
-/* ---------- drawing ---------- */
-function rnDraw(){
-  var ctx=RN.ctx; if(!ctx)return;
-  var W=RN.W,H=RN.H,hz=RN.horizon;
-  ctx.clearRect(0,0,W,H);
-
-  /* sky */
-  var sky=ctx.createLinearGradient(0,0,0,hz);
-  sky.addColorStop(0,'#071019'); sky.addColorStop(1,'#0d3038');
-  ctx.fillStyle=sky; ctx.fillRect(0,0,W,hz);
-  ctx.fillStyle='rgba(0,168,150,.22)';
-  ctx.beginPath(); ctx.ellipse(W/2,hz,W*0.55,H*0.06,0,0,Math.PI*2); ctx.fill();
-
-  /* ground */
-  var gr=ctx.createLinearGradient(0,hz,0,H);
-  gr.addColorStop(0,'#0a1720'); gr.addColorStop(1,'#101d29');
-  ctx.fillStyle=gr; ctx.fillRect(0,hz,W,H-hz);
-
-  /* track bed */
-  var scF=rnSc(RN.ZFAR), scN=rnSc(0);
-  ctx.fillStyle='#14202b';
-  ctx.beginPath();
-  ctx.moveTo(rnX(-1.6,scF),rnY(RN.ZFAR));
-  ctx.lineTo(rnX( 1.6,scF),rnY(RN.ZFAR));
-  ctx.lineTo(rnX( 1.6,scN),rnY(0));
-  ctx.lineTo(rnX(-1.6,scN),rnY(0));
-  ctx.closePath(); ctx.fill();
-
-  /* sleepers */
-  var i;
-  for(i=0;i<RN.ties.length;i++){
-    var tz=RN.ties[i]; if(tz>RN.ZFAR)continue;
-    var sc=rnSc(tz), y=rnY(tz);
-    var hgt=Math.max(1,(RN.groundY-RN.horizon)*sc*0.030);
-    ctx.fillStyle='rgba(255,255,255,'+(0.05+0.10*sc).toFixed(3)+')';
-    ctx.fillRect(rnX(-1.5,sc),y,rnX(1.5,sc)-rnX(-1.5,sc),hgt);
-  }
-  /* lane rails */
-  ctx.strokeStyle='rgba(120,190,210,.28)'; ctx.lineWidth=1.4;
-  for(var L=-1.5;L<=1.5;L+=1){
-    ctx.beginPath();
-    ctx.moveTo(rnX(L,scF),rnY(RN.ZFAR));
-    ctx.lineTo(rnX(L,scN),rnY(0));
-    ctx.stroke();
-  }
-  /* side poles */
-  for(i=0;i<RN.poles.length;i++){
-    var pz=RN.poles[i]; if(pz>RN.ZFAR)continue;
-    var psc=rnSc(pz), py=rnY(pz);
-    var ph=(RN.groundY-RN.horizon)*psc*0.55;
-    var pw=Math.max(1.5,RN.W*0.012*psc);
-    ctx.fillStyle='rgba(0,168,150,'+(0.10+0.30*psc).toFixed(3)+')';
-    ctx.fillRect(rnX(-2.15,psc),py-ph,pw,ph);
-    ctx.fillRect(rnX( 2.15,psc),py-ph,pw,ph);
-  }
-
-  /* entities sorted far -> near */
-  var ents=[];
-  for(i=0;i<RN.obs.length;i++)ents.push({z:RN.obs[i].z,k:'o',d:RN.obs[i]});
-  for(i=0;i<RN.coins.length;i++)ents.push({z:RN.coins[i].z,k:'c',d:RN.coins[i]});
-  ents.sort(function(a,b){return b.z-a.z;});
-  for(i=0;i<ents.length;i++){
-    if(ents[i].z>RN.ZFAR+1||ents[i].z<-1.5)continue;
-    if(ents[i].k==='o')rnDrawObs(ctx,ents[i].d);
-    else rnDrawCoin(ctx,ents[i].d);
-  }
-
-  rnDrawRunner(ctx);
-
-  if(RN.hitFx>0){
-    ctx.fillStyle='rgba(255,80,80,'+(RN.hitFx*0.5).toFixed(2)+')';
-    ctx.fillRect(0,0,W,H);
-  }
-}
-
-function rnDrawObs(ctx,o){
-  var sc=rnSc(o.z), y=rnY(o.z);
-  var w=RN.lanePx*sc*0.86;
-  var unit=(RN.groundY-RN.horizon)*sc;
-  var x=rnX(o.lane,sc);
-  if(o.t==='train'){
-    var h=unit*0.62;
-    ctx.fillStyle='#2b4a63';
-    bkRR(ctx,x-w/2,y-h,w,h,w*0.10); ctx.fill();
-    ctx.fillStyle='rgba(140,220,235,.55)';
-    bkRR(ctx,x-w*0.34,y-h*0.82,w*0.68,h*0.26,w*0.06); ctx.fill();
-    ctx.fillStyle='rgba(255,255,255,.14)';
-    ctx.fillRect(x-w/2,y-h*0.34,w,Math.max(1,unit*0.012));
-    ctx.fillStyle='#d9a441';
-    ctx.fillRect(x-w*0.4,y-h*0.06,w*0.8,Math.max(1.5,unit*0.018));
-  }else if(o.t==='hurdle'){
-    var hh=unit*0.20;
-    ctx.fillStyle='#ff6b8b';
-    bkRR(ctx,x-w/2,y-hh,w,hh,w*0.08); ctx.fill();
-    ctx.fillStyle='rgba(255,255,255,.30)';
-    for(var s2=0;s2<3;s2++)ctx.fillRect(x-w/2+w*(0.12+s2*0.28),y-hh,w*0.10,hh);
-  }else{
-    var top=unit*0.52, bh=unit*0.13;
-    ctx.fillStyle='#d9a441';
-    bkRR(ctx,x-w/2,y-top,w,bh,w*0.06); ctx.fill();
-    ctx.fillStyle='rgba(217,164,65,.35)';
-    ctx.fillRect(x-w*0.05,y-top+bh,w*0.10,top-bh);
-  }
-}
-
-function rnDrawCoin(ctx,c){
-  var sc=rnSc(c.z), y=rnY(c.z);
-  var unit=(RN.groundY-RN.horizon)*sc;
-  var x=rnX(c.lane,sc);
-  var cy=y-unit*(c.air?0.46:0.20);
-  var r=Math.max(2,RN.lanePx*sc*0.15);
-  ctx.fillStyle='#d9a441';
-  ctx.shadowColor='rgba(217,164,65,.9)'; ctx.shadowBlur=10*sc+2;
-  ctx.beginPath(); ctx.arc(x,cy,r,0,Math.PI*2); ctx.fill();
-  ctx.shadowBlur=0;
-  ctx.fillStyle='rgba(255,238,190,.85)';
-  ctx.beginPath(); ctx.arc(x,cy,r*0.45,0,Math.PI*2); ctx.fill();
-}
-
-function rnDrawRunner(ctx){
-  var sc=rnSc(0.3), gy=rnY(0.3);
-  var unit=(RN.groundY-RN.horizon)*sc;
-  var x=rnX(RN.laneX,sc);
-  var lift=RN.jumpY*unit*0.62;
-  var rolling=RN.rollT>0;
-  var bh=unit*(rolling?0.16:0.30);
-  var bw=RN.lanePx*sc*(rolling?0.52:0.34);
-  var y=gy-lift;
-
-  ctx.fillStyle='rgba(0,0,0,.34)';
-  var shw=bw*(1-Math.min(0.6,RN.jumpY*0.5));
-  ctx.beginPath(); ctx.ellipse(x,gy+2,shw*0.6,unit*0.035,0,0,Math.PI*2); ctx.fill();
-
-  if(!rolling){
-    var sw=Math.sin(RN.phase)*bw*0.42;
-    ctx.strokeStyle='#0f8f80'; ctx.lineWidth=Math.max(2,bw*0.17); ctx.lineCap='round';
-    ctx.beginPath(); ctx.moveTo(x,y-bh*0.18); ctx.lineTo(x+sw,y); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(x,y-bh*0.18); ctx.lineTo(x-sw,y); ctx.stroke();
-    ctx.strokeStyle='#6fdcc9';
-    ctx.beginPath(); ctx.moveTo(x-bw*0.30,y-bh*0.72); ctx.lineTo(x-bw*0.30-sw*0.7,y-bh*0.40); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(x+bw*0.30,y-bh*0.72); ctx.lineTo(x+bw*0.30+sw*0.7,y-bh*0.40); ctx.stroke();
-  }
-
-  ctx.fillStyle='#00a896';
-  bkRR(ctx,x-bw/2,y-bh,bw,bh,bw*0.28); ctx.fill();
-  ctx.fillStyle='#4dd0b8';
-  bkRR(ctx,x-bw*0.34,y-bh*0.92,bw*0.68,bh*0.30,bw*0.12); ctx.fill();
-
-  var hr=bw*(rolling?0.30:0.34);
-  ctx.fillStyle='#ffd9b5';
-  ctx.beginPath(); ctx.arc(x,y-bh-hr*0.68,hr,0,Math.PI*2); ctx.fill();
-  ctx.fillStyle='#123';
-  ctx.beginPath(); ctx.arc(x+hr*0.30,y-bh-hr*0.78,Math.max(1,hr*0.13),0,Math.PI*2); ctx.fill();
-}
-
-function rnBind(){
-  var cv=RN.cv;
-  document.addEventListener('keydown',function(e){
-    var p=document.getElementById('panel7');
-    if(!p||!p.classList.contains('active')||CURGAME!=='rn')return;
-    var tg=(e.target&&e.target.tagName)||'';
-    if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT')return;
-    var k=e.key;
-    if(k==='ArrowLeft'||k==='a'||k==='A'){ e.preventDefault(); rnAct('left'); }
-    else if(k==='ArrowRight'||k==='d'||k==='D'){ e.preventDefault(); rnAct('right'); }
-    else if(k==='ArrowUp'||k==='w'||k==='W'){ e.preventDefault(); rnAct('jump'); }
-    else if(k==='ArrowDown'||k==='s'||k==='S'){ e.preventDefault(); rnAct('roll'); }
-    else if(k===' '||e.code==='Space'){ e.preventDefault(); rnPauseToggle(); }
-    else if(k==='Escape'&&RN.state==='running'){ rnPauseToggle(); }
-  });
-  cv.addEventListener('touchstart',function(e){
-    if(e.touches[0])RN.touch={x:e.touches[0].clientX,y:e.touches[0].clientY};
-  },{passive:true});
-  cv.addEventListener('touchmove',function(e){ e.preventDefault(); },{passive:false});
-  cv.addEventListener('touchend',function(e){
-    if(!RN.touch||!e.changedTouches[0])return;
-    var dx=e.changedTouches[0].clientX-RN.touch.x;
-    var dy=e.changedTouches[0].clientY-RN.touch.y;
-    RN.touch=null;
-    if(Math.abs(dx)<22&&Math.abs(dy)<22){ if(RN.state!=='running')rnStart(); return; }
-    if(Math.abs(dx)>Math.abs(dy)) rnAct(dx>0?'right':'left');
-    else rnAct(dy>0?'roll':'jump');
-  });
-  cv.addEventListener('click',function(){ if(RN.state==='idle'||RN.state==='paused')rnStart(); });
-  window.addEventListener('resize',function(){
-    var p=document.getElementById('panel7');
-    if(p&&p.classList.contains('active')&&CURGAME==='rn'){ rnFit(); rnDraw(); }
-  });
-  try{ document.addEventListener('visibilitychange',function(){
-    if(document.hidden&&RN.state==='running'&&CURGAME==='rn')rnPauseToggle();
-  }); }catch(e){}
 }
 
 /* ================= v6.0 HIGHWAY RACER ================= */
